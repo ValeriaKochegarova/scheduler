@@ -13,7 +13,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('text'),
+          title: Text('Scheduler App'),
+          backgroundColor: Color(0xFF01579B),
         ),
         body: Column(
           children: <Widget>[
