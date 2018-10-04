@@ -1,55 +1,46 @@
 /// Donut chart example. This is a simple pie chart with a hole in the middle.
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:scheduler_app/store/reducers/reducer.dart';
+import 'package:scheduler_app/store/selectors/deals.selector.dart';
 
 class DonutPieChart extends StatelessWidget {
-  final List<charts.Series> seriesList;
-  final bool animate;
-
-  DonutPieChart(this.seriesList, {this.animate});
-
-  /// Creates a [PieChart] with sample data and no transition.
-  factory DonutPieChart.withSampleData() {
-    return new DonutPieChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-    return new charts.PieChart(seriesList,
-        animate: animate,
-        // Configure the width of the pie slices to 60px. The remaining space in
-        // the chart will be left as a hole in the center.
-        defaultRenderer: new charts.ArcRendererConfig(arcWidth: 20));
+    return StoreConnector<AppState, Map>(converter: (store) {
+      return getChartDealsData(store.state);
+    }, builder: (context, state) {
+      return new charts.PieChart(
+          _createSampleData(state['allCount'],state['dealsCount']),
+          animate: false,
+          defaultRenderer: new charts.ArcRendererConfig(arcWidth: 20));
+    });
   }
 
   /// Create one series with sample hard coded data.
-  static List<charts.Series<LinearSales, int>> _createSampleData() {
+  static List<charts.Series<DealsPipeData, int>> _createSampleData(all,count) {
     final data = [
-      new LinearSales(0, 100),
-      new LinearSales(1, 75),
-      new LinearSales(2, 25),
-      new LinearSales(3, 5),
+      new DealsPipeData(1, count),
+      new DealsPipeData(2, all-count),
     ];
 
     return [
-      new charts.Series<LinearSales, int>(
-        id: 'Sales',
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
-        data: data,
+      new charts.Series<DealsPipeData, int>(
+        id: 'Deals',
+        domainFn: (DealsPipeData pipeData, _) => pipeData.allCount,
+        measureFn: (DealsPipeData pipeData, _) => pipeData.dealsCount,
+        data: data
       )
     ];
   }
 }
 
 /// Sample linear data type.
-class LinearSales {
-  final int year;
-  final int sales;
+class DealsPipeData {
+  final int allCount;
+  final int dealsCount;
 
-  LinearSales(this.year, this.sales);
+  DealsPipeData(this.allCount, this.dealsCount);
 }

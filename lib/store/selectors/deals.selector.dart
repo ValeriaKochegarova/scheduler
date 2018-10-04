@@ -12,3 +12,12 @@ var getSorteddDeals = createSelector1(getDeals, (allDeals) {
   notDoneDeals.addAll(doneDeals);
   return notDoneDeals;
 });
+
+var getChartDealsData = createSelector1(getDeals, (allDeals) {
+  List doneDeals = allDeals.where((deal) => deal['done'] == true).toList();
+  Map pipeData =  {
+    'allCount': allDeals.length,
+    'dealsCount': doneDeals.length,
+  };
+  return pipeData;
+});
