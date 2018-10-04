@@ -14,10 +14,8 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text('text'),
       ),
       body: Container(
-        padding: EdgeInsets.all(32.0),
-        child: Center(
-          child: DealsWidget()
-        ),
+        padding: EdgeInsets.all(25.0),
+        child: Center(child: DealsWidget()),
       ),
     );
   }
