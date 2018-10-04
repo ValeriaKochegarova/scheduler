@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scheduler_app/screens/home_screen/delas.widget.dart';
+import 'package:scheduler_app/screens/home_screen/deals.widget.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

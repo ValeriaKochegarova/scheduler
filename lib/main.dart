@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
 import 'package:scheduler_app/screens/home_screen/home_screen.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 
