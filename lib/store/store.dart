@@ -1,13 +1,7 @@
 import 'package:redux/redux.dart';
+import 'package:scheduler_app/store/reducers/deals.reducer.dart';
 import './reducers/reducer.dart';
 
-List deals = [
-  {'text': 'Lorem ipsum dolor', 'done': false},
-  {'text': 'Test text asdasdasd', 'done': false},
-  {'text': 'Tesdfgdfhfgc', 'done': false},
-  {'text': 'Cghfgxfgdfgdfgdfg', 'done': false},
-  {'text': 'Tsedfgdhydgdfgfr', 'done': false}
-];
 
 final store = Store<AppState>(
   appStateReducer,

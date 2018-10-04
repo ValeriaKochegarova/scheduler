@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Thu Oct 04 14:08:02 EEST 2018
+#Thu Oct 04 15:01:19 EEST 2018
 4.path=flutter_assets/LICENSE
 8.set=ASSET
 6.path=flutter_assets/isolate_snapshot_data
