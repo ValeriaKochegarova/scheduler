@@ -16,7 +16,7 @@ class _DealsWidgetState extends State<DealsWidget> {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, Map>(converter: (store) {
       return {
-        'deals': store.state.deals,
+        'deals': getSorteddDeals(store.state),
         'doneCb': (deal) {
           store.dispatch(UpdateDeal(deal));
         }
