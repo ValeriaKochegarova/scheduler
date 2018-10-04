@@ -13,29 +13,34 @@ class DonutPieChart extends StatelessWidget {
     }, builder: (context, state) {
       double viewView = MediaQuery.of(context).size.width;
 
+      double percentage = state['dealsCount'] / state['allCount'] * 100;
+
       return CustomPaint(
         foregroundPainter: RoundChartPainter(
             lineColor: Colors.red[100],
             completeColor: Colors.lightGreen,
-            completePercent: state['dealsCount'] / state['allCount'] * 100,
+            completePercent: percentage,
             width: 8.0,
             radius: viewView / 3),
-        child: new Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: new RaisedButton(
-              color: Colors.purple,
-              splashColor: Colors.blueAccent,
-              shape: new CircleBorder(),
-              child: new Text("Click"),
-              onPressed: () {
-                // setState(() {
-                //   // percentage += 10.0;
-                //   // if(percentage>100.0){
-                //   //   percentage=0.0;
-                //   // }
-                // });
-              }),
-        ),
+        child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                  Text(
+                    'Пн, 30',
+                    style: TextStyle(fontSize: 30.0),
+                  ),
+                  Text(
+                    '${percentage.round()}%',
+                    style: TextStyle(
+                        color: percentage < 60
+                            ? Colors.red[100]
+                            : Colors.lightGreen,
+                        fontSize: 40.0),
+                  ),
+                ]))),
       );
     });
   }
