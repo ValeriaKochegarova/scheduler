@@ -10,13 +10,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('text'),
-      ),
-      body: Container(
-        padding: EdgeInsets.all(25.0),
-        child: Center(child: DealsWidget()),
-      ),
-    );
+        appBar: AppBar(
+          title: Text('text'),
+        ),
+        body: Column(
+          children: <Widget>[Expanded(child: DealsWidget())],
+        ));
   }
 }
