@@ -1,4 +1,4 @@
-#Thu Oct 04 17:00:15 EEST 2018
+#Thu Oct 04 19:23:12 EEST 2018
 base.0=/Users/admin/development/scheduler-app/build/app/intermediates/transforms/dexMerger/debug/0
 path.0=classes.dex
 renamed.0=classes.dex
