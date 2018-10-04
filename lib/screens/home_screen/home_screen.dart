@@ -17,9 +17,18 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: Column(
           children: <Widget>[
-            Container(
-              child: Expanded(
-                child: DonutPieChart(),
+            Expanded(
+              child: Stack(
+                children: <Widget>[
+                  DonutPieChart(),
+                  Positioned(
+                    left: 150.0,
+                    top: 100.0,
+                    child: Text(
+                      'Monday 30 \n 0%',
+                      textAlign: TextAlign.center,),
+                  )
+                ],
               ),
             ),
             Expanded(
