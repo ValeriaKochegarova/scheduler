@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/alexey/Dev/scheduler-app/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "outputFile": "/Users/admin/development/scheduler-app/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
             "map": [
                 {
-                    "source": "/Users/alexey/Dev/scheduler-app/android/app/src/main/res/values/styles.xml",
+                    "source": "/Users/admin/development/scheduler-app/android/app/src/main/res/values/styles.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
