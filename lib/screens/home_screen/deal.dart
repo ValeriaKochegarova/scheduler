@@ -12,9 +12,13 @@ class Deal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(border: Border.all(color: Colors.grey), borderRadius: BorderRadius.all(Radius.circular(10.0)), color: Colors.white,),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey),
+          // borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          color: Colors.white,
+        ),
         padding: EdgeInsets.all(10.0),
-        margin: EdgeInsets.only(bottom: 5.0, left: 10.0, right: 10.0),
+        margin: EdgeInsets.only(bottom: 5.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
