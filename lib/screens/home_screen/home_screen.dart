@@ -5,7 +5,6 @@ import 'package:scheduler_app/screens/home_screen/new_deal_page.route.dart';
 import 'package:scheduler_app/screens/home_screen/progressBar.widget.dart';
 
 import 'package:flutter_calendar/flutter_calendar.dart';
-import 'package:scheduler_app/screens/home_screen/progressBar.widget.dart';
 import 'package:scheduler_app/store/actions/calendar.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/store.dart';

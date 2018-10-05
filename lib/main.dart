@@ -1,29 +1,34 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:scheduler_app/keys.dart';
 import 'package:scheduler_app/screens/home_screen/home_screen.dart';
+import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
-
+import 'package:redux/redux.dart';
 import 'package:scheduler_app/store/store.dart';
 
-void main() async{
+void main() async {
+  var db = DatabaseHelper();
+  await db.initDb();
   runApp(SchedulerApp(
-    // store: store,
+    store: store,
   ));
 }
 
 class SchedulerApp extends StatelessWidget {
-  // final Store<AppState> store;
-  // SchedulerApp({Key key, this.store}) : super(key: key) {}
+  final Store<AppState> store;
+  SchedulerApp({Key key, this.store}) : super(key: key) {
+    this.store.dispatch(GetDealsPending());
+  }
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
         store: store,
         child: MaterialApp(
           title: 'Scheduler App',
-          // navigatorKey: NavKeys.navKey,
-          theme:
-              ThemeData(primarySwatch: Colors.blue, fontFamily: 'Avenir'),
+          navigatorKey: NavKeys.navKey,
+          theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Avenir'),
           home: HomeScreen(),
           // routes: <String, WidgetBuilder>{
           //   '/create': (BuildContext context) => CreateNoteScreen(),

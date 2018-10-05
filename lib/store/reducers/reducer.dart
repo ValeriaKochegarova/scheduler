@@ -8,9 +8,7 @@ class AppState {
 }
 
 AppState appStateReducer(AppState state, action) => AppState(
-    dealsReducer(state.deals, action),
-    calendarReducer(state.date, action)
-    );
+    dealsReducer(state.deals, action), calendarReducer(state.date, action));
 
 getDeals(AppState state) => state.deals;
 getDate(AppState state) => state.date;

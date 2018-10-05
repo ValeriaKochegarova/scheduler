@@ -13,7 +13,7 @@ List deals = [
   {'id': 10, 'text': 'Tsedfgdhydgdfgfr', 'done': false, 'priority': 3},
 ];
 
-List initialState = deals;
+List initialState = [];
 
 dynamic dealsReducer(List state, action) {
   if (action is UpdateDeal) {
@@ -24,9 +24,19 @@ dynamic dealsReducer(List state, action) {
       return action.payload;
     }).toList();
   }
-  if(action is CreateDeal) {
-    state.add(action.payload);
-    return state;
+  if (action is CreateDealSuccess) {
+    state.insert(0, action.deal);
+    return List.from(state);
+  }
+  if (action is CreateDealError) {
+    return List.from(state);
+  }
+  if (action is GetDealsSuccess) {
+    state.insertAll(0, action.deals);
+    return List.from(state);
+  }
+  if (action is GetDealsError) {
+    return List.from(state);
   }
   return List.from(state);
 }
