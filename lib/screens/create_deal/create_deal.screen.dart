@@ -78,9 +78,9 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                           if (dealNameController.text != '') {
                             var date = formatDate(DateTime.now());
                             var dealData = {
-                              'id': 1,
-                              'dealName': dealNameController.text,
-                              'date': date,
+                              'text': dealNameController.text,
+                              'done': 'false',
+                              'priority': 1
                             };
                             print(dealData);
                             // store.dispatch(CreateDealPending(dealData));
