@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scheduler_app/screens/home_screen/deals.widget.dart';
+import 'package:scheduler_app/screens/home_screen/new_deal_page.route.dart';
 import 'package:scheduler_app/screens/home_screen/painter.dart';
 import 'package:scheduler_app/screens/home_screen/progressBar.widget.dart';
 
@@ -21,6 +22,15 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(child: DonutPieChart()),
             Expanded(child: DealsWidget())
           ],
-        ));
+        ),
+        persistentFooterButtons: <Widget> [
+          FlatButton(
+            child: Icon(Icons.add),
+            onPressed: () {
+              Navigator.of(context).push(NewDealPageRoute());
+            },
+          )
+        ]
+        );
   }
 }

@@ -19,5 +19,9 @@ dynamic dealsReducer(List state, action) {
       return action.payload;
     }).toList();
   }
+  if(action is CreateDeal) {
+    state.add(action.payload);
+    return state;
+  }
   return List.from(state);
 }
