@@ -30,7 +30,7 @@ class Deal extends StatelessWidget {
             Expanded(child: Text(deal['text'])),
             new CupertinoSwitch(
               value: deal['done'],
-              onChanged: (bool value) {
+              onChanged: (value) {
                 deal['done'] = value;
                 doneCb(deal);
               },

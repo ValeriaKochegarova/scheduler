@@ -34,7 +34,7 @@ class DatabaseHelper {
 
   Future _onCreate(Database db, int version) async {
     var exec = await db.execute(
-        "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY AUTOINCREMENT, text, done, priority)");
+        "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY AUTOINCREMENT, text, done, date, priority)");
     return exec;
   }
 
@@ -42,7 +42,7 @@ class DatabaseHelper {
     var dbClient = await db;
 
     int result = await dbClient.execute(
-        "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY AUTOINCREMENT, text, done, priority)");
+        "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY AUTOINCREMENT, text, done, date, priority)");
     return result;
   }
 
@@ -56,7 +56,7 @@ class DatabaseHelper {
       var priority = f['priority'];
       try {
         dbClient.execute(
-            "ISERT INTO DealsTable (id, text, done, priority) VALUES ($text, $done, $priority)");
+            "ISERT INTO DealsTable (id, text, done, priority) VALUES ($text, $done, $date, $priority)");
       } catch (err) {
         print('sqflite error => $err');
       }

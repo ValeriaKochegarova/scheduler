@@ -22,7 +22,7 @@ class _DealsWidgetState extends State<DealsWidget> {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, Map>(converter: (store) {
       return {
-        'deals': getSorteddDeals(store.state),
+        'deals': getSortedDeals(store.state),
         'doneCb': (deal) {
           store.dispatch(UpdateDeal(deal));
         }

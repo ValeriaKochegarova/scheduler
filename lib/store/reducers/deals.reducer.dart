@@ -34,6 +34,7 @@ dynamic dealsReducer(List state, action) {
   if (action is GetDealsSuccess) {
     print({'GET DEALS SUCCESS': action.deals});
     state.insertAll(0, action.deals);
+    print(state.toList());
     return List.from(state);
   }
   if (action is GetDealsError) {

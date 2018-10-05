@@ -1,10 +1,10 @@
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:reselect/reselect.dart';
 
-var getSorteddDeals = createSelector1(getDeals, (allDeals) {
-    print('call sorted deals');
-  List notDoneDeals = allDeals.where((deal) => deal['done'] == false).toList();
-  List doneDeals = allDeals.where((deal) => deal['done'] == true).toList();
+var getSortedDeals = createSelector1(getDeals, (allDeals) {
+  print('call sorted deals');
+  List notDoneDeals = allDeals.where((deal) => deal['done'] == 0).toList();
+  List doneDeals = allDeals.where((deal) => deal['done'] == 1).toList();
   notDoneDeals
       .sort((dealA, dealB) => dealA['priority'].compareTo(dealB['priority']));
   doneDeals
@@ -15,8 +15,8 @@ var getSorteddDeals = createSelector1(getDeals, (allDeals) {
 });
 
 var getChartDealsData = createSelector1(getDeals, (allDeals) {
-  List doneDeals = allDeals.where((deal) => deal['done'] == true).toList();
-  Map pipeData =  {
+  List doneDeals = allDeals.where((deal) => deal['done'] == 1).toList();
+  Map pipeData = {
     'allCount': allDeals.length,
     'dealsCount': doneDeals.length,
   };

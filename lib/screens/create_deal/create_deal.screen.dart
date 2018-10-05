@@ -82,7 +82,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                             var dealData = {
                               'id': store.state.deals.length + 1,
                               'text': dealNameController.text,
-                              'done': false,
+                              'done': 0,
                               'date': store.state.date,
                               'priority': 1
                             };
