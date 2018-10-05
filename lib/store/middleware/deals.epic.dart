@@ -22,7 +22,7 @@ Stream<dynamic> createDealEpic(
   return actions
       .where((action) => action is CreateDealPending)
       .asyncMap((action) => db.createDeal(action.deal).then((int index) {
-             NavKeys.navKey.currentState.pop();
+            NavKeys.navKey.currentState.pop();
             return CreateDealSuccess(action.deal);
           }).catchError((error) {
             return CreateDealError(error);

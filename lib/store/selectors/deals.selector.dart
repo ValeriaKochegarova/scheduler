@@ -2,6 +2,7 @@ import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:reselect/reselect.dart';
 
 var getSorteddDeals = createSelector1(getDeals, (allDeals) {
+    print('call sorted deals');
   List notDoneDeals = allDeals.where((deal) => deal['done'] == false).toList();
   List doneDeals = allDeals.where((deal) => deal['done'] == true).toList();
   notDoneDeals
