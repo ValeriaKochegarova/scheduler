@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:scheduler_app/database/database.helper.dart';
 import 'package:scheduler_app/keys.dart';
 import 'package:scheduler_app/screens/home_screen/home_screen.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
@@ -31,7 +32,7 @@ class SchedulerApp extends StatelessWidget {
           theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Avenir'),
           home: HomeScreen(),
           // routes: <String, WidgetBuilder>{
-          //   '/create': (BuildContext context) => CreateNoteScreen(),
+          //   '/create': (BuildContext context) => CreateDealScreen(),
           // },
         ));
   }

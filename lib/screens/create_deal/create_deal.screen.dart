@@ -52,12 +52,15 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                       ],
                     ),
                     Container(
+                      margin: EdgeInsets.only(bottom: 20.0),
                       child: NewDealInput(
                         controller: dealNameController,
                         labelText: 'Enter Deal Name',
                         maxLines: 1,
                       ),
                     ),
+                    Text('Select the priority',
+                    style: TextStyle(fontSize: 20.0),),
                     DropdownButton<String>(
                       items: <String>['0', '1', '2'].map((String value) {
                        return DropdownMenuItem<String>(
