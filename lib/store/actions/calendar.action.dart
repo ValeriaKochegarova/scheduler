@@ -1,4 +1,4 @@
 class SelectDate {
-  final DateTime date;
+  final dynamic date;
   SelectDate(this.date);
 }

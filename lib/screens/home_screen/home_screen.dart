@@ -30,18 +30,17 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: <Widget>[
                 Container(
-                  margin: new EdgeInsets.symmetric(
-                    horizontal: 5.0,
+                  margin: EdgeInsets.symmetric(
                     vertical: 10.0,
                   ),
-                  child: new Column(
+                  child: Column(
                     children: <Widget>[
-                      new Calendar(
+                      Calendar(
                         onDateSelected: (date) {
                           store.dispatch(SelectDate(date));
                         },
                       ),
-                      new Divider(
+                      Divider(
                         height: 50.0,
                       ),
                     ],
@@ -57,8 +56,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     DealsWidget()
                   ],
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.all(20.0),
                 ))
               ],
             ),
