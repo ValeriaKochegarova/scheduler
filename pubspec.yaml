@@ -25,6 +25,10 @@ dependencies:
   intl: ^0.15.7
   sqflite: any
   flutter_calendar: ^0.0.5
+  redux_epics: "0.10.2"
+  rxdart: ^0.18.1
+  path: ^1.5.1
+  path_provider: ^0.4.0
 
 dev_dependencies:
   flutter_test:

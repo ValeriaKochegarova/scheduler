@@ -26,7 +26,7 @@ class SchedulerApp extends StatelessWidget {
               ThemeData(primarySwatch: Colors.blue, fontFamily: 'Avenir'),
           home: HomeScreen(),
           // routes: <String, WidgetBuilder>{
-          //   '/create': (BuildContext context) => CreateNoteScreen(),
+          //   '/create': (BuildContext context) => CreateDealScreen(),
           // },
         ));
   }

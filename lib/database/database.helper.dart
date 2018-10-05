@@ -1,4 +1,9 @@
-import 'package:flutter_test/flutter_test.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+import 'dart:async';
+import 'dart:io' as io;
+
+import 'package:path_provider/path_provider.dart';
 
 class DatabasHelper {
   static final DatabasHelper _instance = DatabasHelper.internal();
@@ -19,24 +24,63 @@ class DatabasHelper {
 
 
   initDb() async {
-    io.Directory documentDirectory = await gitApplicationDocumentsDirectory();
-    String path = join(documentDirectory.path, "notes.db");
-    var notesDb = await openDatabase(path, version: 1, onCreate: _onCreate);
-    if(notesDb == null) {
-      await createTableNotes();
-      notesDb = await openDatabase(path, version: 1, onCreate: _onCreate);
+    io.Directory documentDirectory = await getApplicationDocumentsDirectory();
+    String path = join(documentDirectory.path, "deals.db");
+    var dealsDb = await openDatabase(path, version: 1, onCreate: _onCreate);
+    if(dealsDb == null) {
+      await createTableDeals();
+      dealsDb = await openDatabase(path, version: 1, onCreate: _onCreate);
     }
-    return notesDb;
+    return dealsDb;
   }
 
   Future _onCreate(Database db, int version) async {
     var exec = await db.execute(
-      "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY"
-    )
+      "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY, text, done, priority");
+      return exec;
   }
 
+  Future<int> createTableDeals() async {
+    var dbClient = await db;
 
+    int result = await dbClient.execute("CREATE TABLE DealsTable(id INTEGER PRIMARY KEY, text, done, priority");
+    return result;
+  }
 
+  // add deal
+  Future saveDeals(deals) async {
+    var dbClient = await db;
+    for(var f in deals) {
+      var id = f['id'];
+      var text = f['text'];
+      var done = f['done'];
+      var priority = f['priority'];
+      try {
+        dbClient.execute(
+          "ISERT INTO DealsTable (id, text, done, priority) VALUES ( $id, $text, $done, $priority)");
+      } catch (err) {
+        print('sqflite error => $err');
+      }
+    }
+  }
 
+  Future<int> createDeal(dealItem) async {
+    var dbClient = await db;
+    Object result = await dbClient.insert('DealsTable', dealItem);
+    return result;
+  }
 
+  //get deals
+  Future<List> getDeals() async {
+    var dbClient = await db;
+    List result = await dbClient.rawQuery('SELECT * FROM DealsTable');
+    return result;
+  }
+
+  //delete deals
+  Future<int> removeDeals() async {
+    var dbClient = await db;
+    var result = await dbClient.rawDelete('DROP TABLE DealsTable');
+    return result;
+  }
 }
