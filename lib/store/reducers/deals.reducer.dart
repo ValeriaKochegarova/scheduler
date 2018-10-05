@@ -2,10 +2,15 @@ import 'package:scheduler_app/store/actions/deals.action.dart';
 
 List deals = [
   {'id': 1, 'text': 'Lorem ipsum dolor', 'done': false, 'priority': 1},
-  {'id': 2, 'text': 'Test text asdasdasd', 'done': false,'priority': 3},
-  {'id': 3, 'text': 'Tesdfgdfhfgc', 'done': false,'priority': 1},
-  {'id': 4, 'text': 'Cghfgxfgdfgdfgdfg', 'done': false,'priority': 2},
-  {'id': 5, 'text': 'Tsedfgdhydgdfgfr', 'done': false,'priority': 3}
+  {'id': 2, 'text': 'Test text asdasdasd', 'done': false, 'priority': 3},
+  {'id': 3, 'text': 'Tesdfgdfhfgc', 'done': false, 'priority': 1},
+  {'id': 4, 'text': 'Cghfgxfgdfgdfgdfg', 'done': false, 'priority': 2},
+  {'id': 5, 'text': 'Tsedfgdhydgdfgfr', 'done': false, 'priority': 3},
+  {'id': 6, 'text': 'Lorem ipsum dolor', 'done': false, 'priority': 1},
+  {'id': 7, 'text': 'Test text asdasdasd', 'done': false, 'priority': 3},
+  {'id': 8, 'text': 'Tesdfgdfhfgc', 'done': false, 'priority': 1},
+  {'id': 9, 'text': 'Cghfgxfgdfgdfgdfg', 'done': false, 'priority': 2},
+  {'id': 10, 'text': 'Tsedfgdhydgdfgfr', 'done': false, 'priority': 3},
 ];
 
 List initialState = deals;

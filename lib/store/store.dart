@@ -5,5 +5,5 @@ import './reducers/reducer.dart';
 
 final store = Store<AppState>(
   appStateReducer,
-  initialState: AppState(deals),
+  initialState: AppState(deals, DateTime.now()),
 );

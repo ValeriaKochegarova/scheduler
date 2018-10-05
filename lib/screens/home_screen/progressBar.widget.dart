@@ -6,6 +6,9 @@ import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/selectors/deals.selector.dart';
 
 class DonutPieChart extends StatelessWidget {
+  final selectedDate;
+  DonutPieChart(@required this.selectedDate);
+
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, Map>(converter: (store) {
@@ -17,11 +20,11 @@ class DonutPieChart extends StatelessWidget {
 
       return CustomPaint(
         foregroundPainter: RoundChartPainter(
-            lineColor: Colors.red[100],
+            lineColor: Colors.red,
             completeColor: Colors.lightGreen,
             completePercent: percentage,
             width: 8.0,
-            radius: viewView / 3),
+            radius: viewView / 4),
         child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Center(
@@ -29,15 +32,13 @@ class DonutPieChart extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                   Text(
-                    'Пн, 30',
+                    selectedDate,
                     style: TextStyle(fontSize: 30.0),
                   ),
                   Text(
                     '${percentage.round()}%',
                     style: TextStyle(
-                        color: percentage < 60
-                            ? Colors.red[100]
-                            : Colors.lightGreen,
+                        color: percentage < 60 ? Colors.red : Colors.lightGreen,
                         fontSize: 40.0),
                   ),
                 ]))),

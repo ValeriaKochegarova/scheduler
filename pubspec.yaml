@@ -24,6 +24,7 @@ dependencies:
   reselect: ^0.4.0
   intl: ^0.15.7
   sqflite: any
+  flutter_calendar: ^0.0.5
 
 dev_dependencies:
   flutter_test:

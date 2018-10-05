@@ -7,16 +7,13 @@ import 'package:scheduler_app/screens/create_deal/create_deal_input.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/store.dart';
 
-
 class CreateDealScreen extends StatefulWidget {
   @override
   _CreateDealScreenState createState() => _CreateDealScreenState();
 }
 
 class _CreateDealScreenState extends State<CreateDealScreen> {
-
   final dateFormat = DateFormat("MM/d/yyyy 'at' h:mma");
-
 
   final dealNameController = TextEditingController();
 
@@ -29,13 +26,13 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: StoreConnector<AppState, Function>(converter: (store) {
-       return; 
-      }, builder: (context, createDeal) {
-        return Scaffold(
+        child: StoreConnector<AppState, Function>(converter: (store) {
+      return;
+    }, builder: (context, createDeal) {
+      return Scaffold(
           backgroundColor: Color(0xFFDD3D3D3),
           appBar: AppBar(
-            title: Text('Create new deal', style: TextStyle(fontSize: 40.0)),
+            title: Text('Create new deal', style: TextStyle(fontSize: 32.0)),
           ),
           body: ListView(
             children: <Widget>[
@@ -50,29 +47,40 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                         Padding(
                           padding: EdgeInsets.only(top: 10.0),
                           child: Text('Create New Deal',
-                          style: TextStyle(fontSize: 25.0)),
+                              style: TextStyle(fontSize: 25.0)),
                         ),
                       ],
                     ),
-                    Container(child: NewDealInput(
-                      controller: dealNameController,
-                      labelText: 'Enter Deal Name',
-                      maxLines: 1,
-                    ),),
-                      ButtonTheme(
+                    Container(
+                      child: NewDealInput(
+                        controller: dealNameController,
+                        labelText: 'Enter Deal Name',
+                        maxLines: 1,
+                      ),
+                    ),
+                    DropdownButton<String>(
+                      items: <String>['0', '1', '2'].map((String value) {
+                       return DropdownMenuItem<String>(
+                         value: value,
+                         child: Text(value),
+                       ); 
+                      }).toList(),
+                      // onChanged: () {},
+                    ),
+                    ButtonTheme(
                       minWidth: 370.0,
                       height: 60.0,
                       child: RaisedButton(
                         onPressed: () {
-                          if(dealNameController.text != '') {
-                          var date = formatDate(DateTime.now());
-                          var dealData = {
-                            'id': 1,
-                            'dealName': dealNameController.text,
-                            'date': date,
-                          };
-                          print(dealData);
-                          // store.dispatch(CreateDealPending(dealData));
+                          if (dealNameController.text != '') {
+                            var date = formatDate(DateTime.now());
+                            var dealData = {
+                              'id': 1,
+                              'dealName': dealNameController.text,
+                              'date': date,
+                            };
+                            print(dealData);
+                            // store.dispatch(CreateDealPending(dealData));
                           }
                         },
                         textColor: Colors.white,
@@ -83,13 +91,12 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                           style: TextStyle(fontSize: 20.0),
                         ),
                       ),
-                  ),
+                    ),
                   ],
-                ),)
+                ),
+              )
             ],
-          )
-        );
-      }
-    ));
+          ));
+    }));
   }
 }
