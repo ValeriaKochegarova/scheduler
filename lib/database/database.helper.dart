@@ -52,6 +52,7 @@ class DatabaseHelper {
     for (var f in deals) {
       var text = f['text'];
       var done = f['done'];
+      var date = f['date'];
       var priority = f['priority'];
       try {
         dbClient.execute(

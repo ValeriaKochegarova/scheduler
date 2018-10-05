@@ -47,17 +47,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-                Expanded(
-                    child: ListView(
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.only(bottom: 50.0),
-                      child: DonutPieChart(store.state.date),
-                      height: viewView / 1.5,
-                    ),
-                    DealsWidget()
-                  ],
-                ))
+                // Expanded(
+                //     child: ListView(
+                //   children: <Widget>[
+                //     Container(
+                //       padding: EdgeInsets.only(bottom: 50.0),
+                //       child: DonutPieChart(store.state.date),
+                //       height: viewView / 1.5,
+                //     ),
+                //     DealsWidget()
+                //   ],
+                // ))
               ],
             ),
           ),

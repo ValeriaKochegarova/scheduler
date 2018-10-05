@@ -11,6 +11,7 @@ import 'package:scheduler_app/store/store.dart';
 
 void main() async {
   var db = DatabaseHelper();
+  // db.createTableDeals();
   await db.initDb();
   runApp(SchedulerApp(
     store: store,

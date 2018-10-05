@@ -4,6 +4,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:intl/intl.dart';
 import 'package:scheduler_app/common/utils/date.pipe.dart';
 import 'package:scheduler_app/screens/create_deal/create_deal_input.dart';
+import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/store.dart';
 
@@ -59,14 +60,16 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                         maxLines: 1,
                       ),
                     ),
-                    Text('Select the priority',
-                    style: TextStyle(fontSize: 20.0),),
+                    Text(
+                      'Select the priority',
+                      style: TextStyle(fontSize: 20.0),
+                    ),
                     DropdownButton<String>(
                       items: <String>['0', '1', '2'].map((String value) {
-                       return DropdownMenuItem<String>(
-                         value: value,
-                         child: Text(value),
-                       ); 
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
                       }).toList(),
                       // onChanged: () {},
                     ),
@@ -76,14 +79,15 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                       child: RaisedButton(
                         onPressed: () {
                           if (dealNameController.text != '') {
-                            var date = formatDate(DateTime.now());
                             var dealData = {
+                              'id': store.state.deals.length + 1,
                               'text': dealNameController.text,
-                              'done': 'false',
+                              'done': false,
+                              'date': store.state.date,
                               'priority': 1
                             };
                             print(dealData);
-                            // store.dispatch(CreateDealPending(dealData));
+                            store.dispatch(CreateDealPending(dealData));
                           }
                         },
                         textColor: Colors.white,
