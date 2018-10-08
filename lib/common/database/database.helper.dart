@@ -65,6 +65,15 @@ class DatabaseHelper {
     return id;
   }
 
+  Future markDoneDeal(deal) async {
+    var dbClient = await db;
+    var id = deal['id'];
+    var done = deal['done'];
+    var updatedDeal = await dbClient
+        .rawUpdate("UPDATE DealsTable set done = '$done' WHERE id = $id");
+    return updatedDeal;
+  }
+
   //delete deals
   Future<int> removeDeals() async {
     var dbClient = await db;
