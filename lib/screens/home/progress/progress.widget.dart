@@ -1,7 +1,7 @@
 /// Donut chart example. This is a simple pie chart with a hole in the middle.
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:scheduler_app/screens/home_screen/painter.dart';
+import 'package:scheduler_app/screens/home/progress/painter/painter.widget.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/selectors/deals.selector.dart';
 

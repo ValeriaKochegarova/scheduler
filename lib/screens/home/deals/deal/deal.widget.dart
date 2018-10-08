@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 
 class Deal extends StatelessWidget {
   final deal;
-  final doneCb;
-  final priorityColor;
-  final a;
+  final Function doneCb;
+  final Color priorityColor;
+  final bool done;
 
-  Deal(@required this.deal, @required this.doneCb, @required this.priorityColor,
-      @required this.a);
+  Deal(this.deal, this.doneCb, this.priorityColor, this.done);
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +28,13 @@ class Deal extends StatelessWidget {
               color: priorityColor,
             ),
             Expanded(child: Text(deal['text'])),
-            // new Switch(
-            //   value: a,
-            //   onChanged: (bool value) {
-            //     deal['done'] = value;
-            //     doneCb(deal);
-            //   },
-            // )
+            new Switch(
+              value: done,
+              onChanged: (bool value) {
+                deal['done'] = value;
+                doneCb(deal);
+              },
+            )
             // new CupertinoSwitch(
             //   value: a,
             //   onChanged: (value) {
