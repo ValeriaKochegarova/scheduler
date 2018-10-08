@@ -1,19 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:scheduler_app/config/keys.dart';
 
 class Deal extends StatelessWidget {
-  var deal;
+  Map deal;
   final Function doneCb;
-  final Color priorityColor;
-  final int done;
+  final bool unactive;
 
-  Deal(this.deal, this.doneCb, this.priorityColor, this.done);
+  Deal(this.deal, this.doneCb, this.unactive);
 
   @override
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-          // border: Border.all(color: Colors.grey),
+          border: Border(
+              right: BorderSide(
+                  color: PriorityColor[deal['priority']], width: 2.0)),
           color: Colors.white,
           boxShadow: <BoxShadow>[
             BoxShadow(
@@ -33,20 +35,16 @@ class Deal extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Icon(
-              Icons.label,
-              size: 17.0,
-              color: priorityColor,
-            ),
+            Checkbox(
+                value: deal['done'] == 0 ? false : true,
+                onChanged: unactive
+                    ? null
+                    : (bool value) {
+                        Map updatedDeal = Map.from(deal)
+                          ..addAll({'done': value ? 1 : 0});
+                        doneCb(updatedDeal);
+                      }),
             Expanded(child: Text(deal['text'])),
-            new Checkbox(
-              value: done == 0 ? false : true,
-              onChanged: (bool value) {
-                Map updatedDeal = Map.from(deal)
-                  ..addAll({'done': value ? 1 : 0});
-                doneCb(updatedDeal);
-              },
-            )
           ],
         ));
   }

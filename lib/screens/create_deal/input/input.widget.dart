@@ -20,9 +20,9 @@ class NewDealInput extends StatelessWidget {
         fillColor: Colors.white,
         filled: true,
         labelStyle: TextStyle(fontStyle: FontStyle.italic),
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(0.0)),
-            borderSide: BorderSide(color: Colors.grey)),
+        // border: OutlineInputBorder(
+        //     borderRadius: BorderRadius.all(Radius.circular(0.0)),
+        //     borderSide: BorderSide(color: Colors.grey)),
       ),
     );
   }

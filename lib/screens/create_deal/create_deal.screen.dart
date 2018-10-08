@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:intl/intl.dart';
+import 'package:scheduler_app/config/keys.dart';
+import 'package:scheduler_app/screens/create_deal/colored_button/colored_button.dart';
+import 'package:scheduler_app/screens/create_deal/colored_button/colored_pallet.dart';
 import 'package:scheduler_app/screens/create_deal/input/input.widget.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
@@ -16,7 +19,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
   final dateFormat = DateFormat("MM/d/yyyy 'at' h:mma");
 
   final dealNameController = TextEditingController();
-  var priority;
+  num priority = 0;
 
   @override
   void dispose() {
@@ -30,51 +33,40 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
         child: StoreConnector<AppState, Function>(converter: (store) {
       return;
     }, builder: (context, createDeal) {
-      return  Column(
+      return Column(
         mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.all(5.0),
-                      child: NewDealInput(
-                        controller: dealNameController,
-                        labelText: 'Enter Deal Name',
-                        maxLines: 1,
-                      ),
-                    ),
-                    Text(
-                      'Select the priority',
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                    DropdownButton<String>(
-                      items: <String>['0', '1', '2'].map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        priority = value;
-                        return priority;
-                      },
-                    ),
-                    IconButton(
-                        icon: Icon(Icons.check),
-                        onPressed: () {
-                          if (dealNameController.text != '') {
-                            var dealData = {
-                              'text': dealNameController.text,
-                              'done': 0,
-                              'date': store.state.date,
-                              'priority': priority
-                            };
-                            store.dispatch(CreateDealPending(dealData));
-                          }
-                        },
-                        color: Colors.blueGrey[900],
-                        padding: const EdgeInsets.all(8.0),
-                      ),
-                  ],
-                );
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(5.0),
+            child: NewDealInput(
+              controller: dealNameController,
+              labelText: 'Что нужно сделать ?',
+              maxLines: 1,
+            ),
+          ),
+          ColoredPallete((num priority) {
+            this.priority = priority;
+          }),
+          IconButton(
+            iconSize: 30.0,
+            disabledColor: Colors.grey[400],
+            icon: Icon(Icons.check_circle_outline),
+            onPressed: dealNameController.text == ''
+                ? null
+                : () {
+                    Map dealData = {
+                      'text': dealNameController.text,
+                      'done': 0,
+                      'date': store.state.date,
+                      'priority': priority
+                    };
+                    print(dealData);
+                    store.dispatch(CreateDealPending(Map.from(dealData)));
+                  },
+            padding: const EdgeInsets.all(8.0),
+          ),
+        ],
+      );
     }));
   }
 }

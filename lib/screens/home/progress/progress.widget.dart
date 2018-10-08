@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:intl/intl.dart';
+import 'package:scheduler_app/common/utils/date.pipe.dart';
+import 'package:scheduler_app/config/keys.dart';
 import 'package:scheduler_app/screens/home/progress/painter/painter.widget.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/selectors/deals.selector.dart';
@@ -17,39 +19,37 @@ class DonutPieChart extends StatelessWidget {
       };
     }, builder: (context, state) {
       double viewView = MediaQuery.of(context).size.width;
-      DateTime selectedDate = state['selectedDate'];
       double percentage = state['chartData']['allCount'] == 0
           ? 0.0
           : state['chartData']['dealsCount'] /
               state['chartData']['allCount'] *
               100;
-      DateFormat formatter = DateFormat('MM, dd');
-      String formattedDate = formatter.format(selectedDate);
-      return state['allCount'] == 0
-          ? Container()
+      return state['chartData']['allCount'] == 0
+          ? Center(
+              child: isYesterday(state['selectedDate'])
+                  ? Text('У вас не было дел')
+                  : Text('У вас еще нет дел'))
           : CustomPaint(
               foregroundPainter: RoundChartPainter(
-                  lineColor: Colors.red,
-                  completeColor: Colors.lightGreen,
-                  completePercent: percentage,
-                  width: 8.0,
-                  radius: viewView / 4),
+                  completePercent: percentage, radius: viewView / 4),
               child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Center(
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                        Text(
-                          formattedDate,
-                          style: TextStyle(fontSize: 30.0),
-                        ),
+                        // Text(
+                        //   formattedDate,
+                        //   style: TextStyle(fontSize: 30.0),
+                        // ),
                         Text(
                           '${percentage.round()}%',
                           style: TextStyle(
-                              color: percentage < 60
-                                  ? Colors.red
-                                  : Colors.lightGreen,
+                              color: percentage < 40
+                                  ? PriorityColor[0]
+                                  : percentage >= 40 && percentage < 70
+                                      ? PriorityColor[1]
+                                      : PriorityColor[2],
                               fontSize: 40.0),
                         ),
                       ]))),

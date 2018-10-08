@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scheduler_app/screens/create_deal/create_deal.screen.dart';
+import 'package:scheduler_app/screens/home/bottom_navigation_bar/bottom_navigation_bar.widget.dart';
 
 import 'package:scheduler_app/screens/home/date_picker/date_picker.widger.dart';
 import 'package:scheduler_app/screens/home/deals/deals.widget.dart';
@@ -18,10 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
     double viewView = MediaQuery.of(context).size.width;
     return SafeArea(
         child: Scaffold(
-            // appBar: AppBar(
-            //   title: Text('Дела Ок'),
-            //   backgroundColor: Color(0xFF01579B),
-            // ),
             body: Container(
               child: Column(
                 children: <Widget>[
@@ -32,9 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       children: <Widget>[
                         DatePickerWidget(),
-                        Divider(
-                          height: 50.0,
-                        ),
                       ],
                     ),
                   ),
@@ -42,7 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView(
                     children: <Widget>[
                       Container(
-                        padding: EdgeInsets.only(bottom: 50.0),
                         child: DonutPieChart(),
                         height: viewView / 1.5,
                       ),
@@ -52,15 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            persistentFooterButtons: <Widget>[
-          FlatButton(
-            child: Icon(Icons.add),
-            onPressed: () {
-            showModalBottomSheet<void>(context: context, builder: (BuildContext context) {
-              return CreateDealScreen();
-            });
-          },
-          )
-        ]));
+            bottomNavigationBar: BottomNavigationWidget()
+            ));
   }
 }

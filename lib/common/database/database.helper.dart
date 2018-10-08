@@ -24,9 +24,11 @@ class DatabaseHelper {
   initDb() async {
     io.Directory documentDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentDirectory.path, "deals.db");
+    print(path);
     var dealsDb = await openDatabase(path, version: 1, onCreate: _onCreate);
     if (dealsDb == null) {
-      await createTableDeals();
+      var dbClient = await db;
+      await _onCreate(dbClient, 1);
       dealsDb = await openDatabase(path, version: 1, onCreate: _onCreate);
     }
     return dealsDb;
@@ -38,13 +40,13 @@ class DatabaseHelper {
     return exec;
   }
 
-  Future<int> createTableDeals() async {
-    var dbClient = await db;
+  // Future<int> createTableDeals() async {
+  //   var dbClient = await db;
 
-    int result = await dbClient.execute(
-        "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, done TINYINT, date DATETIME, priority INTEGER)");
-    return result;
-  }
+  //   int result = await dbClient.execute(
+  //       "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, done TINYINT, date DATETIME, priority INTEGER)");
+  //   return result;
+  // }
 
   Future getDealsByDate(date) async {
     var dbClient = await db;

@@ -1,33 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:scheduler_app/config/keys.dart';
 
 class RoundChartPainter extends CustomPainter {
-  Color lineColor;
-  Color completeColor;
   double completePercent;
-  double width;
   double radius;
 
-
   RoundChartPainter(
-      {this.lineColor, this.completeColor, this.completePercent, this.width, this.radius});
+      {this.completePercent,
+      this.radius});
   @override
   void paint(Canvas canvas, Size size) {
     Paint line = new Paint()
-      ..color = lineColor
+      ..color = Colors.grey[200]
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
-      ..strokeWidth = width;
+      ..strokeWidth = 8.0;
     Paint complete = new Paint()
-      ..color = completeColor
+      ..color = this.completePercent < 40
+          ? PriorityColor[0]
+          : this.completePercent >= 40 && this.completePercent < 70
+              ? PriorityColor[1]
+              : PriorityColor[2]
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
-      ..strokeWidth = width;
+      ..strokeWidth = 8.0;
     Offset center = new Offset(size.width / 2, size.height / 2);
-    //double radius = size.width / 2.0; //, size.height / 2);
     canvas.drawCircle(center, radius, line);
     double arcAngle = 2 * 3.14 * (completePercent / 100);
-    canvas.drawArc(new Rect.fromCircle(center: center, radius: radius), -3.14 / 2,
-        arcAngle, false, complete);
+    canvas.drawArc(new Rect.fromCircle(center: center, radius: radius),
+        -3.14 / 2, arcAngle, false, complete);
   }
 
   @override
