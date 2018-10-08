@@ -30,29 +30,11 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
         child: StoreConnector<AppState, Function>(converter: (store) {
       return;
     }, builder: (context, createDeal) {
-      return Scaffold(
-          appBar: AppBar(
-            title: Text('Create new deal', style: TextStyle(fontSize: 32.0)),
-          ),
-          body: ListView(
-            children: <Widget>[
-              Container(
-                color: Color(0xFFDD3D3D3),
-                margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-                padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 40.0),
-                child: Column(
+      return  Column(
+        mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Text('Create New Deal',
-                              style: TextStyle(fontSize: 25.0)),
-                        ),
-                      ],
-                    ),
                     Container(
-                      margin: EdgeInsets.only(bottom: 20.0),
+                      padding: EdgeInsets.all(5.0),
                       child: NewDealInput(
                         controller: dealNameController,
                         labelText: 'Enter Deal Name',
@@ -75,10 +57,8 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                         return priority;
                       },
                     ),
-                    ButtonTheme(
-                      minWidth: 370.0,
-                      height: 60.0,
-                      child: RaisedButton(
+                    IconButton(
+                        icon: Icon(Icons.check),
                         onPressed: () {
                           if (dealNameController.text != '') {
                             var dealData = {
@@ -90,20 +70,11 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                             store.dispatch(CreateDealPending(dealData));
                           }
                         },
-                        textColor: Colors.white,
                         color: Colors.blueGrey[900],
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "ADD DEAL",
-                          style: TextStyle(fontSize: 20.0),
-                        ),
                       ),
-                    ),
                   ],
-                ),
-              )
-            ],
-          ));
+                );
     }));
   }
 }

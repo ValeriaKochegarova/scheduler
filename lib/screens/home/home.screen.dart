@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scheduler_app/screens/create_deal/create_deal.screen.dart';
 
 import 'package:scheduler_app/screens/home/date_picker/date_picker.widger.dart';
 import 'package:scheduler_app/screens/home/deals/deals.widget.dart';
@@ -55,8 +56,10 @@ class _HomeScreenState extends State<HomeScreen> {
           FlatButton(
             child: Icon(Icons.add),
             onPressed: () {
-              Navigator.of(context).push(NewDealPageRoute());
-            },
+            showModalBottomSheet<void>(context: context, builder: (BuildContext context) {
+              return CreateDealScreen();
+            });
+          },
           )
         ]));
   }
