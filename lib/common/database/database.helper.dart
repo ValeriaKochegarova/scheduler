@@ -34,7 +34,7 @@ class DatabaseHelper {
 
   Future _onCreate(Database db, int version) async {
     var exec = await db.execute(
-        "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY AUTOINCREMENT, text, done, date, priority)");
+        "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, done TINYINT, date DATETIME, priority INTEGER)");
     return exec;
   }
 
@@ -42,7 +42,7 @@ class DatabaseHelper {
     var dbClient = await db;
 
     int result = await dbClient.execute(
-        "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY AUTOINCREMENT, text, done, date, priority)");
+        "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, done TINYINT, date DATETIME, priority INTEGER)");
     return result;
   }
 
@@ -64,9 +64,17 @@ class DatabaseHelper {
   }
 
   Future getDealsByDate(date) async {
+    print(date);
+    print(date is String);
     var dbClient = await db;
+    DateTime dateObj = DateTime.parse(date);
+    DateTime dayStart =
+        new DateTime(dateObj.year, dateObj.month, dateObj.day, 0, 0, 0, 0);
+    DateTime dayEnd =
+        new DateTime(dateObj.year, dateObj.month, dateObj.day, 23, 59, 59, 0);
+
     var result = await dbClient.rawQuery(
-        "SELECT * FROM DealsTable ORDER BY datetime(date) DESC Limit 1");
+        "SELECT * FROM DealsTable WHERE date BETWEEN '${dayStart.toString()}' AND '${dayEnd.toString()}'");
     print(result);
     return result;
   }
