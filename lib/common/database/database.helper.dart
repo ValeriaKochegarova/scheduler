@@ -47,8 +47,6 @@ class DatabaseHelper {
   }
 
   Future getDealsByDate(date) async {
-    print(date);
-    print(date is String);
     var dbClient = await db;
     DateTime dayStart =
         new DateTime(date.year, date.month, date.day, 0, 0, 0, 0);
@@ -57,7 +55,6 @@ class DatabaseHelper {
 
     var result = await dbClient.rawQuery(
         "SELECT * FROM DealsTable WHERE date BETWEEN '${dayStart.toString()}' AND '${dayEnd.toString()}'");
-    print(result);
     return result;
   }
 

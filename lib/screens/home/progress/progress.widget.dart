@@ -6,23 +6,25 @@ import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/selectors/deals.selector.dart';
 
 class DonutPieChart extends StatelessWidget {
-  final DateTime selectedDate;
-  DonutPieChart(this.selectedDate);
+  DonutPieChart();
 
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, Map>(converter: (store) {
-      return getChartDealsData(store.state);
+      return {
+        'chartData': getChartDealsData(store.state),
+        'selectedDate': store.state.date
+      };
     }, builder: (context, state) {
       double viewView = MediaQuery.of(context).size.width;
-      double percentage = state['allCount'] == 0
+      DateTime selectedDate = state['selectedDate'];
+      double percentage = state['chartData']['allCount'] == 0
           ? 0.0
-          : state['dealsCount'] / state['allCount'] * 100;
-
-      print(selectedDate);    
-      DateFormat formatter = DateFormat('M, d');
+          : state['chartData']['dealsCount'] /
+              state['chartData']['allCount'] *
+              100;
+      DateFormat formatter = DateFormat('MM, dd');
       String formattedDate = formatter.format(selectedDate);
-      print(formattedDate);
       return state['allCount'] == 0
           ? Container()
           : CustomPaint(
