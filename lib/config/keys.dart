@@ -6,9 +6,9 @@ class NavKeys {
 }
 
 const Map<int, Color> PriorityColor = {
-  1: Colors.red,
-  2: Colors.orange,
-  3: Colors.green,
+  0: Colors.red,
+  1: Colors.orange,
+  2: Colors.green,
 };
 
 const Map<int, bool> NumToBool = {0: false, 1: true};
