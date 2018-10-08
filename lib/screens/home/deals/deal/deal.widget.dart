@@ -3,19 +3,17 @@ import 'package:flutter/material.dart';
 
 class Deal extends StatelessWidget {
   final deal;
-  final doneCb;
-  final priorityColor;
-  final a;
+  final Function doneCb;
+  final Color priorityColor;
+  final bool done;
 
-  Deal(@required this.deal, @required this.doneCb, @required this.priorityColor,
-      @required this.a);
+  Deal(this.deal, this.doneCb, this.priorityColor, this.done);
 
   @override
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
-          // borderRadius: BorderRadius.all(Radius.circular(10.0)),
           color: Colors.white,
         ),
         padding: EdgeInsets.all(10.0),
@@ -29,20 +27,13 @@ class Deal extends StatelessWidget {
               color: priorityColor,
             ),
             Expanded(child: Text(deal['text'])),
-            // new Switch(
-            //   value: a,
-            //   onChanged: (bool value) {
-            //     deal['done'] = value;
-            //     doneCb(deal);
-            //   },
-            // )
-            CupertinoSwitch(
-              value: a,
-              onChanged: (value) {
-                // a = value;
+            new Switch(
+              value: done,
+              onChanged: (bool value) {
+                deal['done'] = value;
                 doneCb(deal);
               },
-            ),
+            )
           ],
         ));
   }

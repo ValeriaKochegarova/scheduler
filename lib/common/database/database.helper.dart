@@ -56,7 +56,7 @@ class DatabaseHelper {
       var priority = f['priority'];
       try {
         dbClient.execute(
-            "ISERT INTO DealsTable (id, text, done, priority) VALUES ($text, $done, $date, $priority)");
+            "ISERT INTO DealsTable (id, text, done, date, priority) VALUES ($text, $done, $date, $priority)");
       } catch (err) {
         print('sqflite error => $err');
       }
@@ -65,8 +65,8 @@ class DatabaseHelper {
 
   Future getDealsByDate(date) async {
     var dbClient = await db;
-    var result = await dbClient
-        .rawQuery("SELECT * FROM DealsTable ORDER BY datetime(date) DESC Limit 1");
+    var result = await dbClient.rawQuery(
+        "SELECT * FROM DealsTable ORDER BY datetime(date) DESC Limit 1");
     print(result);
     return result;
   }

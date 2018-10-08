@@ -6,10 +6,9 @@ import 'package:redux_epics/redux_epics.dart';
 
 // String formatedDate = DateFormat('EEE, dd').format(DateTime.now());
 
-var dealsMiddleware = EpicMiddleware(getDealsFromDBEpic);
 var creationMiddleware = EpicMiddleware(createDealEpic);
 var filterByDateMiddleware = EpicMiddleware(getDealsByDateEpic);
 
 final store = Store<AppState>(appStateReducer,
     initialState: AppState([], DateTime.now()),
-    middleware: [dealsMiddleware, creationMiddleware, filterByDateMiddleware]);
+    middleware: [creationMiddleware, filterByDateMiddleware]);
