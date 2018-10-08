@@ -28,3 +28,14 @@ Stream<dynamic> createDealEpic(
             return CreateDealError(error);
           }));
 }
+
+Stream<dynamic> getDealsByDateEpic(
+    Stream<dynamic> actions, EpicStore<dynamic> store) {
+  return actions
+      .where((action) => action is GetDealsByDatePending)
+      .asyncMap((action) => db.getDealsByDate(store.state.date).then((deals) {
+            return GetDealsByDateSuccess(deals);
+          }).catchError((error) {
+            return GetDealsByDateError(error);
+          }));
+}

@@ -36,13 +36,13 @@ class Deal extends StatelessWidget {
             //     doneCb(deal);
             //   },
             // )
-            // new CupertinoSwitch(
-            //   value: a,
-            //   onChanged: (value) {
-            //     // a = value;
-            //     doneCb(deal);
-            //   },
-            // ),
+            CupertinoSwitch(
+              value: a,
+              onChanged: (value) {
+                // a = value;
+                doneCb(deal);
+              },
+            ),
           ],
         ));
   }

@@ -6,6 +6,7 @@ import 'package:scheduler_app/screens/home_screen/progressBar.widget.dart';
 
 import 'package:flutter_calendar/flutter_calendar.dart';
 import 'package:scheduler_app/store/actions/calendar.action.dart';
+import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/store.dart';
 
@@ -39,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Calendar(
                         onDateSelected: (date) {
                           store.dispatch(SelectDate(date));
+                          store.dispatch(GetDealsByDatePending());
                         },
                       ),
                       Divider(
@@ -50,25 +52,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                     child: ListView(
                   children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.only(bottom: 50.0),
-                      child: DonutPieChart(store.state.date),
-                      height: viewView / 1.5,
-                    ),
+                    // Container(
+                    //   padding: EdgeInsets.only(bottom: 50.0),
+                    //   child: DonutPieChart(store.state.date),
+                    //   height: viewView / 1.5,
+                    // ),
                     DealsWidget()
                   ],
                 ))
               ],
             ),
           ),
-          persistentFooterButtons: <Widget> [
-          FlatButton(
-            child: Icon(Icons.add),
-            onPressed: () {
-              Navigator.of(context).push(NewDealPageRoute());
-            },
-          )
-        ]);
+          persistentFooterButtons: <Widget>[
+            FlatButton(
+              child: Icon(Icons.add),
+              onPressed: () {
+                Navigator.of(context).push(NewDealPageRoute());
+              },
+            )
+          ]);
     }));
   }
 }

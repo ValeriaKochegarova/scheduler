@@ -63,6 +63,14 @@ class DatabaseHelper {
     }
   }
 
+  Future getDealsByDate(date) async {
+    var dbClient = await db;
+    var result = await dbClient
+        .rawQuery("SELECT * FROM DealsTable ORDER BY datetime(date) DESC Limit 1");
+    print(result);
+    return result;
+  }
+
   Future<int> createDeal(dealItem) async {
     var dbClient = await db;
     Object result = await dbClient.insert('DealsTable', dealItem);

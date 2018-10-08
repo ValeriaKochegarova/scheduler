@@ -36,3 +36,17 @@ class CreateDealError {
   final error;
   CreateDealError(this.error);
 }
+
+class GetDealsByDatePending {
+  GetDealsByDatePending();
+}
+
+class GetDealsByDateSuccess {
+  final deals;
+  GetDealsByDateSuccess(this.deals);
+}
+
+class GetDealsByDateError {
+  final error;
+  GetDealsByDateError(this.error);
+}
