@@ -10,9 +10,10 @@ Stream<dynamic> createDealEpic(
     Stream<dynamic> actions, EpicStore<dynamic> store) {
   return actions
       .where((action) => action is CreateDealPending)
-      .asyncMap((action) => db.createDeal(action.deal).then((int index) {
+      .asyncMap((action) => db.createDeal(action.deal).then((int id) {
             NavKeys.navKey.currentState.pop();
-            return CreateDealSuccess(action.deal);
+            Map deal = Map.from(action.deal)..addAll({'id': id});
+            return CreateDealSuccess(deal);
           }).catchError((error) {
             return CreateDealError(error);
           }));
