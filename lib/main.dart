@@ -27,7 +27,7 @@ class SchedulerApp extends StatelessWidget {
     return StoreProvider<AppState>(
         store: store,
         child: MaterialApp(
-          title: 'Scheduler App',
+          title: 'Dela Ok',
           navigatorKey: NavKeys.navKey,
           theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Avenir'),
           home: HomeScreen(),
