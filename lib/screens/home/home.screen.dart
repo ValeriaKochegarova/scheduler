@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 
-import 'package:flutter_calendar/flutter_calendar.dart';
+import 'package:scheduler_app/screens/home/date_picker/date_picker.widger.dart';
 import 'package:scheduler_app/screens/home/deals/deals.widget.dart';
 import 'package:scheduler_app/screens/home/page_route/page_route.widget.dart';
 import 'package:scheduler_app/screens/home/progress/progress.widget.dart';
-import 'package:scheduler_app/store/actions/calendar.action.dart';
-import 'package:scheduler_app/store/actions/deals.action.dart';
-import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/store.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,58 +15,48 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     double viewView = MediaQuery.of(context).size.width;
-    return Container(
-        child: StoreConnector<AppState, Map>(converter: (store) {
-      return;
-    }, builder: (context, state) {
-      return Scaffold(
-          appBar: AppBar(
-            title: Text('Scheduler App'),
-            backgroundColor: Color(0xFF01579B),
-          ),
-          body: Container(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.symmetric(
-                    vertical: 10.0,
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      Calendar(
-                        onDateSelected: (date) {
-                          store.dispatch(SelectDate(date));
-                          store.dispatch(GetDealsByDatePending());
-                        },
-                      ),
-                      Divider(
-                        height: 50.0,
-                      ),
-                    ],
-                  ),
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Scheduler App'),
+          backgroundColor: Color(0xFF01579B),
+        ),
+        body: Container(
+          child: Column(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.symmetric(
+                  vertical: 10.0,
                 ),
-                Expanded(
-                    child: ListView(
+                child: Column(
                   children: <Widget>[
-                    // Container(
-                    //   padding: EdgeInsets.only(bottom: 50.0),
-                    //   child: DonutPieChart(store.state.date),
-                    //   height: viewView / 1.5,
-                    // ),
-                    DealsWidget()
+                    DatePickerWidget(),
+                    Divider(
+                      height: 50.0,
+                    ),
                   ],
-                ))
-              ],
-            ),
+                ),
+              ),
+              Expanded(
+                  child: ListView(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(bottom: 50.0),
+                    child: DonutPieChart(store.state.date),
+                    height: viewView / 1.5,
+                  ),
+                  DealsWidget()
+                ],
+              ))
+            ],
           ),
-          persistentFooterButtons: <Widget>[
-            FlatButton(
-              child: Icon(Icons.add),
-              onPressed: () {
-                Navigator.of(context).push(NewDealPageRoute());
-              },
-            )
-          ]);
-    }));
+        ),
+        persistentFooterButtons: <Widget>[
+          FlatButton(
+            child: Icon(Icons.add),
+            onPressed: () {
+              Navigator.of(context).push(NewDealPageRoute());
+            },
+          )
+        ]);
   }
 }

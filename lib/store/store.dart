@@ -11,5 +11,5 @@ var creationMiddleware = EpicMiddleware(createDealEpic);
 var filterByDateMiddleware = EpicMiddleware(getDealsByDateEpic);
 
 final store = Store<AppState>(appStateReducer,
-    initialState: AppState([], DateTime.now().toString()),
+    initialState: AppState([], DateTime.now()),
     middleware: [creationMiddleware, filterByDateMiddleware]);

@@ -46,32 +46,14 @@ class DatabaseHelper {
     return result;
   }
 
-  // add deal
-  Future saveDeals(deals) async {
-    var dbClient = await db;
-    for (var f in deals) {
-      var text = f['text'];
-      var done = f['done'];
-      var date = f['date'];
-      var priority = f['priority'];
-      try {
-        dbClient.execute(
-            "ISERT INTO DealsTable (id, text, done, date, priority) VALUES ($text, $done, $date, $priority)");
-      } catch (err) {
-        print('sqflite error => $err');
-      }
-    }
-  }
-
   Future getDealsByDate(date) async {
     print(date);
     print(date is String);
     var dbClient = await db;
-    DateTime dateObj = DateTime.parse(date);
     DateTime dayStart =
-        new DateTime(dateObj.year, dateObj.month, dateObj.day, 0, 0, 0, 0);
+        new DateTime(date.year, date.month, date.day, 0, 0, 0, 0);
     DateTime dayEnd =
-        new DateTime(dateObj.year, dateObj.month, dateObj.day, 23, 59, 59, 0);
+        new DateTime(date.year, date.month, date.day, 23, 59, 59, 0);
 
     var result = await dbClient.rawQuery(
         "SELECT * FROM DealsTable WHERE date BETWEEN '${dayStart.toString()}' AND '${dayEnd.toString()}'");
@@ -81,14 +63,8 @@ class DatabaseHelper {
 
   Future<int> createDeal(dealItem) async {
     var dbClient = await db;
+    dealItem['date'] = dealItem['date'].toString();
     Object result = await dbClient.insert('DealsTable', dealItem);
-    return result;
-  }
-
-  //get deals
-  Future<List> getDeals() async {
-    var dbClient = await db;
-    List result = await dbClient.rawQuery('SELECT * FROM DealsTable');
     return result;
   }
 

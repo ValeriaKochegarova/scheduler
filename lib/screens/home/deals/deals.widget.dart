@@ -7,14 +7,7 @@ import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/selectors/deals.selector.dart';
 
-
-
-class DealsWidget extends StatefulWidget {
-  @override
-  _DealsWidgetState createState() => _DealsWidgetState();
-}
-
-class _DealsWidgetState extends State<DealsWidget> {
+class DealsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, Map>(converter: (store) {
