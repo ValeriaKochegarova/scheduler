@@ -61,8 +61,8 @@ class DatabaseHelper {
   Future<int> createDeal(dealItem) async {
     var dbClient = await db;
     dealItem['date'] = dealItem['date'].toString();
-    Object result = await dbClient.insert('DealsTable', dealItem);
-    return result;
+    int id = await dbClient.insert('DealsTable', dealItem);
+    return id;
   }
 
   //delete deals
