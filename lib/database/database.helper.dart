@@ -56,7 +56,7 @@ class DatabaseHelper {
       var priority = f['priority'];
       try {
         dbClient.execute(
-            "ISERT INTO DealsTable (id, text, done, priority) VALUES ($text, $done, $date, $priority)");
+            "ISERT INTO DealsTable (id, text, done, date, priority) VALUES ($text, $done, $date, $priority)");
       } catch (err) {
         print('sqflite error => $err');
       }

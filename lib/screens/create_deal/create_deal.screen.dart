@@ -16,6 +16,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
   final dateFormat = DateFormat("MM/d/yyyy 'at' h:mma");
 
   final dealNameController = TextEditingController();
+  var priority;
 
   @override
   void dispose() {
@@ -70,7 +71,10 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                           child: Text(value),
                         );
                       }).toList(),
-                      // onChanged: () {},
+                      onChanged: (value) {
+                        priority = value;
+                        return priority;
+                      },
                     ),
                     ButtonTheme(
                       minWidth: 370.0,
@@ -79,11 +83,10 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                         onPressed: () {
                           if (dealNameController.text != '') {
                             var dealData = {
-                              'id': store.state.deals.length + 1,
                               'text': dealNameController.text,
                               'done': 0,
                               'date': store.state.date,
-                              'priority': 1
+                              'priority': priority
                             };
                             print(dealData);
                             store.dispatch(CreateDealPending(dealData));
