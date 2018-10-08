@@ -5,9 +5,10 @@ class Deal extends StatelessWidget {
   final deal;
   final doneCb;
   final priorityColor;
+  final a;
 
-  Deal(
-      @required this.deal, @required this.doneCb, @required this.priorityColor);
+  Deal(@required this.deal, @required this.doneCb, @required this.priorityColor,
+      @required this.a);
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +29,20 @@ class Deal extends StatelessWidget {
               color: priorityColor,
             ),
             Expanded(child: Text(deal['text'])),
-            new CupertinoSwitch(
-              value: deal['done'],
-              onChanged: (value) {
-                deal['done'] = value;
-                doneCb(deal);
-              },
-            ),
+            // new Switch(
+            //   value: a,
+            //   onChanged: (bool value) {
+            //     deal['done'] = value;
+            //     doneCb(deal);
+            //   },
+            // )
+            // new CupertinoSwitch(
+            //   value: a,
+            //   onChanged: (value) {
+            //     // a = value;
+            //     doneCb(deal);
+            //   },
+            // ),
           ],
         ));
   }

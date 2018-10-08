@@ -12,6 +12,8 @@ Map<int, Color> priorityColor = {
   3: Colors.green,
 };
 
+Map a = {0: false, 1: true};
+
 class DealsWidget extends StatefulWidget {
   @override
   _DealsWidgetState createState() => _DealsWidgetState();
@@ -31,8 +33,8 @@ class _DealsWidgetState extends State<DealsWidget> {
       return Column(
         children: state['deals'].map<Widget>((deal) {
           return Container(
-              child:
-                  Deal(deal, state['doneCb'], priorityColor[deal['priority']]));
+              child: Deal(deal, state['doneCb'],
+                  priorityColor[deal['priority']], a[deal['done']]));
         }).toList(),
       );
     });
