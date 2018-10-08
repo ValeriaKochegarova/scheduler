@@ -12,7 +12,7 @@ class DealsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, Map>(converter: (store) {
       return {
-        'deals': getSortedDeals(store.state),
+        'deals': getDeals(store.state),
         'doneCb': (deal) {
           store.dispatch(UpdateDeal(deal));
         }
@@ -22,7 +22,7 @@ class DealsWidget extends StatelessWidget {
         children: state['deals'].map<Widget>((deal) {
           return Container(
               child: Deal(deal, state['doneCb'],
-                  PriorityColor[deal['priority']], NumToBool[deal['done']]));
+                  PriorityColor[deal['priority']], deal['done']));
         }).toList(),
       );
     });

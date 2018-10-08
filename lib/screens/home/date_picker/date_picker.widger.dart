@@ -14,12 +14,30 @@ class DatePickerWidget extends StatelessWidget {
         'getDeals': () => store.dispatch(GetDealsByDatePending())
       };
     }, builder: (context, state) {
-      return Calendar(
-        onDateSelected: (date) {
-          state['selectDate'](date);
-          state['getDeals']();
-        },
-      );
+      return Container(
+          padding: EdgeInsets.all(10.0),
+          margin: EdgeInsets.all(5.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: const Color(0xcc000000),
+                offset: Offset(0.0, 2.0),
+                blurRadius: 4.0,
+              ),
+              BoxShadow(
+                color: const Color(0x80000000),
+                offset: Offset(0.0, 1.0),
+                blurRadius: 1.0,
+              ),
+            ],
+          ),
+          child: Calendar(
+            onDateSelected: (date) {
+              state['selectDate'](date);
+              state['getDeals']();
+            },
+          ));
     });
   }
 }

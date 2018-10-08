@@ -31,7 +31,6 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
       return;
     }, builder: (context, createDeal) {
       return Scaffold(
-          backgroundColor: Color(0xFFDD3D3D3),
           appBar: AppBar(
             title: Text('Create new deal', style: TextStyle(fontSize: 32.0)),
           ),
@@ -88,7 +87,6 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                               'date': store.state.date,
                               'priority': priority
                             };
-                            print(dealData);
                             store.dispatch(CreateDealPending(dealData));
                           }
                         },

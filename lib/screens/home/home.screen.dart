@@ -15,48 +15,49 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     double viewView = MediaQuery.of(context).size.width;
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Scheduler App'),
-          backgroundColor: Color(0xFF01579B),
-        ),
-        body: Container(
-          child: Column(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(
-                  vertical: 10.0,
-                ),
-                child: Column(
-                  children: <Widget>[
-                    DatePickerWidget(),
-                    Divider(
-                      height: 50.0,
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                  child: ListView(
+    return SafeArea(
+        child: Scaffold(
+            // appBar: AppBar(
+            //   title: Text('Дела Ок'),
+            //   backgroundColor: Color(0xFF01579B),
+            // ),
+            body: Container(
+              child: Column(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.only(bottom: 50.0),
-                    child: DonutPieChart(store.state.date),
-                    height: viewView / 1.5,
+                    margin: EdgeInsets.symmetric(
+                      vertical: 10.0,
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        DatePickerWidget(),
+                        Divider(
+                          height: 50.0,
+                        ),
+                      ],
+                    ),
                   ),
-                  DealsWidget()
+                  Expanded(
+                      child: ListView(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.only(bottom: 50.0),
+                        child: DonutPieChart(),
+                        height: viewView / 1.5,
+                      ),
+                      DealsWidget()
+                    ],
+                  ))
                 ],
-              ))
-            ],
-          ),
-        ),
-        persistentFooterButtons: <Widget>[
+              ),
+            ),
+            persistentFooterButtons: <Widget>[
           FlatButton(
             child: Icon(Icons.add),
             onPressed: () {
               Navigator.of(context).push(NewDealPageRoute());
             },
           )
-        ]);
+        ]));
   }
 }
