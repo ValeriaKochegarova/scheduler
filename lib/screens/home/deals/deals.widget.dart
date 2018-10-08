@@ -1,18 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:scheduler_app/screens/home_screen/deal.dart';
+import 'package:scheduler_app/config/keys.dart';
+import 'package:scheduler_app/screens/home/deals/deal/deal.widget.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/selectors/deals.selector.dart';
 
-Map<int, Color> priorityColor = {
-  1: Colors.red,
-  2: Colors.orange,
-  3: Colors.green,
-};
 
-Map a = {0: false, 1: true};
 
 class DealsWidget extends StatefulWidget {
   @override
@@ -34,7 +29,7 @@ class _DealsWidgetState extends State<DealsWidget> {
         children: state['deals'].map<Widget>((deal) {
           return Container(
               child: Deal(deal, state['doneCb'],
-                  priorityColor[deal['priority']], a[deal['done']]));
+                  PriorityColor[deal['priority']], NumToBool[deal['done']]));
         }).toList(),
       );
     });

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:intl/intl.dart';
-import 'package:scheduler_app/screens/create_deal/create_deal_input.dart';
+import 'package:scheduler_app/screens/create_deal/input/input.widget.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/store.dart';

@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:scheduler_app/database/database.helper.dart';
 import 'package:redux_epics/redux_epics.dart';
-import 'package:scheduler_app/keys.dart';
+import 'package:scheduler_app/common/database/database.helper.dart';
+import 'package:scheduler_app/config/keys.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 
 final db = DatabaseHelper();

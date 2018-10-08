@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scheduler_app/screens/create_deal/create_deal.screen.dart';
 
-
 class NewDealPageRoute extends PageRouteBuilder {
   final Widget widget;
   NewDealPageRoute({this.widget})
