@@ -1,8 +1,20 @@
-class UpdateDeal {
+// update deal
+class UpdateDealPending {
   final Map payload;
-  UpdateDeal(this.payload);
+  UpdateDealPending(this.payload);
 }
 
+class UpdateDealSuccess {
+  final Map payload;
+  UpdateDealSuccess(this.payload);
+}
+
+class UpdateDealError {
+  final Map payload;
+  UpdateDealError(this.payload);
+}
+
+// create deal
 class CreateDealPending {
   final deal;
   CreateDealPending(this.deal);
@@ -18,6 +30,7 @@ class CreateDealError {
   CreateDealError(this.error);
 }
 
+// get deals
 class GetDealsByDatePending {
   GetDealsByDatePending();
 }

@@ -3,7 +3,7 @@ import 'package:scheduler_app/store/actions/deals.action.dart';
 List initialState = [];
 
 dynamic dealsReducer(List state, action) {
-  if (action is UpdateDeal) {
+  if (action is UpdateDealSuccess) {
     state = state.map((deal) {
       if (deal['id'] != action.payload['id']) {
         return deal;

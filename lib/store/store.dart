@@ -9,7 +9,8 @@ String formatedDate = DateFormat('EEE, dd').format(DateTime.now());
 
 var creationMiddleware = EpicMiddleware(createDealEpic);
 var filterByDateMiddleware = EpicMiddleware(getDealsByDateEpic);
+var markDealDone = EpicMiddleware(markDealDoneEpic);
 
 final store = Store<AppState>(appStateReducer,
     initialState: AppState([], DateTime.now()),
-    middleware: [creationMiddleware, filterByDateMiddleware]);
+    middleware: [creationMiddleware, filterByDateMiddleware, markDealDone]);

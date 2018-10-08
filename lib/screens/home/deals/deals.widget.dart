@@ -5,7 +5,6 @@ import 'package:scheduler_app/config/keys.dart';
 import 'package:scheduler_app/screens/home/deals/deal/deal.widget.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
-import 'package:scheduler_app/store/selectors/deals.selector.dart';
 
 class DealsWidget extends StatelessWidget {
   @override
@@ -14,7 +13,7 @@ class DealsWidget extends StatelessWidget {
       return {
         'deals': getDeals(store.state),
         'doneCb': (deal) {
-          store.dispatch(UpdateDeal(deal));
+          store.dispatch(UpdateDealPending(deal));
         }
       };
     }, builder: (context, state) {
