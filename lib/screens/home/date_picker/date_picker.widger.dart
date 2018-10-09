@@ -32,10 +32,16 @@ class DatePickerWidget extends StatelessWidget {
               ),
             ],
           ),
-          child: Calendar(
-            onDateSelected: (date) {
-              state['selectDate'](date);
-              state['getDeals']();
+          child: IconButton(
+            icon: Icon(Icons.calendar_today),
+            onPressed: () {
+              showDatePicker(
+                      context: context,
+                      initialDate: new DateTime.now(),
+                      firstDate: new DateTime(1900),
+                      lastDate: new DateTime(2019),
+                      locale: const Locale('ru', 'RU'))
+                  .then((date) {});
             },
           ));
     });

@@ -8,6 +8,7 @@ import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:redux/redux.dart';
 import 'package:scheduler_app/store/store.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   var db = DatabaseHelper();
@@ -27,18 +28,17 @@ class SchedulerApp extends StatelessWidget {
     return StoreProvider<AppState>(
         store: store,
         child: MaterialApp(
-          title: 'Дела Ok',
-          navigatorKey: NavKeys.navKey,
-          theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Avenir'),
-          home: HomeScreen(),
           localizationsDelegates: [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
           ],
           supportedLocales: [
-            const Locale('en', 'US'),
             const Locale('ru', 'RU'),
           ],
+          title: 'Дела Ok',
+          navigatorKey: NavKeys.navKey,
+          theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Avenir'),
+          home: HomeScreen()
         ));
   }
 }

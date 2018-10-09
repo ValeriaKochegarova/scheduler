@@ -18,21 +18,29 @@ class _HomeScreenState extends State<HomeScreen> {
     double viewView = MediaQuery.of(context).size.width;
     return SafeArea(
         child: Scaffold(
+            appBar: AppBar(
+              title: Text('ДЕЛА ОК'),
+              actions: <Widget>[
+                DatePickerWidget(),
+              ],
+            ),
             body: GestureDetector(
-              onTap: () {store.dispatch(UnselectDeal());},
+              onTap: () {
+                store.dispatch(UnselectDeal());
+              },
               child: Container(
                 child: Column(
                   children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                        vertical: 10.0,
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          DatePickerWidget(),
-                        ],
-                      ),
-                    ),
+                    // Container(
+                    //   margin: EdgeInsets.symmetric(
+                    //     vertical: 10.0,
+                    //   ),
+                    //   child: Column(
+                    //     children: <Widget>[
+                    //       DatePickerWidget(),
+                    //     ],
+                    //   ),
+                    // ),
                     Expanded(
                         child: ListView(
                       children: <Widget>[
