@@ -28,6 +28,14 @@ class SchedulerApp extends StatelessWidget {
           navigatorKey: NavKeys.navKey,
           theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Avenir'),
           home: HomeScreen(),
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          supportedLocales: [
+            const Locale('en', 'US'),
+            const Locale('ru', 'RU'),
+          ],
         ));
   }
 }

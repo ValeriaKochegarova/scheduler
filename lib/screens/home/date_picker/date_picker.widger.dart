@@ -11,7 +11,7 @@ class DatePickerWidget extends StatelessWidget {
     return StoreConnector<AppState, Map>(converter: (store) {
       return {
         'selectDate': (DateTime date) => store.dispatch(SelectDate(date)),
-        'getDeals': () => store.dispatch(GetDealsByDatePending())
+        'getDeals': () => store.dispatch(GetDealsByDatePending()),
       };
     }, builder: (context, state) {
       return Container(
