@@ -1,6 +1,7 @@
 import 'package:scheduler_app/store/actions/deals.action.dart';
 
 List initialState = [];
+var selectedDeal = {};
 
 dynamic dealsReducer(List state, action) {
   if (action is UpdateDealSuccess) {
@@ -17,7 +18,11 @@ dynamic dealsReducer(List state, action) {
 
   if (action is GetDealsByDateSuccess) {
     state.clear();
-    state.insertAll(0,action.deals);
+    state.insertAll(0, action.deals);
+  }
+  if (action is DeleteDealSuccess) {
+    state.remove(action.deal);
+    return state;
   }
   return List.from(state);
 }

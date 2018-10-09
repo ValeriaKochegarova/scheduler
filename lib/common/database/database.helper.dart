@@ -40,12 +40,12 @@ class DatabaseHelper {
     return exec;
   }
 
-  // Future<int> createTableDeals() async {
-  //   var dbClient = await db;
-  //   int result = await dbClient.execute(
-  //       "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, done TINYINT, date DATETIME, priority INTEGER)");
-  //   return result;
-  // }
+  Future<int> createTableDeals() async {
+    var dbClient = await db;
+    int result = await dbClient.execute(
+        "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, done TINYINT, date DATETIME, priority INTEGER)");
+    return result;
+  }
 
   Future getDealsByDate(date) async {
     var dbClient = await db;
@@ -63,7 +63,8 @@ class DatabaseHelper {
     var dbClient = await db;
     dealItem['date'] = dealItem['date'].toString();
     print(dealItem is Map);
-    int id = await dbClient.insert('DealsTable', Map<String, dynamic>.from(dealItem));
+    int id = await dbClient.insert(
+        'DealsTable', Map<String, dynamic>.from(dealItem));
     return id;
   }
 
@@ -74,6 +75,14 @@ class DatabaseHelper {
     var updatedDeal = await dbClient
         .rawUpdate("UPDATE DealsTable set done = '$done' WHERE id = $id");
     return updatedDeal;
+  }
+
+  Future deleteDeal(deal) async {
+    var dbClient = await db;
+    var id = deal['id'];
+    var deletedDeal =
+        await dbClient.rawDelete("DELETE FROM DealsTable WHERE id = $id");
+    return deletedDeal;
   }
 
   //delete deals

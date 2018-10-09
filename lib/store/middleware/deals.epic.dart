@@ -40,3 +40,14 @@ Stream<dynamic> markDealDoneEpic(
             return UpdateDealError(error);
           }));
 }
+
+Stream<dynamic> deleteDealEpic(
+    Stream<dynamic> actions, EpicStore<dynamic> store) {
+  return actions
+      .where((action) => action is DeleteDealPending)
+      .asyncMap((action) => db.deleteDeal(action.deal).then((id) {
+            return [DeleteDealSuccess(action.deal), UnselectDeal()];
+          }).catchError((error) {
+            return DeleteDealError(error);
+          }));
+}
