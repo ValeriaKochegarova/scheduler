@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:scheduler_app/screens/home/bottom_navigation_bar/bottom_navigation_bar.widget.dart';
 
-import 'package:scheduler_app/screens/home/date_picker/date_picker.widger.dart';
 import 'package:scheduler_app/screens/home/deals/deals.widget.dart';
 import 'package:scheduler_app/screens/home/progress/progress.widget.dart';
 import 'package:scheduler_app/store/actions/calendar.action.dart';
@@ -16,7 +15,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   DateTime _date = new DateTime.now();
 
   Future<Null> _selectDate(BuildContext context) async {
@@ -31,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
         _date = picked;
       });
       print('Date selected: ${_date.toString()}');
-      
+
       store.dispatch(SelectDate(_date));
       store.dispatch(GetDealsByDatePending());
       print(store.state.date);
@@ -47,10 +45,10 @@ class _HomeScreenState extends State<HomeScreen> {
               title: Text('ДЕЛА ОК'),
               actions: <Widget>[
                 IconButton(
-                  icon: Icon(Icons.calendar_today),
-                  onPressed: () {
-                    _selectDate(context);
-                  })
+                    icon: Icon(Icons.calendar_today),
+                    onPressed: () {
+                      _selectDate(context);
+                    })
               ],
             ),
             body: GestureDetector(
