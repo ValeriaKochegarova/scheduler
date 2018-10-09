@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -6,9 +8,6 @@ import 'package:scheduler_app/screens/create_deal/colored_button/colored_pallet.
 import 'package:scheduler_app/screens/create_deal/input/input.widget.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
-import 'package:scheduler_app/store/store.dart';
-
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 class CreateDealScreen extends StatefulWidget {
   @override
@@ -18,15 +17,32 @@ class CreateDealScreen extends StatefulWidget {
 class _CreateDealScreenState extends State<CreateDealScreen> {
   final dateFormat = DateFormat("MM/d/yyyy 'at' h:mma");
 
-  final noteDateController = TextEditingController();
+  final dealDateController = TextEditingController();
 
   num priority = 0;
   String text = '';
 
   @override
   void dispose() {
-    noteDateController.dispose();
+    dealDateController.dispose();
     super.dispose();
+  }
+
+  DateTime _date = new DateTime.now();
+
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: _date,
+        firstDate: new DateTime(2016),
+        lastDate: new DateTime(2019));
+
+    if (picked != null && picked != _date) {
+      print('Date selected: ${_date.toString()}');
+      setState(() {
+        _date = picked;
+      });
+    }
   }
 
   @override
@@ -38,6 +54,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
         'createDeal': (deal) =>
             store.dispatch(CreateDealPending(Map.from(deal))),
         'unselectDeal': (deal) => store.dispatch(UnselectDeal()),
+        'getDeals': () => store.dispatch(GetDealsByDatePending())
       };
     }, builder: (context, state) {
       if (state['selectedDeal'] != null) {
@@ -63,27 +80,18 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
             'Выберите приоритет:',
             style: TextStyle(fontSize: 16.0),
           ),
-          ColoredPallete(priority, (num priority) {
-            this.priority = priority;
-          }),
-          Text('Выберите дату:'),
-          Theme(
-            data: Theme.of(context).copyWith(
-                primaryColor: Colors.blue,
-                textSelectionColor: Colors.blue,
-                toggleableActiveColor: Colors.blue),
-            child: Container(
-              margin: EdgeInsets.all(5.0),
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.blueGrey[900])),
-              child: DateTimePickerFormField(
-                controller: noteDateController,
-                format: dateFormat,
-                onChanged: (noteDate) {
-                  print(noteDate);
-                },
-              ),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              ColoredPallete(priority, (num priority) {
+                this.priority = priority;
+              }),
+              IconButton(
+                  icon: Icon(Icons.calendar_today),
+                  onPressed: () {
+                    _selectDate(context);
+                  }),
+            ],
           ),
           IconButton(
             iconSize: 30.0,
@@ -95,10 +103,11 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                     Map deal = {
                       'text': text,
                       'done': 0,
-                      'date': noteDateController.text,
+                      'date': _date.toString(),
                       'priority': priority
                     };
                     state['createDeal'](deal);
+                    state['getDeals'];
                   },
             padding: const EdgeInsets.all(8.0),
           ),
