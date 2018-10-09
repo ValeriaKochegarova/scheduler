@@ -44,3 +44,28 @@ class GetDealsByDateError {
   final error;
   GetDealsByDateError(this.error);
 }
+
+// select deal
+class SelectDeal {
+  final selectedDeal;
+  SelectDeal(this.selectedDeal);
+}
+
+class UnselectDeal {
+}
+
+// delete deal
+class DeleteDealPending {
+  final deal;
+  DeleteDealPending(this.deal);
+}
+
+class DeleteDealSuccess {
+  final deal;
+  DeleteDealSuccess(this.deal);
+}
+
+class DeleteDealError {
+  final error;
+  DeleteDealError(this.error);
+}

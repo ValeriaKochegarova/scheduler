@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:scheduler_app/common/database/database.helper.dart';
 import 'package:scheduler_app/config/keys.dart';
 import 'package:scheduler_app/screens/home/home.screen.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
@@ -9,6 +10,8 @@ import 'package:redux/redux.dart';
 import 'package:scheduler_app/store/store.dart';
 
 void main() async {
+  var db = DatabaseHelper();
+  await db.initDb();
   runApp(SchedulerApp(
     store: store,
   ));

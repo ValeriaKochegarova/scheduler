@@ -64,4 +64,19 @@ class DatabaseHelper {
         .rawUpdate("UPDATE DealsTable set done = '$done' WHERE id = $id");
     return updatedDeal;
   }
+
+  Future deleteDeal(deal) async {
+    var dbClient = await db;
+    var id = deal['id'];
+    var deletedDeal =
+        await dbClient.rawDelete("DELETE FROM DealsTable WHERE id = $id");
+    return deletedDeal;
+  }
+
+  //delete deals
+  Future<int> removeDeals() async {
+    var dbClient = await db;
+    var result = await dbClient.rawDelete('DROP TABLE DealsTable');
+    return result;
+  }
 }
