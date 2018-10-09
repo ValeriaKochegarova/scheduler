@@ -21,34 +21,37 @@ class BottomNavigationWidget extends StatelessWidget {
               height: 0.0,
             )
           : state['selectedDeal'] != null
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    IconButton(
-                      iconSize: 30.0,
-                      icon: Icon(Icons.delete_forever),
-                      color: Colors.red,
-                      onPressed: () {
-                        store
-                            .dispatch(DeleteDealPending(state['selectedDeal']));
-                        //TODO: should to be in epic
-                        store.dispatch(UnselectDeal());
-                      },
-                    ),
-                    IconButton(
-                      iconSize: 30.0,
-                      icon: Icon(Icons.edit),
-                      color: Colors.blue,
-                      onPressed: () {
-                        showModalBottomSheet<void>(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return CreateDealScreen();
-                            });
-                      },
-                    )
-                  ],
-                )
+              ? Container(
+                  decoration:
+                      BoxDecoration(border: Border.all(color: Colors.grey)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      IconButton(
+                        iconSize: 30.0,
+                        icon: Icon(Icons.delete_forever),
+                        color: Colors.red,
+                        onPressed: () {
+                          store.dispatch(
+                              DeleteDealPending(state['selectedDeal']));
+                          //TODO: should to be in epic
+                          store.dispatch(UnselectDeal());
+                        },
+                      ),
+                      IconButton(
+                        iconSize: 30.0,
+                        icon: Icon(Icons.edit),
+                        color: Colors.blue,
+                        onPressed: () {
+                          showModalBottomSheet<void>(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return CreateDealScreen();
+                              });
+                        },
+                      )
+                    ],
+                  ))
               : Container(
                   decoration:
                       BoxDecoration(border: Border.all(color: Colors.grey)),
