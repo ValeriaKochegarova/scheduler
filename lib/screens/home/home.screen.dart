@@ -44,10 +44,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
-              title: Text('ДЕЛА ОК'),
               actions: <Widget>[
                 IconButton(
                   icon: Icon(Icons.calendar_today),
+                  color: Color(0xcc000000),
                   onPressed: () {
                     _selectDate(context);
                   })
