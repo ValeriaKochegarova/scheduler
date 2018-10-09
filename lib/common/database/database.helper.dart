@@ -35,6 +35,12 @@ class DatabaseHelper {
         "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, done TINYINT, date DATETIME, priority INTEGER)");
     return exec;
   }
+   Future<int> createTableDeals() async {
+   var dbClient = await db;
+     int result = await dbClient.execute(
+        "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, done TINYINT, date DATETIME, priority INTEGER)");
+    return result;
+ }
 
   Future getDealsByDate(date) async {
     var dbClient = await db;

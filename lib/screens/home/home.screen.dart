@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:scheduler_app/screens/home/bottom_navigation_bar/bottom_navigation_bar.widget.dart';
 
 import 'package:scheduler_app/screens/home/date_picker/date_picker.widger.dart';
 import 'package:scheduler_app/screens/home/deals/deals.widget.dart';
 import 'package:scheduler_app/screens/home/progress/progress.widget.dart';
+import 'package:scheduler_app/store/actions/calendar.action.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/store.dart';
 
@@ -13,6 +16,28 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  DateTime _date = new DateTime.now();
+
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: _date,
+        firstDate: new DateTime(2016),
+        lastDate: new DateTime(2019));
+
+    if (picked != null && picked != _date) {
+      setState(() {
+        _date = picked;
+      });
+      print('Date selected: ${_date.toString()}');
+      
+      store.dispatch(SelectDate(_date));
+      store.dispatch(GetDealsByDatePending());
+      print(store.state.date);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double viewView = MediaQuery.of(context).size.width;
@@ -21,7 +46,11 @@ class _HomeScreenState extends State<HomeScreen> {
             appBar: AppBar(
               title: Text('ДЕЛА ОК'),
               actions: <Widget>[
-                DatePickerWidget(),
+                IconButton(
+                  icon: Icon(Icons.calendar_today),
+                  onPressed: () {
+                    _selectDate(context);
+                  })
               ],
             ),
             body: GestureDetector(
