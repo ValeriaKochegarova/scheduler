@@ -26,8 +26,8 @@ class DonutPieChart extends StatelessWidget {
       return state['chartData']['allCount'] == 0
           ? Center(
               child: isYesterday(state['selectedDate'])
-                  ? Text('У вас не было дел')
-                  : Text('У вас еще нет дел'))
+                  ? Text('У вас не было дел', style: TextStyle(fontSize: 18.0),)
+                  : Text('У вас еще нет дел', style: TextStyle(fontSize: 18.0),))
           : CustomPaint(
               foregroundPainter: RoundChartPainter(
                   completePercent: percentage, radius: viewView / 4),

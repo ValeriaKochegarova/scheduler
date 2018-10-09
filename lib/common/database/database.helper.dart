@@ -42,7 +42,6 @@ class DatabaseHelper {
 
   // Future<int> createTableDeals() async {
   //   var dbClient = await db;
-
   //   int result = await dbClient.execute(
   //       "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, done TINYINT, date DATETIME, priority INTEGER)");
   //   return result;
@@ -63,7 +62,8 @@ class DatabaseHelper {
   Future<int> createDeal(dealItem) async {
     var dbClient = await db;
     dealItem['date'] = dealItem['date'].toString();
-    int id = await dbClient.insert('DealsTable', dealItem);
+    print(dealItem is Map);
+    int id = await dbClient.insert('DealsTable', Map<String, dynamic>.from(dealItem));
     return id;
   }
 
