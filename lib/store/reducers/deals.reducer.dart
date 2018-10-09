@@ -1,3 +1,4 @@
+import 'package:scheduler_app/common/utils/date.pipe.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 
 List initialState = [];
@@ -13,7 +14,11 @@ dynamic dealsReducer(List state, action) {
     }).toList();
   }
   if (action is CreateDealSuccess) {
-    state.insert(0, action.deal);
+    if (isTomorrow(action.deal['date'])) {
+      return null;
+    } else {
+      state.insert(0, action.deal);
+    }
   }
 
   if (action is GetDealsByDateSuccess) {
