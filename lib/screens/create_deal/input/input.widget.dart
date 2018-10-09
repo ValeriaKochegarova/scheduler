@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 
 class NewDealInput extends StatelessWidget {
-  NewDealInput(
-      {@required this.controller,
-      @required this.labelText,
-      @required this.maxLines});
+  final Function changeCb;
+  final String labelText;
+  final int maxLines;
 
-  final controller;
-  final labelText;
-  final maxLines;
+  NewDealInput(
+    this.labelText,
+    this.maxLines,
+    this.changeCb,
+  );
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
+    return TextField(
       maxLines: maxLines,
+      onChanged: changeCb,
       decoration: InputDecoration(
         labelText: labelText,
         fillColor: Colors.white,

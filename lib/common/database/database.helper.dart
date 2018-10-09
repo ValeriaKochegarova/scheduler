@@ -24,14 +24,10 @@ class DatabaseHelper {
   initDb() async {
     io.Directory documentDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentDirectory.path, "deals.db");
-    print(path);
-    var dealsDb = await openDatabase(path, version: 1, onCreate: _onCreate);
-    if (dealsDb == null) {
-      var dbClient = await db;
-      await _onCreate(dbClient, 1);
-      dealsDb = await openDatabase(path, version: 1, onCreate: _onCreate);
-    }
-    return dealsDb;
+    Database database = await openDatabase(path, version: 1,
+        onCreate: _onCreate);
+
+    return database;
   }
 
   Future _onCreate(Database db, int version) async {
@@ -39,13 +35,6 @@ class DatabaseHelper {
         "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, done TINYINT, date DATETIME, priority INTEGER)");
     return exec;
   }
-
-  // Future<int> createTableDeals() async {
-  //   var dbClient = await db;
-  //   int result = await dbClient.execute(
-  //       "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, done TINYINT, date DATETIME, priority INTEGER)");
-  //   return result;
-  // }
 
   Future getDealsByDate(date) async {
     var dbClient = await db;
@@ -62,8 +51,8 @@ class DatabaseHelper {
   Future<int> createDeal(dealItem) async {
     var dbClient = await db;
     dealItem['date'] = dealItem['date'].toString();
-    print(dealItem is Map);
-    int id = await dbClient.insert('DealsTable', Map<String, dynamic>.from(dealItem));
+    int id = await dbClient.insert(
+        'DealsTable', Map<String, dynamic>.from(dealItem));
     return id;
   }
 
@@ -74,12 +63,5 @@ class DatabaseHelper {
     var updatedDeal = await dbClient
         .rawUpdate("UPDATE DealsTable set done = '$done' WHERE id = $id");
     return updatedDeal;
-  }
-
-  //delete deals
-  Future<int> removeDeals() async {
-    var dbClient = await db;
-    var result = await dbClient.rawDelete('DROP TABLE DealsTable');
-    return result;
   }
 }

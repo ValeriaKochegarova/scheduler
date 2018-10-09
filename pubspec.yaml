@@ -23,7 +23,7 @@ dependencies:
   flutter_redux: ^0.5.2
   reselect: ^0.4.0
   intl: ^0.15.7
-  sqflite: any
+  sqflite: ^0.12.1
   flutter_calendar: ^0.0.5
   redux_epics: "0.10.2"
   rxdart: ^0.18.1
