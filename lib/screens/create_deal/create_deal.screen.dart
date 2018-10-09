@@ -44,6 +44,10 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
               maxLines: 1,
             ),
           ),
+          Text(
+            'Выберите приоритет:',
+            style: TextStyle(fontSize: 16.0),
+          ),
           ColoredPallete((num priority) {
             this.priority = priority;
           }),
