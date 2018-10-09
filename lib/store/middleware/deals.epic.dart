@@ -46,7 +46,7 @@ Stream<dynamic> deleteDealEpic(
   return actions
       .where((action) => action is DeleteDealPending)
       .asyncMap((action) => db.deleteDeal(action.deal).then((id) {
-            return [DeleteDealSuccess(action.deal), UnselectDeal()];
+            return DeleteDealSuccess(action.deal);
           }).catchError((error) {
             return DeleteDealError(error);
           }));

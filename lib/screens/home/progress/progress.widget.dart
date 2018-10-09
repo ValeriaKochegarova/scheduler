@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:intl/intl.dart';
 import 'package:scheduler_app/common/utils/date.pipe.dart';
 import 'package:scheduler_app/config/keys.dart';
 import 'package:scheduler_app/screens/home/progress/painter/painter.widget.dart';

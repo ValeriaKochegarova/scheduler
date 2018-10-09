@@ -18,33 +18,35 @@ class _HomeScreenState extends State<HomeScreen> {
     double viewView = MediaQuery.of(context).size.width;
     return SafeArea(
         child: Scaffold(
-            body: Container(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                      vertical: 10.0,
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        DatePickerWidget(),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                      child: ListView(
-                    children: <Widget>[
-                      Container(
-                        child: DonutPieChart(),
-                        height: viewView / 1.5,
+            body: GestureDetector(
+              onTap: () {store.dispatch(UnselectDeal());},
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                        vertical: 10.0,
                       ),
-                      DealsWidget()
-                    ],
-                  )),
-                ],
+                      child: Column(
+                        children: <Widget>[
+                          DatePickerWidget(),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                        child: ListView(
+                      children: <Widget>[
+                        Container(
+                          child: DonutPieChart(),
+                          height: viewView / 1.5,
+                        ),
+                        DealsWidget()
+                      ],
+                    )),
+                  ],
+                ),
               ),
             ),
-            bottomNavigationBar: BottomNavigationWidget()
-            ));
+            bottomNavigationBar: BottomNavigationWidget()));
   }
 }

@@ -26,16 +26,26 @@ class BottomNavigationWidget extends StatelessWidget {
                   children: <Widget>[
                     IconButton(
                       iconSize: 30.0,
-                      icon: Icon(Icons.delete),
+                      icon: Icon(Icons.delete_forever),
+                      color: Colors.red,
                       onPressed: () {
                         store
                             .dispatch(DeleteDealPending(state['selectedDeal']));
+                        //TODO: should to be in epic
+                        store.dispatch(UnselectDeal());
                       },
                     ),
                     IconButton(
                       iconSize: 30.0,
                       icon: Icon(Icons.edit),
-                      onPressed: () {},
+                      color: Colors.blue,
+                      onPressed: () {
+                        showModalBottomSheet<void>(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return CreateDealScreen();
+                            });
+                      },
                     )
                   ],
                 )

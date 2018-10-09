@@ -52,7 +52,6 @@ class SelectDeal {
 }
 
 class UnselectDeal {
-  UnselectDeal();
 }
 
 // delete deal
