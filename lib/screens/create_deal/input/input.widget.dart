@@ -21,6 +21,7 @@ class NewDealInput extends StatelessWidget {
         fillColor: Colors.white,
         filled: true,
         labelStyle: TextStyle(fontStyle: FontStyle.italic),
+        border: InputBorder.none
         // border: OutlineInputBorder(
         //     borderRadius: BorderRadius.all(Radius.circular(0.0)),
         //     borderSide: BorderSide(color: Colors.grey)),

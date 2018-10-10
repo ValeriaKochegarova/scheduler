@@ -15,7 +15,7 @@ class Deal extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border(
               right: BorderSide(
-                  color: PriorityColor[deal['priority']], width: 2.0)),
+                  color: PriorityColor[deal['priority']], width: 4.0)),
           color: Colors.white,
           boxShadow: <BoxShadow>[
             BoxShadow(

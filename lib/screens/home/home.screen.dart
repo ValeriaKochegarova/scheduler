@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: <Widget>[
                     Container(
                       // margin: EdgeInsets.only(top: 10.0),
-                      child: Text(formattedDate , style: TextStyle(fontSize: 20.0),),
+                      child: Text(formattedDate, style: TextStyle(fontSize: 20.0)),
                     ),
                     Expanded(
                         child: ListView(
