@@ -34,7 +34,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: _date,
-        firstDate: new DateTime(2016),
+        firstDate: new DateTime(2018),
         lastDate: new DateTime(2019));
 
     if (picked != null && picked != _date) {
