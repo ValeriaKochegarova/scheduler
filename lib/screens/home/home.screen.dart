@@ -10,8 +10,6 @@ import 'package:scheduler_app/store/actions/calendar.action.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/store.dart';
 
-import 'package:flutter_calendar/flutter_calendar.dart';
-
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -51,6 +49,14 @@ class _HomeScreenState extends State<HomeScreen> {
               centerTitle: true,
               title: Text(formattedDate),
               actions: <Widget>[
+                RaisedButton(onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (_) => new AlertDialog(
+                            title: new Text("Dialog Title"),
+                            content: new Text("This is my conent"),
+                          ));
+                }, child: Text('About'),),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -71,24 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Container(
                 child: Column(
                   children: <Widget>[
-                    // new Calendar(
-                    //   onDateSelected: (date) {
-                    //     store.dispatch(SelectDate(date));
-                    //   },
-                    // ),
                     new Divider(
                       height: 50.0,
                     ),
-                    // Container(
-                    //   margin: EdgeInsets.symmetric(
-                    //     vertical: 10.0,
-                    //   ),
-                    //   child: Column(
-                    //     children: <Widget>[
-                    //       DatePickerWidget(),
-                    //     ],
-                    //   ),
-                    // ),
                     Expanded(
                         child: ListView(
                       children: <Widget>[
