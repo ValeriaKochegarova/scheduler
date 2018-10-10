@@ -82,10 +82,10 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
     var localization = MaterialLocalizations.of(context);
-    DateTime currentDate = DateTime.now();
-    currentDate = _date;
+    DateTime currentDate = _date;
     int monthStartDay = _computeFirstDayOffset(
         currentDate.year, currentDate.month, localization);
+    String monthWithYear = localization.formatMonthYear(currentDate);
     final int daysInMonth = getDaysInMonth(currentDate.year, currentDate.month);
     final int currentDayOfWeek = (currentDate.day + monthStartDay - 1) % 7;
     final int daysAfterCurrentDate = 7 - 1 - currentDayOfWeek;
@@ -202,6 +202,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                       });
                       updateDate(_date);
                     }),
+                Text(monthWithYear),
                 IconButton(
                     icon: Icon(Icons.calendar_today),
                     onPressed: () {
