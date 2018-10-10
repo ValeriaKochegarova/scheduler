@@ -18,7 +18,6 @@ class HomeScreen extends StatelessWidget {
                 store.dispatch(UnselectDeal());
               },
               child: Container(
-                padding: EdgeInsets.only(top: 20.0),
                 child: Column(
                   children: <Widget>[
                     DatePickerWidget(),

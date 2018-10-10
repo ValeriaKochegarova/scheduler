@@ -30,7 +30,7 @@ class BottomNavigationWidget extends StatelessWidget {
                       IconButton(
                         iconSize: 30.0,
                         icon: Icon(Icons.delete_forever),
-                        color: Colors.red,
+                        color: Colors.grey[800],
                         onPressed: () {
                           store.dispatch(
                               DeleteDealPending(state['selectedDeal']));
@@ -42,7 +42,7 @@ class BottomNavigationWidget extends StatelessWidget {
                       IconButton(
                         iconSize: 30.0,
                         icon: Icon(Icons.edit),
-                        color: Colors.blue,
+                        color: Colors.grey[800],
                         onPressed: () {
                           showModalBottomSheet<void>(
                               context: context,

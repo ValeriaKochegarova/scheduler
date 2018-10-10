@@ -83,10 +83,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
     final ThemeData themeData = Theme.of(context);
     var localization = MaterialLocalizations.of(context);
     DateTime currentDate = DateTime.now();
-    currentDate = _date; //DateTime(currentDate.year, currentDate.month, 10);
-
-    print('_date $_date');
-
+    currentDate = _date;
     int monthStartDay = _computeFirstDayOffset(
         currentDate.year, currentDate.month, localization);
     final int daysInMonth = getDaysInMonth(currentDate.year, currentDate.month);
@@ -103,12 +100,16 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
     }
     List baseWeek = [];
     for (int i = firstDay < 1 ? 1 : firstDay; i <= lastDay; i++) {
-      baseWeek.add(i);
+      baseWeek.add(
+          {'day': i, 'date': DateTime(currentDate.year, currentDate.month, i)});
     }
 
     if (newMonthOffset > 0) {
       for (int i = 1; i <= newMonthOffset; i++) {
-        baseWeek.add(i);
+        baseWeek.add({
+          'day': i,
+          'date': DateTime(currentDate.year, currentDate.month + 1, i)
+        });
       }
     }
     if (firstDay < 1) {
@@ -117,51 +118,53 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
       for (int i = prevMonthLength + firstDay, j = 0;
           i <= prevMonthLength;
           i++, j++) {
-        baseWeek.insert(j, i);
+        baseWeek.insert(j, {
+          'day': i,
+          'date': DateTime(currentDate.year, currentDate.month - 1, i)
+        });
       }
     }
-    List<Widget> baseWeekWidgets = baseWeek.map((day) {
-      if (currentDate.day == day) {
-        return Center(
-            child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  border: new Border.all(
-                    width: 5.0,
-                    color: Colors.grey,
+    List<Widget> baseWeekWidgets(updateDate) => baseWeek.map((date) {
+          if (currentDate.day == date['day']) {
+            return Center(
+                child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      border: new Border.all(
+                        width: 5.0,
+                        color: Colors.grey,
+                      ),
+                      color: Colors.grey,
+                    ),
+                    height: 40.0,
+                    width: 40.0,
+                    child: Center(child: Text(date['day'].toString()))));
+          }
+          return Center(
+              child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    border: new Border.all(
+                      width: 5.0,
+                      color: Colors.transparent,
+                    ),
                   ),
-                  color: Colors.grey,
-                ),
-                height: 40.0,
-                width: 40.0,
-                child: InkWell(
-                    onTap: () {
-                      print(111);
-                    },
-                    child: Center(child: Text(day.toString())))));
-      }
-      return Center(child: Container(
-                     decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  border: new Border.all(
-                    width: 5.0,
-                    color: Colors.transparent,
-                  ),
-
-                ),
-                height: 40.0,
-                width: 40.0,
-                child:InkWell(
-                    onTap: () {
-                      print(111);
-                    },
-                    child:  Center(child:Text(day.toString())))));
-    }).toList();
-    List<Widget> headerDaysWidget =
-        _getDayHeaders(themeData.textTheme.caption, localization)
-            .map((x) => Center(child: Text(x)))
-            .toList();
-    headerDaysWidget.addAll(baseWeekWidgets);
+                  height: 40.0,
+                  width: 40.0,
+                  child: InkWell(
+                      onTap: () {
+                        updateDate(date['date']);
+                      },
+                      child: Center(child: Text(date['day'].toString())))));
+        }).toList();
+    List<Widget> headerDaysWidget(updateDate) {
+      List<Widget> headerDays =
+          _getDayHeaders(themeData.textTheme.caption, localization)
+              .map((x) => Center(child: Text(x)))
+              .toList();
+      headerDays.addAll(baseWeekWidgets(updateDate));
+      return headerDays;
+    }
 
     return StoreConnector<AppState, Function>(converter: (store) {
       return (date) {
@@ -169,21 +172,53 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         store.dispatch(GetDealsByDatePending());
       };
     }, builder: (context, updateDate) {
-      return Expanded(
+      return Container(
+          // padding: EdgeInsets.all(10.0),
+          margin: EdgeInsets.all(5.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: const Color(0xcc000000),
+                offset: Offset(0.0, 2.0),
+                blurRadius: 4.0,
+              ),
+              BoxShadow(
+                color: const Color(0x80000000),
+                offset: Offset(0.0, 1.0),
+                blurRadius: 1.0,
+              ),
+            ],
+          ),
           child: Column(children: <Widget>[
-        Row(
-          children: <Widget>[
-            IconButton(
-                icon: Icon(Icons.calendar_today),
-                onPressed: () {
-                  _selectDate(context, updateDate);
-                })
-          ],
-        ),
-        Expanded(
-            child:
-                GridView.count(crossAxisCount: 7, children: headerDaysWidget))
-      ]));
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                IconButton(
+                    icon: Icon(Icons.today),
+                    onPressed: () {
+                      setState(() {
+                        _date = DateTime.now();
+                      });
+                      updateDate(_date);
+                    }),
+                IconButton(
+                    icon: Icon(Icons.calendar_today),
+                    onPressed: () {
+                      _selectDate(context, updateDate);
+                    })
+              ],
+            ),
+            GridView.count(
+                shrinkWrap: true,
+                crossAxisCount: 7,
+                children: headerDaysWidget((date) {
+                  setState(() {
+                    _date = date;
+                  });
+                  updateDate(date);
+                }))
+          ]));
     });
   }
 }
