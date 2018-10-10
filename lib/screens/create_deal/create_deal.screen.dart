@@ -55,8 +55,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
         'selectedDeal': store.state.selectedDeal,
         'createDeal': (deal) =>
             store.dispatch(CreateDealPending(Map.from(deal))),
-        'unselectDeal': (deal) => store.dispatch(UnselectDeal()),
-        'getDeals': () => store.dispatch(GetDealsByDatePending())
+        'unselectDeal': (deal) => store.dispatch(UnselectDeal())
       };
     }, builder: (context, state) {
       if (state['selectedDeal'] != null) {
@@ -109,7 +108,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                       'priority': priority
                     };
                     state['createDeal'](deal);
-                    state['getDeals'];
+                    store.dispatch(GetDealsByDatePending());
                   },
             padding: const EdgeInsets.all(8.0),
           ),
