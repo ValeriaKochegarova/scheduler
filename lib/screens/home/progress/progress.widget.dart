@@ -26,33 +26,50 @@ class DonutPieChart extends StatelessWidget {
       return state['chartData']['allCount'] == 0
           ? Center(
               child: isYesterday(state['selectedDate'])
-                  ? Text('У вас не было дел', style: TextStyle(fontSize: 18.0),)
-                  : Text('У вас еще нет дел', style: TextStyle(fontSize: 18.0),))
-          : CustomPaint(
+                  ? Text(
+                      'У вас не было дел',
+                      style: TextStyle(fontSize: 18.0),
+                    )
+                  : Text(
+                      'У вас еще нет дел',
+                      style: TextStyle(fontSize: 18.0),
+                    ))
+          :  Container(
+          // padding: EdgeInsets.all(10.0),
+          margin: EdgeInsets.all(5.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: const Color(0xcc000000),
+                offset: Offset(0.0, 2.0),
+                blurRadius: 4.0,
+              ),
+              BoxShadow(
+                color: const Color(0x80000000),
+                offset: Offset(0.0, 1.0),
+                blurRadius: 1.0,
+              ),
+            ],
+          ),
+          child:CustomPaint(
               foregroundPainter: RoundChartPainter(
                   completePercent: percentage, radius: viewView / 4),
               child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Center(
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                        // Text(
-                        //   formattedDate,
-                        //   style: TextStyle(fontSize: 30.0),
-                        // ),
-                        Text(
-                          '${percentage.round()}%',
-                          style: TextStyle(
-                              color: percentage < 40
-                                  ? PriorityColor[0]
-                                  : percentage >= 40 && percentage < 70
-                                      ? PriorityColor[1]
-                                      : PriorityColor[2],
-                              fontSize: 40.0),
-                        ),
-                      ]))),
-            );
+                    child: Text(
+                      '${percentage.round()}%',
+                      style: TextStyle(
+                          color: percentage < 40
+                              ? PriorityColor[0]
+                              : percentage >= 40 && percentage < 70
+                                  ? PriorityColor[1]
+                                  : PriorityColor[2],
+                          fontSize: 40.0),
+                    ),
+                  )),
+            ));
     });
   }
 
