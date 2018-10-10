@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calendar/flutter_calendar.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:scheduler_app/store/actions/calendar.action.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
@@ -40,7 +39,8 @@ class DatePickerWidget extends StatelessWidget {
                       initialDate: new DateTime.now(),
                       firstDate: new DateTime(1900),
                       lastDate: new DateTime(2019),
-                      locale: const Locale('ru', 'RU'))
+                      // locale: const Locale('ru', 'RU')
+                      )
                   .then((date) {});
             },
           ));

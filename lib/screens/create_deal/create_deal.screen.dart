@@ -16,6 +16,7 @@ class CreateDealScreen extends StatefulWidget {
 
 class _CreateDealScreenState extends State<CreateDealScreen> {
   final dateFormat = DateFormat("MM/d/yyyy 'at' h:mma");
+  final now = DateTime.now();
 
   final dealDateController = TextEditingController();
 
@@ -34,7 +35,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: _date,
-        firstDate: new DateTime(2016),
+        firstDate: new DateTime(now.year, now.month, now.day),
         lastDate: new DateTime(2019));
 
     if (picked != null && picked != _date) {
