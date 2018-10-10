@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class NavKeys {
-  static final navKey = new GlobalKey<NavigatorState>();
+  static final navKey =  GlobalKey<NavigatorState>();
 }
 
 const Map<int, Color> PriorityColor = {

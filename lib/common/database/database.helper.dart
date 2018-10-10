@@ -24,8 +24,8 @@ class DatabaseHelper {
   initDb() async {
     io.Directory documentDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentDirectory.path, "deals.db");
-    Database database = await openDatabase(path, version: 1,
-        onCreate: _onCreate);
+    Database database =
+        await openDatabase(path, version: 1, onCreate: _onCreate);
 
     return database;
   }
@@ -35,19 +35,18 @@ class DatabaseHelper {
         "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, done TINYINT, date DATETIME, priority INTEGER)");
     return exec;
   }
-   Future<int> createTableDeals() async {
-   var dbClient = await db;
-     int result = await dbClient.execute(
+
+  Future<int> createTableDeals() async {
+    var dbClient = await db;
+    int result = await dbClient.execute(
         "CREATE TABLE DealsTable(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, done TINYINT, date DATETIME, priority INTEGER)");
     return result;
- }
+  }
 
   Future getDealsByDate(date) async {
     var dbClient = await db;
-    DateTime dayStart =
-        new DateTime(date.year, date.month, date.day, 0, 0, 0, 0);
-    DateTime dayEnd =
-        new DateTime(date.year, date.month, date.day, 23, 59, 59, 0);
+    DateTime dayStart = DateTime(date.year, date.month, date.day, 0, 0, 0, 0);
+    DateTime dayEnd = DateTime(date.year, date.month, date.day, 23, 59, 59, 0);
 
     var result = await dbClient.rawQuery(
         "SELECT * FROM DealsTable WHERE date BETWEEN '${dayStart.toString()}' AND '${dayEnd.toString()}'");

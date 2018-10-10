@@ -19,8 +19,8 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: _date,
-        firstDate: new DateTime(2016),
-        lastDate: new DateTime(2019));
+        firstDate: DateTime(2016),
+        lastDate: DateTime(2019));
 
     if (picked != null && picked != _date) {
       setState(() {
@@ -69,7 +69,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
   int _computeFirstDayOffset(
       int year, int month, MaterialLocalizations localizations) {
     // 0-based day of week, with 0 representing Monday.
-    final int weekdayFromMonday = new DateTime(year, month).weekday - 1;
+    final int weekdayFromMonday = DateTime(year, month).weekday - 1;
     // 0-based day of week, with 0 representing Sunday.
     final int firstDayOfWeekFromSunday = localizations.firstDayOfWeekIndex;
     // firstDayOfWeekFromSunday recomputed to be Monday-based
@@ -131,7 +131,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                 child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
-                      border: new Border.all(
+                      border:  Border.all(
                         width: 5.0,
                         color: Colors.grey,
                       ),
@@ -145,7 +145,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
               child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
-                    border: new Border.all(
+                    border:  Border.all(
                       width: 5.0,
                       color: Colors.transparent,
                     ),

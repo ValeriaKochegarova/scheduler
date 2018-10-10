@@ -11,8 +11,8 @@ class NewDealPageRoute extends PageRouteBuilder {
             Animation<double> animation,
             Animation<double> secondaryAnimation,
             Widget child) {
-          return new SlideTransition(
-            position: new Tween<Offset>(
+          return SlideTransition(
+            position: Tween<Offset>(
               begin: const Offset(-1.0, 0.0),
               end: Offset.zero,
             ).animate(animation),

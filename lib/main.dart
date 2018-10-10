@@ -21,13 +21,14 @@ void main() async {
 class SchedulerApp extends StatelessWidget {
   final Store<AppState> store;
   SchedulerApp({Key key, this.store}) : super(key: key) {
-    this.store.dispatch(GetDealsByDatePending());
+    store.dispatch(GetDealsByDatePending());
   }
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
         store: store,
         child: MaterialApp(
+            debugShowCheckedModeBanner: false,
             localizationsDelegates: [
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,

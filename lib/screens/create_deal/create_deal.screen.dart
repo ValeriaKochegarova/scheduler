@@ -36,8 +36,8 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: _date,
-        firstDate: new DateTime(now.year, now.month, now.day),
-        lastDate: new DateTime(2019));
+        firstDate: DateTime(now.year, now.month, now.day),
+        lastDate: DateTime(2019));
 
     if (picked != null && picked != _date) {
       print('Date selected: ${_date.toString()}');

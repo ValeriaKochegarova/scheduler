@@ -10,12 +10,12 @@ class RoundChartPainter extends CustomPainter {
       this.radius});
   @override
   void paint(Canvas canvas, Size size) {
-    Paint line = new Paint()
+    Paint line =  Paint()
       ..color = Colors.grey[200]
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
       ..strokeWidth = 8.0;
-    Paint complete = new Paint()
+    Paint complete =  Paint()
       ..color = this.completePercent < 40
           ? PriorityColor[0]
           : this.completePercent >= 40 && this.completePercent < 70
@@ -24,10 +24,10 @@ class RoundChartPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
       ..strokeWidth = 8.0;
-    Offset center = new Offset(size.width / 2, size.height / 2);
+    Offset center =  Offset(size.width / 2, size.height / 2);
     canvas.drawCircle(center, radius, line);
     double arcAngle = 2 * 3.14 * (completePercent / 100);
-    canvas.drawArc(new Rect.fromCircle(center: center, radius: radius),
+    canvas.drawArc( Rect.fromCircle(center: center, radius: radius),
         -3.14 / 2, arcAngle, false, complete);
   }
 
