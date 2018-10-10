@@ -59,7 +59,8 @@ class BottomNavigationWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       IconButton(
-                        iconSize: 30.0,
+                        iconSize: 40.0,
+                        color: Colors.grey[800],
                         icon: Icon(Icons.add_circle_outline),
                         onPressed: () {
                           showModalBottomSheet<void>(

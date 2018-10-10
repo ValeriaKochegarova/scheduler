@@ -20,12 +20,12 @@ class ColoredButtonWidget extends StatelessWidget {
                 padding: EdgeInsets.all(3.0),
                 decoration: BoxDecoration(
                   color: active ? Colors.black : Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
                 ),
                 child: Container(
                   decoration: BoxDecoration(
                     color: PriorityColor[this.priorityKey],
-                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    borderRadius: BorderRadius.all(Radius.circular(50.0)),
                   ),
                   width: 30.0,
                   height: 30.0,

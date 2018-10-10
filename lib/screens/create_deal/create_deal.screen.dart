@@ -61,7 +61,6 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
       if (state['selectedDeal'] != null) {
         priority = state['selectedDeal']['priority'];
       }
-
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -69,26 +68,29 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
               padding: EdgeInsets.all(5.0),
               child: Row(
                 children: <Widget>[
-                  NewDealInput(
-                    'Что нужно сделать ?',
-                    1,
-                    (String text) {
-                      setState(() {
-                        this.text = text;
-                      });
-                    },
+                  Flexible(
+                    child: NewDealInput(
+                      'Что нужно сделать ?',
+                      1,
+                      (String text) {
+                        setState(() {
+                          this.text = text;
+                        });
+                      },
+                    ),
                   ),
-                  // IconButton(
-                  //     icon: Icon(Icons.calendar_today),
-                  //     onPressed: () {
-                  //       _selectDate(context);
-                  //     }),
+                  Container(
+                    margin: EdgeInsets.only(left: 20.0, right: 10.0),
+                    child: IconButton(
+                        iconSize: 35.0,
+                        icon: Icon(Icons.calendar_today),
+                        color: Colors.grey[800],
+                        onPressed: () {
+                          _selectDate(context);
+                        }),
+                  )
                 ],
               )),
-          Text(
-            'Выберите приоритет:',
-            style: TextStyle(fontSize: 16.0),
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
@@ -97,24 +99,38 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
               }),
             ],
           ),
-          IconButton(
-            iconSize: 30.0,
-            disabledColor: Colors.grey[400],
-            icon: Icon(Icons.check_circle_outline),
-            onPressed: text == ''
-                ? null
-                : () {
-                    Map deal = {
-                      'text': text,
-                      'done': 0,
-                      'date': _date.toString(),
-                      'priority': priority
-                    };
-                    state['createDeal'](deal);
-                    store.dispatch(GetDealsByDatePending());
-                  },
-            padding: const EdgeInsets.all(8.0),
-          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              IconButton(
+                iconSize: 35.0,
+                disabledColor: Colors.grey[400],
+                icon: Icon(Icons.check_circle_outline),
+                color: Colors.green,
+                onPressed: text == ''
+                    ? null
+                    : () {
+                        Map deal = {
+                          'text': text,
+                          'done': 0,
+                          'date': _date.toString(),
+                          'priority': priority
+                        };
+                        state['createDeal'](deal);
+                        store.dispatch(GetDealsByDatePending());
+                      },
+                padding: const EdgeInsets.all(8.0),
+              ),
+              IconButton(
+                iconSize: 35.0,
+                icon: Icon(Icons.cancel),
+                color: Colors.red[700],
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          )
         ],
       );
     }));
