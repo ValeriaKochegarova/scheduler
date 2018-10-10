@@ -36,6 +36,7 @@ class BottomNavigationWidget extends StatelessWidget {
                               DeleteDealPending(state['selectedDeal']));
                           //TODO: should to be in epic
                           store.dispatch(UnselectDeal());
+                          store.dispatch(GetDealsByDatePending());
                         },
                       ),
                       IconButton(
