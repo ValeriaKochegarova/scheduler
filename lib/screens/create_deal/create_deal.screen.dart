@@ -55,63 +55,82 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
         'selectedDeal': store.state.selectedDeal,
         'createDeal': (deal) =>
             store.dispatch(CreateDealPending(Map.from(deal))),
-        'unselectDeal': (deal) => store.dispatch(UnselectDeal())
+        'unselectDeal': (deal) => store.dispatch(UnselectDeal()),
       };
     }, builder: (context, state) {
       if (state['selectedDeal'] != null) {
         priority = state['selectedDeal']['priority'];
       }
-
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.all(5.0),
-            child: NewDealInput(
-              'Что нужно сделать ?',
-              1,
-              (String text) {
-                setState(() {
-                  this.text = text;
-                });
-              },
-            ),
-          ),
-          Text(
-            'Выберите приоритет:',
-            style: TextStyle(fontSize: 16.0),
-          ),
+              padding: EdgeInsets.all(5.0),
+              child: Row(
+                children: <Widget>[
+                  Flexible(
+                    child: NewDealInput(
+                      'Что нужно сделать ?',
+                      1,
+                      (String text) {
+                        setState(() {
+                          this.text = text;
+                        });
+                      },
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 20.0, right: 10.0),
+                    child: IconButton(
+                        iconSize: 35.0,
+                        icon: Icon(Icons.calendar_today),
+                        color: Colors.grey[800],
+                        onPressed: () {
+                          _selectDate(context);
+                        }),
+                  )
+                ],
+              )),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               ColoredPallete(priority, (num priority) {
                 this.priority = priority;
               }),
-              IconButton(
-                  icon: Icon(Icons.calendar_today),
-                  onPressed: () {
-                    _selectDate(context);
-                  }),
             ],
           ),
-          IconButton(
-            iconSize: 30.0,
-            disabledColor: Colors.grey[400],
-            icon: Icon(Icons.check_circle_outline),
-            onPressed: text == ''
-                ? null
-                : () {
-                    Map deal = {
-                      'text': text,
-                      'done': 0,
-                      'date': _date.toString(),
-                      'priority': priority
-                    };
-                    state['createDeal'](deal);
-                    store.dispatch(GetDealsByDatePending());
-                  },
-            padding: const EdgeInsets.all(8.0),
-          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              IconButton(
+                iconSize: 35.0,
+                disabledColor: Colors.grey[400],
+                icon: Icon(Icons.check_circle_outline),
+                color: Colors.green,
+                onPressed: text == ''
+                    ? null
+                    : () {
+                        Map deal = {
+                          'text': text,
+                          'done': 0,
+                          'date': _date.toString(),
+                          'priority': priority
+                        };
+                        state['createDeal'](deal);
+                        store.dispatch(GetDealsByDatePending());
+                      },
+                padding: const EdgeInsets.all(8.0),
+              ),
+              IconButton(
+                iconSize: 35.0,
+                icon: Icon(Icons.cancel),
+                color: Colors.red[700],
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          )
         ],
       );
     }));

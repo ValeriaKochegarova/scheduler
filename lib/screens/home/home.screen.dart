@@ -10,7 +10,6 @@ import 'package:scheduler_app/store/actions/calendar.action.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/store.dart';
 
-
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -47,8 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
-              centerTitle: true,
-              title: Text(formattedDate),
               actions: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,26 +65,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 store.dispatch(UnselectDeal());
               },
               child: Container(
+                padding: EdgeInsets.only(top: 20.0),
                 child: Column(
                   children: <Widget>[
-                    // new Calendar(
-                    //   onDateSelected: (date) {
-                    //     store.dispatch(SelectDate(date));
-                    //   },
-                    // ),
-                    new Divider(
-                      height: 50.0,
+                    Container(
+                      // margin: EdgeInsets.only(top: 10.0),
+                      child: Text(formattedDate , style: TextStyle(fontSize: 20.0),),
                     ),
-                    // Container(
-                    //   margin: EdgeInsets.symmetric(
-                    //     vertical: 10.0,
-                    //   ),
-                    //   child: Column(
-                    //     children: <Widget>[
-                    //       DatePickerWidget(),
-                    //     ],
-                    //   ),
-                    // ),
                     Expanded(
                         child: ListView(
                       children: <Widget>[
