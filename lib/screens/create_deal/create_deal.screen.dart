@@ -76,21 +76,29 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
               },
             ),
           ),
-          Text(
-            'Выберите приоритет:',
-            style: TextStyle(fontSize: 16.0),
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              ColoredPallete(priority, (num priority) {
-                this.priority = priority;
-              }),
-              IconButton(
-                  icon: Icon(Icons.calendar_today),
-                  onPressed: () {
-                    _selectDate(context);
-                  }),
+              Column(children: [
+                Text(
+                  'Выберите приоритет:',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+                ColoredPallete(priority, (num priority) {
+                  this.priority = priority;
+                })
+              ]),
+              Column(children: [
+                Text(
+                  'Выберите дату:',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+                IconButton(
+                    icon: Icon(Icons.calendar_today),
+                    onPressed: () {
+                      _selectDate(context);
+                    })
+              ]),
             ],
           ),
           IconButton(
