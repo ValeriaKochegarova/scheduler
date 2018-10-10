@@ -8,6 +8,7 @@ import 'package:scheduler_app/screens/create_deal/colored_button/colored_pallet.
 import 'package:scheduler_app/screens/create_deal/input/input.widget.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
+import 'package:scheduler_app/store/store.dart';
 
 class CreateDealScreen extends StatefulWidget {
   @override
@@ -29,7 +30,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
     super.dispose();
   }
 
-  DateTime _date = new DateTime.now();
+  DateTime _date = store.state.date;
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
