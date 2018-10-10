@@ -8,6 +8,7 @@ import 'package:scheduler_app/screens/create_deal/colored_button/colored_pallet.
 import 'package:scheduler_app/screens/create_deal/input/input.widget.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
+import 'package:scheduler_app/store/store.dart';
 
 class CreateDealScreen extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class CreateDealScreen extends StatefulWidget {
 
 class _CreateDealScreenState extends State<CreateDealScreen> {
   final dateFormat = DateFormat("MM/d/yyyy 'at' h:mma");
+  final now = DateTime.now();
 
   final dealDateController = TextEditingController();
 
@@ -28,13 +30,13 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
     super.dispose();
   }
 
-  DateTime _date = new DateTime.now();
+  DateTime _date = store.state.date;
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: _date,
-        firstDate: new DateTime(2018),
+        firstDate: new DateTime(now.year, now.month, now.day),
         lastDate: new DateTime(2019));
 
     if (picked != null && picked != _date) {
@@ -54,7 +56,6 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
         'createDeal': (deal) =>
             store.dispatch(CreateDealPending(Map.from(deal))),
         'unselectDeal': (deal) => store.dispatch(UnselectDeal()),
-        'getDeals': () => store.dispatch(GetDealsByDatePending())
       };
     }, builder: (context, state) {
       if (state['selectedDeal'] != null) {
@@ -65,17 +66,25 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.all(5.0),
-            child: NewDealInput(
-              'Что нужно сделать ?',
-              1,
-              (String text) {
-                setState(() {
-                  this.text = text;
-                });
-              },
-            ),
-          ),
+              padding: EdgeInsets.all(5.0),
+              child: Row(
+                children: <Widget>[
+                  NewDealInput(
+                    'Что нужно сделать ?',
+                    1,
+                    (String text) {
+                      setState(() {
+                        this.text = text;
+                      });
+                    },
+                  ),
+                  // IconButton(
+                  //     icon: Icon(Icons.calendar_today),
+                  //     onPressed: () {
+                  //       _selectDate(context);
+                  //     }),
+                ],
+              )),
           Text(
             'Выберите приоритет:',
             style: TextStyle(fontSize: 16.0),
@@ -86,11 +95,6 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
               ColoredPallete(priority, (num priority) {
                 this.priority = priority;
               }),
-              IconButton(
-                  icon: Icon(Icons.calendar_today),
-                  onPressed: () {
-                    _selectDate(context);
-                  }),
             ],
           ),
           IconButton(
@@ -107,7 +111,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                       'priority': priority
                     };
                     state['createDeal'](deal);
-                    state['getDeals'];
+                    store.dispatch(GetDealsByDatePending());
                   },
             padding: const EdgeInsets.all(8.0),
           ),

@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  DateTime _date = new DateTime.now();
+  DateTime _date = store.state.date;
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -46,17 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
-              centerTitle: true,
-              title: Text(formattedDate),
+              // centerTitle: true,
+              // title: Text(formattedDate),
               actions: <Widget>[
-                RaisedButton(onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (_) => new AlertDialog(
-                            title: new Text("Dialog Title"),
-                            content: new Text("This is my conent"),
-                          ));
-                }, child: Text('About'),),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -75,10 +67,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 store.dispatch(UnselectDeal());
               },
               child: Container(
+                padding: EdgeInsets.only(top: 20.0),
                 child: Column(
                   children: <Widget>[
-                    new Divider(
-                      height: 50.0,
+                    Container(
+                      // margin: EdgeInsets.only(top: 10.0),
+                      child: Text(formattedDate, style: TextStyle(fontSize: 20.0),),
                     ),
                     Expanded(
                         child: ListView(
