@@ -44,18 +44,11 @@ class _HomeScreenState extends State<HomeScreen> {
             appBar: AppBar(
               actions: <Widget>[
                 IconButton(
-<<<<<<< HEAD
                   icon: Icon(Icons.calendar_today),
                   color: Color(0xcc000000),
                   onPressed: () {
                     _selectDate(context);
                   })
-=======
-                    icon: Icon(Icons.calendar_today),
-                    onPressed: () {
-                      _selectDate(context);
-                    })
->>>>>>> a7d994005535b93dd1182cedd55623e3c3a619c9
               ],
             ),
             body: GestureDetector(
