@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:scheduler_app/common/utils/date.pipe.dart';
+import 'package:scheduler_app/common/widgets/wrapper.widget.dart';
 import 'package:scheduler_app/config/keys.dart';
 import 'package:scheduler_app/screens/home/progress/painter/painter.widget.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
@@ -34,42 +35,26 @@ class DonutPieChart extends StatelessWidget {
                       'У вас еще нет дел',
                       style: TextStyle(fontSize: 18.0),
                     ))
-          :  Container(
-          // padding: EdgeInsets.all(10.0),
-          margin: EdgeInsets.all(5.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: const Color(0xcc000000),
-                offset: Offset(0.0, 2.0),
-                blurRadius: 4.0,
+          : WrapperWidget(
+              CustomPaint(
+                foregroundPainter: RoundChartPainter(
+                    completePercent: percentage, radius: viewView / 4),
+                child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Text(
+                        '${percentage.round()}%',
+                        style: TextStyle(
+                            color: percentage < 40
+                                ? PriorityColor[0]
+                                : percentage >= 40 && percentage < 70
+                                    ? PriorityColor[1]
+                                    : PriorityColor[2],
+                            fontSize: 40.0),
+                      ),
+                    )),
               ),
-              BoxShadow(
-                color: const Color(0x80000000),
-                offset: Offset(0.0, 1.0),
-                blurRadius: 1.0,
-              ),
-            ],
-          ),
-          child:CustomPaint(
-              foregroundPainter: RoundChartPainter(
-                  completePercent: percentage, radius: viewView / 4),
-              child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                    child: Text(
-                      '${percentage.round()}%',
-                      style: TextStyle(
-                          color: percentage < 40
-                              ? PriorityColor[0]
-                              : percentage >= 40 && percentage < 70
-                                  ? PriorityColor[1]
-                                  : PriorityColor[2],
-                          fontSize: 40.0),
-                    ),
-                  )),
-            ));
+              height: viewView / 1.5);
     });
   }
 

@@ -19,18 +19,15 @@ class DealsWidget extends StatelessWidget {
         }
       };
     }, builder: (context, state) {
-      return GestureDetector(
-          child: Column(
+      return Column(
         children: state['deals'].map<Widget>((deal) {
           return GestureDetector(
-              onTap: () {
-                store.dispatch(SelectDeal(deal));
-              },
+              onTap: () => store.dispatch(SelectDeal(deal)),
               child: Container(
                   child:
                       Deal(deal, state['doneCb'], isYesterday(state['date']))));
         }).toList(),
-      ));
+      );
     });
   }
 }

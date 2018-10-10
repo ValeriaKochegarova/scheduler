@@ -10,7 +10,7 @@ import 'package:scheduler_app/store/store.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double viewView = MediaQuery.of(context).size.width;
+
     return SafeArea(
         child: Scaffold(
             body: GestureDetector(
@@ -22,14 +22,8 @@ class HomeScreen extends StatelessWidget {
                   children: <Widget>[
                     DatePickerWidget(),
                     Expanded(
-                        child: ListView(
-                      children: <Widget>[
-                        Container(
-                          child: DonutPieChart(),
-                          height: viewView / 1.5,
-                        ),
-                        DealsWidget()
-                      ],
+                      child: ListView(
+                      children: <Widget>[DonutPieChart(), DealsWidget()],
                     )),
                   ],
                 ),

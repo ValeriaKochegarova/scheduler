@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:scheduler_app/common/widgets/wrapper.widget.dart';
 import 'package:scheduler_app/store/actions/calendar.action.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
@@ -172,54 +173,36 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         store.dispatch(GetDealsByDatePending());
       };
     }, builder: (context, updateDate) {
-      return Container(
-          // padding: EdgeInsets.all(10.0),
-          margin: EdgeInsets.all(5.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: const Color(0xcc000000),
-                offset: Offset(0.0, 2.0),
-                blurRadius: 4.0,
-              ),
-              BoxShadow(
-                color: const Color(0x80000000),
-                offset: Offset(0.0, 1.0),
-                blurRadius: 1.0,
-              ),
-            ],
-          ),
-          child: Column(children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                IconButton(
-                    icon: Icon(Icons.today),
-                    onPressed: () {
-                      setState(() {
-                        _date = DateTime.now();
-                      });
-                      updateDate(_date);
-                    }),
-                Text(monthWithYear),
-                IconButton(
-                    icon: Icon(Icons.calendar_today),
-                    onPressed: () {
-                      _selectDate(context, updateDate);
-                    })
-              ],
-            ),
-            GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: 7,
-                children: headerDaysWidget((date) {
+      return WrapperWidget(Column(children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            IconButton(
+                icon: Icon(Icons.today),
+                onPressed: () {
                   setState(() {
-                    _date = date;
+                    _date = DateTime.now();
                   });
-                  updateDate(date);
-                }))
-          ]));
+                  updateDate(_date);
+                }),
+            Text(monthWithYear),
+            IconButton(
+                icon: Icon(Icons.calendar_today),
+                onPressed: () {
+                  _selectDate(context, updateDate);
+                })
+          ],
+        ),
+        GridView.count(
+            shrinkWrap: true,
+            crossAxisCount: 7,
+            children: headerDaysWidget((date) {
+              setState(() {
+                _date = date;
+              });
+              updateDate(date);
+            }))
+      ]));
     });
   }
 }
