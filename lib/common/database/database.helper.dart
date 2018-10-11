@@ -69,6 +69,14 @@ class DatabaseHelper {
         .rawUpdate("UPDATE DealsTable set done = '$done' WHERE id = $id");
     return updatedDeal;
   }
+  Future updateDeal(deal) async {
+    var dbClient = await db;
+    var id = deal['id'];
+    var text = deal['text'];
+    var updatedDeal = await dbClient
+        .rawUpdate("UPDATE DealsTable set text = '$text' WHERE id = $id");
+    return updatedDeal;
+  }
 
   Future deleteDeal(deal) async {
     var dbClient = await db;

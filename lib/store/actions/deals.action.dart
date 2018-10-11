@@ -13,6 +13,21 @@ class UpdateDealError {
   final Map payload;
   UpdateDealError(this.payload);
 }
+// update text deal
+class UpdateTextPending {
+  final Map payload;
+  UpdateTextPending(this.payload);
+}
+
+class UpdateTextSuccess {
+  final Map payload;
+  UpdateTextSuccess(this.payload);
+}
+
+class UpdateTextError {
+  final Map payload;
+  UpdateTextError(this.payload);
+}
 
 // create deal
 class CreateDealPending {

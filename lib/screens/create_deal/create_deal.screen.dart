@@ -56,6 +56,8 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
         'createDeal': (deal) =>
             store.dispatch(CreateDealPending(Map.from(deal))),
         'unselectDeal': (deal) => store.dispatch(UnselectDeal()),
+        'updateDeal': (deal) =>
+            store.dispatch(UpdateTextPending(Map.from(deal)))
       };
     }, builder: (context, state) {
       if (state['selectedDeal'] != null) {
@@ -75,7 +77,9 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                         children: <Widget>[
                           Flexible(
                             child: NewDealInput(
-                              'Что нужно сделать ?',
+                              text = state['selectedDeal'] == null
+                                  ? ''
+                                  : state['selectedDeal']['text'],
                               1,
                               (String text) {
                                 setState(() {
@@ -101,11 +105,9 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                         ],
                       )),
                   Container(
-                    padding: EdgeInsets.only(bottom: 15.0),
-                    child: Text(
-                      _date.toString().substring(0, 11),
-                    style: TextStyle(fontSize: 18.0))
-                    ),
+                      padding: EdgeInsets.only(bottom: 15.0),
+                      child: Text(_date.toString().substring(0, 11),
+                          style: TextStyle(fontSize: 18.0))),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
@@ -133,7 +135,10 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                               'date': _date.toString(),
                               'priority': priority
                             };
-                            state['createDeal'](deal);
+                            state['selectedDeal'] == null
+                                ? state['createDeal'](deal)
+                                : state['updateDeal'](deal);
+                            // state['createDeal'](deal);
                             store.dispatch(GetDealsByDatePending());
                           },
                     padding: const EdgeInsets.all(8.0),

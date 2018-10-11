@@ -40,6 +40,16 @@ Stream<dynamic> markDealDoneEpic(
             return UpdateDealError(error);
           }));
 }
+Stream<dynamic> updateDealEpic(
+    Stream<dynamic> actions, EpicStore<dynamic> store) {
+  return actions
+      .where((action) => action is UpdateTextPending)
+      .asyncMap((action) => db.updateDeal(action.payload).then((id) {
+            return UpdateTextSuccess(action.payload);
+          }).catchError((error) {
+            return UpdateTextError(error);
+          }));
+}
 
 Stream<dynamic> deleteDealEpic(
     Stream<dynamic> actions, EpicStore<dynamic> store) {
