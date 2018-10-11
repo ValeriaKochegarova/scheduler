@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:scheduler_app/common/utils/date.pipe.dart';
-import 'package:scheduler_app/screens/create_deal/create_deal.screen.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/store.dart';
@@ -44,11 +43,7 @@ class BottomNavigationWidget extends StatelessWidget {
                         icon: Icon(Icons.edit),
                         color: Colors.grey[800],
                         onPressed: () {
-                          showModalBottomSheet<void>(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return CreateDealScreen();
-                              });
+                          Navigator.pushNamed(context, '/create');
                         },
                       )
                     ],
@@ -64,11 +59,7 @@ class BottomNavigationWidget extends StatelessWidget {
                         color: Colors.grey[800],
                         icon: Icon(Icons.add_circle_outline),
                         onPressed: () {
-                          showModalBottomSheet<void>(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return CreateDealScreen();
-                              });
+                          Navigator.pushNamed(context, '/create');
                         },
                       )
                     ],

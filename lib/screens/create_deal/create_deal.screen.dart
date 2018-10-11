@@ -37,7 +37,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
         context: context,
         initialDate: _date,
         firstDate: DateTime(now.year, now.month, now.day),
-        lastDate: DateTime(2019));
+        lastDate: DateTime(2070));
 
     if (picked != null && picked != _date) {
       print('Date selected: ${_date.toString()}');
@@ -61,77 +61,96 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
       if (state['selectedDeal'] != null) {
         priority = state['selectedDeal']['priority'];
       }
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Container(
-              padding: EdgeInsets.all(5.0),
-              child: Row(
+      return Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.only(top: 50.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(
                 children: <Widget>[
-                  Flexible(
-                    child: NewDealInput(
-                      'Что нужно сделать ?',
-                      1,
-                      (String text) {
-                        setState(() {
-                          this.text = text;
-                        });
-                      },
-                    ),
-                  ),
                   Container(
-                    margin: EdgeInsets.only(left: 20.0, right: 10.0),
-                    child: IconButton(
-                        iconSize: 35.0,
-                        icon: Icon(Icons.calendar_today),
-                        color: Colors.grey[800],
-                        onPressed: () {
-                          _selectDate(context);
-                        }),
+                      padding: EdgeInsets.only(bottom: 25.0),
+                      child: Row(
+                        children: <Widget>[
+                          Flexible(
+                            child: NewDealInput(
+                              'Что нужно сделать ?',
+                              1,
+                              (String text) {
+                                setState(() {
+                                  this.text = text;
+                                });
+                              },
+                            ),
+                          ),
+                          Container(
+                            width: 60.0,
+                            height: 60.0,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                            ),
+                            child: IconButton(
+                                iconSize: 35.0,
+                                icon: Icon(Icons.calendar_today),
+                                color: Colors.grey[800],
+                                onPressed: () {
+                                  _selectDate(context);
+                                }),
+                          ),
+                        ],
+                      )),
+                  Container(
+                    padding: EdgeInsets.only(bottom: 15.0),
+                    child: Text(
+                      _date.toString().substring(0, 11),
+                    style: TextStyle(fontSize: 18.0))
+                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      ColoredPallete(priority, (num priority) {
+                        this.priority = priority;
+                      }),
+                    ],
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  IconButton(
+                    iconSize: 55.0,
+                    disabledColor: Colors.grey[400],
+                    icon: Icon(Icons.check_circle_outline),
+                    color: Colors.green[400],
+                    onPressed: text == ''
+                        ? null
+                        : () {
+                            Map deal = {
+                              'text': text,
+                              'done': 0,
+                              'date': _date.toString(),
+                              'priority': priority
+                            };
+                            state['createDeal'](deal);
+                            store.dispatch(GetDealsByDatePending());
+                          },
+                    padding: const EdgeInsets.all(8.0),
+                  ),
+                  IconButton(
+                    iconSize: 55.0,
+                    icon: Icon(Icons.cancel),
+                    color: Colors.red[400],
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   )
                 ],
-              )),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              ColoredPallete(priority, (num priority) {
-                this.priority = priority;
-              }),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              IconButton(
-                iconSize: 35.0,
-                disabledColor: Colors.grey[400],
-                icon: Icon(Icons.check_circle_outline),
-                color: Colors.green,
-                onPressed: text == ''
-                    ? null
-                    : () {
-                        Map deal = {
-                          'text': text,
-                          'done': 0,
-                          'date': _date.toString(),
-                          'priority': priority
-                        };
-                        state['createDeal'](deal);
-                        store.dispatch(GetDealsByDatePending());
-                      },
-                padding: const EdgeInsets.all(8.0),
-              ),
-              IconButton(
-                iconSize: 35.0,
-                icon: Icon(Icons.cancel),
-                color: Colors.red[700],
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
               )
             ],
-          )
-        ],
+          ),
+        ),
       );
     }));
   }

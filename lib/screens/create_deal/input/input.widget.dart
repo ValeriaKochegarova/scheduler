@@ -20,7 +20,8 @@ class NewDealInput extends StatelessWidget {
         labelText: labelText,
         fillColor: Colors.white,
         filled: true,
-        labelStyle: TextStyle(fontStyle: FontStyle.italic),
+        // contentPadding: EdgeInsets.only(right: 10.0),
+        labelStyle: TextStyle(fontStyle: FontStyle.italic, fontSize: 20.0),
         border: InputBorder.none
         // border: OutlineInputBorder(
         //     borderRadius: BorderRadius.all(Radius.circular(0.0)),

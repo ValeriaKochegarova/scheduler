@@ -15,8 +15,8 @@ class ColoredButtonWidget extends StatelessWidget {
         child: Padding(
             padding: EdgeInsets.all(10.0),
             child: Container(
-                width: 30.0,
-                height: 30.0,
+                width: 40.0,
+                height: 40.0,
                 padding: EdgeInsets.all(3.0),
                 decoration: BoxDecoration(
                   color: active ? Colors.black : Colors.white,

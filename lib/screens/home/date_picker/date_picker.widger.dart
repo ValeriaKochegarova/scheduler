@@ -20,7 +20,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         context: context,
         initialDate: _date,
         firstDate: DateTime(2016),
-        lastDate: DateTime(2019));
+        lastDate: DateTime(2070));
 
     if (picked != null && picked != _date) {
       setState(() {
