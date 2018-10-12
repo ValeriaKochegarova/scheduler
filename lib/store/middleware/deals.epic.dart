@@ -12,7 +12,7 @@ Stream<dynamic> createDealEpic(
       .where((action) => action is CreateDealPending)
       .asyncMap((action) => db.createDeal(action.deal).then((int id) {
             NavKeys.navKey.currentState.pop();
-            Map deal = Map.from(action.deal)..addAll({'id': id});
+            Map deal = action.deal..addAll({'id': id});
             return CreateDealSuccess(deal);
           }).catchError((error) {
             return CreateDealError(error);
@@ -30,24 +30,18 @@ Stream<dynamic> getDealsByDateEpic(
           }));
 }
 
-Stream<dynamic> markDealDoneEpic(
-    Stream<dynamic> actions, EpicStore<dynamic> store) {
-  return actions
-      .where((action) => action is UpdateDealPending)
-      .asyncMap((action) => db.markDoneDeal(action.payload).then((id) {
-            return UpdateDealSuccess(action.payload);
-          }).catchError((error) {
-            return UpdateDealError(error);
-          }));
-}
+
 Stream<dynamic> updateDealEpic(
     Stream<dynamic> actions, EpicStore<dynamic> store) {
   return actions
-      .where((action) => action is UpdateTextPending)
+      .where((action) => action is UpdateEditPending || action is UpdateMarkPending)
       .asyncMap((action) => db.updateDeal(action.payload).then((id) {
-            return UpdateTextSuccess(action.payload);
+            action is UpdateEditPending 
+            ? NavKeys.navKey.currentState.pop() 
+            : null;
+            return UpdateDealSuccess(action.payload);
           }).catchError((error) {
-            return UpdateTextError(error);
+            return UpdateDealError(error);
           }));
 }
 

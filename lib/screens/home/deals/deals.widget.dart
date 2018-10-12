@@ -15,7 +15,7 @@ class DealsWidget extends StatelessWidget {
         'date': store.state.date,
         'deals': getDeals(store.state),
         'doneCb': (deal) {
-          store.dispatch(UpdateDealPending(deal));
+          store.dispatch(UpdateMarkPending(deal));
         }
       };
     }, builder: (context, state) {

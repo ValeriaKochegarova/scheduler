@@ -1,3 +1,4 @@
+import 'package:scheduler_app/store/store.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:async';
@@ -53,36 +54,37 @@ class DatabaseHelper {
     return result;
   }
 
-  Future<int> createDeal(dealItem) async {
+  Future<int> createDeal(deal) async {
     var dbClient = await db;
-    dealItem['date'] = dealItem['date'].toString();
-    int id = await dbClient.insert(
-        'DealsTable', Map<String, dynamic>.from(dealItem));
+    Map<String, dynamic> clonedDeal = Map<String, dynamic>.from(deal);
+    clonedDeal['date'] = clonedDeal['date'].toString();
+    int id = await dbClient.insert('DealsTable', clonedDeal);
     return id;
   }
 
-  Future markDoneDeal(deal) async {
+  // Future markDoneDeal(deal) async {
+  //   var dbClient = await db;
+  //   var updatedDeal = await dbClient.rawUpdate(
+  //       "UPDATE DealsTable set done = '${deal['done']}' WHERE id = ${deal['id']}");
+  //   return updatedDeal;
+  // }
+
+  Future updateDeal(Map<String, dynamic> deal) async {
     var dbClient = await db;
-    var id = deal['id'];
-    var done = deal['done'];
-    var updatedDeal = await dbClient
-        .rawUpdate("UPDATE DealsTable set done = '$done' WHERE id = $id");
-    return updatedDeal;
-  }
-  Future updateDeal(deal) async {
-    var dbClient = await db;
-    var id = deal['id'];
-    var text = deal['text'];
-    var updatedDeal = await dbClient
-        .rawUpdate("UPDATE DealsTable set text = '$text' WHERE id = $id");
+    Map<String, dynamic> clonedDeal = Map<String, dynamic>.from(deal);
+    int id = clonedDeal['id'];
+    clonedDeal['date'] = clonedDeal['date'].toString();
+    clonedDeal.remove('id');
+    var updatedDeal = await dbClient.update(
+        'DealsTable', Map<String, dynamic>.from(clonedDeal),
+        where: 'id = $id');
     return updatedDeal;
   }
 
   Future deleteDeal(deal) async {
     var dbClient = await db;
-    var id = deal['id'];
-    var deletedDeal =
-        await dbClient.rawDelete("DELETE FROM DealsTable WHERE id = $id");
+    var deletedDeal = await dbClient
+        .rawDelete("DELETE FROM DealsTable WHERE id = ${deal['id']}");
     return deletedDeal;
   }
 

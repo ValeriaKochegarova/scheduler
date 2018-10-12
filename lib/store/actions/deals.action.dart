@@ -1,8 +1,9 @@
 // update deal
-class UpdateDealPending {
-  final Map payload;
-  UpdateDealPending(this.payload);
+class UpdateMarkPending {
+  final Map<String, dynamic> payload;
+  UpdateMarkPending(this.payload);
 }
+
 
 class UpdateDealSuccess {
   final Map payload;
@@ -14,19 +15,9 @@ class UpdateDealError {
   UpdateDealError(this.payload);
 }
 // update text deal
-class UpdateTextPending {
-  final Map payload;
-  UpdateTextPending(this.payload);
-}
-
-class UpdateTextSuccess {
-  final Map payload;
-  UpdateTextSuccess(this.payload);
-}
-
-class UpdateTextError {
-  final Map payload;
-  UpdateTextError(this.payload);
+class UpdateEditPending {
+  final Map<String, dynamic> payload;
+  UpdateEditPending(this.payload);
 }
 
 // create deal

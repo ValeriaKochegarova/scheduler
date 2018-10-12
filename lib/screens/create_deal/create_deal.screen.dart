@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:intl/intl.dart';
 import 'package:scheduler_app/screens/create_deal/colored_button/colored_pallet.dart';
-import 'package:scheduler_app/screens/create_deal/input/input.widget.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/store.dart';
@@ -40,7 +39,6 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
         lastDate: DateTime(2070));
 
     if (picked != null && picked != _date) {
-      print('Date selected: ${_date.toString()}');
       setState(() {
         _date = picked;
       });
@@ -53,11 +51,10 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
         child: StoreConnector<AppState, Map>(converter: (store) {
       return {
         'selectedDeal': store.state.selectedDeal,
-        'createDeal': (deal) =>
-            store.dispatch(CreateDealPending(Map.from(deal))),
+        'createDeal': (deal) => store.dispatch(CreateDealPending(deal)),
         'unselectDeal': (deal) => store.dispatch(UnselectDeal()),
-        'updateDeal': (deal) =>
-            store.dispatch(UpdateTextPending(Map.from(deal)))
+        'updateDeal': (deal) => store.dispatch(UpdateEditPending(deal)),
+        'getDealsPending': () => store.dispatch(GetDealsByDatePending())
       };
     }, builder: (context, state) {
       if (state['selectedDeal'] != null) {
@@ -76,16 +73,32 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                       child: Row(
                         children: <Widget>[
                           Flexible(
-                            child: NewDealInput(
-                              text = state['selectedDeal'] == null
-                                  ? ''
+                            child: TextFormField(
+                              controller: state['selectedDeal'] == null
+                                  ? dealDateController
+                                  : null,
+                              maxLines: 1,
+                              initialValue: state['selectedDeal'] == null
+                                  ? null
                                   : state['selectedDeal']['text'],
-                              1,
-                              (String text) {
+                              onFieldSubmitted: (String text) {
                                 setState(() {
                                   this.text = text;
                                 });
                               },
+                              decoration: InputDecoration(
+                                  labelText: 'Что нужно сделать ?',
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  // contentPadding: EdgeInsets.only(right: 10.0),
+                                  labelStyle: TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      fontSize: 20.0),
+                                  border: InputBorder.none
+                                  // border: OutlineInputBorder(
+                                  //     borderRadius: BorderRadius.all(Radius.circular(0.0)),
+                                  //     borderSide: BorderSide(color: Colors.grey)),
+                                  ),
                             ),
                           ),
                           Container(
@@ -129,17 +142,22 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                     onPressed: text == ''
                         ? null
                         : () {
-                            Map deal = {
+                            Map<String, dynamic> deal = {
                               'text': text,
-                              'done': 0,
-                              'date': _date.toString(),
+                              'date': _date,
                               'priority': priority
                             };
-                            state['selectedDeal'] == null
-                                ? state['createDeal'](deal)
-                                : state['updateDeal'](deal);
-                            // state['createDeal'](deal);
-                            store.dispatch(GetDealsByDatePending());
+                            if (state['selectedDeal'] == null) {
+                              deal.addAll({'done': 0});
+                              state['createDeal'](deal);
+                              return;
+                            }
+                            Map<String, dynamic> mappedDeal =
+                                Map<String, dynamic>.from(
+                                    state['selectedDeal']);
+                            (mappedDeal).addAll(deal);
+
+                            state['updateDeal'](mappedDeal);
                           },
                     padding: const EdgeInsets.all(8.0),
                   ),

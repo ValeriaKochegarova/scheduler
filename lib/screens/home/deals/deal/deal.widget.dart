@@ -21,9 +21,10 @@ class Deal extends StatelessWidget {
               onChanged: unactive
                   ? null
                   : (bool value) {
-                      Map updatedDeal = Map.from(deal)
-                        ..addAll({'done': value ? 1 : 0});
-                      doneCb(updatedDeal);
+                      Map<String, dynamic> mappedDeal =
+                          Map<String, dynamic>.from(deal);
+                      mappedDeal..addAll({'done': value ? 1 : 0});
+                      doneCb(mappedDeal);
                     }),
           Expanded(child: Text(deal['text'])),
         ],
