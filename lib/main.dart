@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:scheduler_app/common/database/database.helper.dart';
 import 'package:scheduler_app/config/keys.dart';

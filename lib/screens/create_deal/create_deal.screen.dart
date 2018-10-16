@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -90,14 +89,10 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                                   labelText: 'Что нужно сделать ?',
                                   fillColor: Colors.white,
                                   filled: true,
-                                  // contentPadding: EdgeInsets.only(right: 10.0),
                                   labelStyle: TextStyle(
                                       fontStyle: FontStyle.italic,
                                       fontSize: 20.0),
                                   border: InputBorder.none
-                                  // border: OutlineInputBorder(
-                                  //     borderRadius: BorderRadius.all(Radius.circular(0.0)),
-                                  //     borderSide: BorderSide(color: Colors.grey)),
                                   ),
                             ),
                           ),
@@ -150,6 +145,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                             if (state['selectedDeal'] == null) {
                               deal.addAll({'done': 0});
                               state['createDeal'](deal);
+                              state['getDealsPending']();
                               return;
                             }
                             Map<String, dynamic> mappedDeal =

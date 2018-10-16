@@ -1,9 +1,7 @@
-import 'package:scheduler_app/store/store.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:async';
 import 'dart:io' as io;
-
 import 'package:path_provider/path_provider.dart';
 
 class DatabaseHelper {
@@ -61,13 +59,6 @@ class DatabaseHelper {
     int id = await dbClient.insert('DealsTable', clonedDeal);
     return id;
   }
-
-  // Future markDoneDeal(deal) async {
-  //   var dbClient = await db;
-  //   var updatedDeal = await dbClient.rawUpdate(
-  //       "UPDATE DealsTable set done = '${deal['done']}' WHERE id = ${deal['id']}");
-  //   return updatedDeal;
-  // }
 
   Future updateDeal(Map<String, dynamic> deal) async {
     var dbClient = await db;

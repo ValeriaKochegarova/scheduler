@@ -1,11 +1,11 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:scheduler_app/common/widgets/wrapper.widget.dart';
 import 'package:scheduler_app/store/actions/calendar.action.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
+import 'package:scheduler_app/store/store.dart';
 
 class DatePickerWidget extends StatefulWidget {
   @override
@@ -27,6 +27,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         _date = picked;
       });
       print('Date selected: ${_date.toString()}');
+      store.dispatch(UnselectDeal());
       updateDate(_date);
     }
   }
@@ -183,6 +184,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                   setState(() {
                     _date = DateTime.now();
                   });
+                  store.dispatch(UnselectDeal());
                   updateDate(_date);
                 }),
             Text(monthWithYear),
@@ -200,6 +202,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
               setState(() {
                 _date = date;
               });
+              store.dispatch(UnselectDeal());
               updateDate(date);
             }))
       ]));

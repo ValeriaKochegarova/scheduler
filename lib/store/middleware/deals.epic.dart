@@ -30,15 +30,15 @@ Stream<dynamic> getDealsByDateEpic(
           }));
 }
 
-
 Stream<dynamic> updateDealEpic(
     Stream<dynamic> actions, EpicStore<dynamic> store) {
   return actions
-      .where((action) => action is UpdateEditPending || action is UpdateMarkPending)
+      .where((action) =>
+          action is UpdateEditPending || action is UpdateMarkPending)
       .asyncMap((action) => db.updateDeal(action.payload).then((id) {
-            action is UpdateEditPending 
-            ? NavKeys.navKey.currentState.pop() 
-            : null;
+            action is UpdateEditPending
+                ? NavKeys.navKey.currentState.pop()
+                : null;
             return UpdateDealSuccess(action.payload);
           }).catchError((error) {
             return UpdateDealError(error);

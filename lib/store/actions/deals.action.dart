@@ -4,7 +4,6 @@ class UpdateMarkPending {
   UpdateMarkPending(this.payload);
 }
 
-
 class UpdateDealSuccess {
   final Map payload;
   UpdateDealSuccess(this.payload);
@@ -14,6 +13,7 @@ class UpdateDealError {
   final Map payload;
   UpdateDealError(this.payload);
 }
+
 // update text deal
 class UpdateEditPending {
   final Map<String, dynamic> payload;
@@ -57,8 +57,7 @@ class SelectDeal {
   SelectDeal(this.selectedDeal);
 }
 
-class UnselectDeal {
-}
+class UnselectDeal {}
 
 // delete deal
 class DeleteDealPending {

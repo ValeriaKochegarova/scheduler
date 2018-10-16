@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scheduler_app/screens/home/bottom_navigation_bar/bottom_navigation_bar.widget.dart';
 import 'package:scheduler_app/screens/home/date_picker/date_picker.widger.dart';
-
 import 'package:scheduler_app/screens/home/deals/deals.widget.dart';
 import 'package:scheduler_app/screens/home/progress/progress.widget.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';

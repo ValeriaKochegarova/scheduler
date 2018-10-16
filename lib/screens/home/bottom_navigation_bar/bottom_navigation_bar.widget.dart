@@ -3,7 +3,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:scheduler_app/common/utils/date.pipe.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
-import 'package:scheduler_app/store/store.dart';
 
 class BottomNavigationWidget extends StatelessWidget {
   @override
@@ -12,6 +11,9 @@ class BottomNavigationWidget extends StatelessWidget {
       return {
         'date': store.state.date,
         'selectedDeal': store.state.selectedDeal,
+        'unselectDeal': () => store.dispatch(UnselectDeal()),
+        'getDealsByDate': () => store.dispatch(GetDealsByDatePending()),
+        'deleteDeal': (deal) => store.dispatch(DeleteDealPending(deal)),
       };
     }, builder: (context, state) {
       return isYesterday(state['date'])
@@ -31,11 +33,10 @@ class BottomNavigationWidget extends StatelessWidget {
                         icon: Icon(Icons.delete_forever),
                         color: Colors.grey[800],
                         onPressed: () {
-                          store.dispatch(
-                              DeleteDealPending(state['selectedDeal']));
+                          state['deleteDeal'](state['selectedDeal']);
                           //TODO: should to be in epic
-                          store.dispatch(UnselectDeal());
-                          store.dispatch(GetDealsByDatePending());
+                          state['unselectDeal']();
+                          state['getDealsByDate']();
                         },
                       ),
                       IconButton(

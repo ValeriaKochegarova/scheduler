@@ -15,11 +15,10 @@ dynamic dealsReducer(List state, action) {
   }
   if (action is CreateDealSuccess) {
     if (isTomorrow(action.deal['date'])) {
-      return null;
-    } else
       state.insert(0, action.deal);
+      return action.deal;
+    }
   }
-
   if (action is GetDealsByDateSuccess) {
     state.clear();
     state.insertAll(0, action.deals);
