@@ -204,7 +204,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
               });
               store.dispatch(UnselectDeal());
               updateDate(date);
-            }))
+            })),
       ]));
     });
   }

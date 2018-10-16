@@ -21,3 +21,22 @@ var getChartDealsData = createSelector1(getDeals, (allDeals) {
   };
   return pipeData;
 });
+
+var getDealsByPriority = createSelector1(getDeals, (allDeals) {
+  List priority0 = allDeals.where((deal) => deal['priority'] == 0).toList();
+  List priority1 = allDeals.where((deal) => deal['priority'] == 1).toList();
+  List priority2 = allDeals.where((deal) => deal['priority'] == 2).toList();
+  return [
+    {"priority": 0, "deals": priority0},
+    {"priority": 1, "deals": priority1},
+    {"priority": 2, "deals": priority2}
+  ].map((mappedDeals) {
+    List deals = (mappedDeals['deals'] as List);
+    List doneDeals = deals.where((deal) => deal['done'] == 1).toList();
+    return  {
+      'priority': mappedDeals['priority'],
+      'allCount': deals.length,
+      'doneCount': doneDeals.length,
+    };
+  }).toList();
+});

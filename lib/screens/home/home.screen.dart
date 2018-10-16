@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scheduler_app/screens/home/bottom_navigation_bar/bottom_navigation_bar.widget.dart';
-import 'package:scheduler_app/screens/home/date_picker/date_picker.widger.dart';
 import 'package:scheduler_app/screens/home/deals/deals.widget.dart';
-import 'package:scheduler_app/screens/home/progress/progress.widget.dart';
+import 'package:scheduler_app/screens/home/menu/menu.widget.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/store.dart';
 
@@ -19,10 +18,10 @@ class HomeScreen extends StatelessWidget {
               child: Container(
                 child: Column(
                   children: <Widget>[
-                    DatePickerWidget(),
+                    MenuWidget(),
                     Expanded(
                       child: ListView(
-                      children: <Widget>[DonutPieChart(), DealsWidget()],
+                      children: <Widget>[DealsWidget()],
                     )),
                   ],
                 ),
