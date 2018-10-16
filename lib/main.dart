@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:scheduler_app/common/database/database.helper.dart';
 import 'package:scheduler_app/config/keys.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 void main() async {
   var db = DatabaseHelper();
   await db.initDb();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(SchedulerApp(
     store: store,
   ));
