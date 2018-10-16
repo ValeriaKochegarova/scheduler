@@ -14,7 +14,7 @@ class RoundChartPainter extends CustomPainter {
       ..color = Colors.grey[200]
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 8.0;
+      ..strokeWidth = 4.0;
     Paint complete =  Paint()
       ..color = this.completePercent < 40
           ? PriorityColor[0]
@@ -23,7 +23,7 @@ class RoundChartPainter extends CustomPainter {
               : PriorityColor[2]
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 8.0;
+      ..strokeWidth = 4.0;
     Offset center =  Offset(size.width / 2, size.height / 2);
     canvas.drawCircle(center, radius, line);
     double arcAngle = 2 * 3.14 * (completePercent / 100);
