@@ -154,6 +154,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                             (mappedDeal).addAll(deal);
 
                             state['updateDeal'](mappedDeal);
+                            state['getDealsPending']();
                           },
                     padding: const EdgeInsets.all(8.0),
                   ),
