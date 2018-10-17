@@ -17,7 +17,11 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
   final dateFormat = DateFormat("MM/d/yyyy 'at' h:mma");
   final now = DateTime.now();
 
-  final dealDateController = TextEditingController();
+  TextEditingController dealDateController = TextEditingController(
+    text: store.state.selectedDeal == null
+        ? ''
+        : store.state.selectedDeal['text'],
+  );
 
   num priority = 0;
   String text = '';
@@ -29,6 +33,14 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
   }
 
   DateTime _date = store.state.date;
+
+  void onChange() {
+    String text = dealDateController.text;
+    setState(() {
+      this.text = text;
+    });
+    FocusScope.of(context).requestFocus(FocusNode());
+  }
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -53,7 +65,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
         'createDeal': (deal) => store.dispatch(CreateDealPending(deal)),
         'unselectDeal': (deal) => store.dispatch(UnselectDeal()),
         'updateDeal': (deal) => store.dispatch(UpdateEditPending(deal)),
-        'getDealsPending': () => store.dispatch(GetDealsByDatePending())
+        'getDealsPending': () => store.dispatch(GetDealsByDatePending()),
       };
     }, builder: (context, state) {
       if (state['selectedDeal'] != null) {
@@ -62,113 +74,111 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
       return Scaffold(
         body: Padding(
           padding: const EdgeInsets.only(top: 50.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Container(
-                      padding: EdgeInsets.only(bottom: 25.0),
-                      child: Row(
-                        children: <Widget>[
-                          Flexible(
-                            child: TextFormField(
-                              controller: state['selectedDeal'] == null
-                                  ? dealDateController
-                                  : null,
-                              maxLines: 1,
-                              initialValue: state['selectedDeal'] == null
-                                  ? null
-                                  : state['selectedDeal']['text'],
-                              onFieldSubmitted: (String text) {
-                                setState(() {
-                                  this.text = text;
-                                });
-                              },
-                              decoration: InputDecoration(
-                                  labelText: 'Что нужно сделать ?',
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  labelStyle: TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      fontSize: 20.0),
-                                  border: InputBorder.none
-                                  ),
+          child: InkWell(
+            onTap: () {
+              onChange();
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Container(
+                        padding: EdgeInsets.only(bottom: 25.0),
+                        child: Row(
+                          children: <Widget>[
+                            Flexible(
+                              child: TextFormField(
+                                controller: dealDateController,
+                                onFieldSubmitted: (String text) {
+                                  setState(() {
+                                    this.text = text;
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                    labelText: 'Что нужно сделать ?',
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    labelStyle: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        fontSize: 20.0),
+                                    border: InputBorder.none),
+                              ),
                             ),
-                          ),
-                          Container(
-                            width: 60.0,
-                            height: 60.0,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
+                            Container(
+                              width: 60.0,
+                              height: 60.0,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                              ),
+                              child: IconButton(
+                                  iconSize: 35.0,
+                                  icon: Icon(Icons.calendar_today),
+                                  color: Colors.grey[800],
+                                  onPressed: () {
+                                    _selectDate(context);
+                                  }),
                             ),
-                            child: IconButton(
-                                iconSize: 35.0,
-                                icon: Icon(Icons.calendar_today),
-                                color: Colors.grey[800],
-                                onPressed: () {
-                                  _selectDate(context);
-                                }),
-                          ),
-                        ],
-                      )),
-                  Container(
-                      padding: EdgeInsets.only(bottom: 15.0),
-                      child: Text(_date.toString().substring(0, 11),
-                          style: TextStyle(fontSize: 18.0))),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ColoredPallete(priority, (num priority) {
-                        this.priority = priority;
-                      }),
-                    ],
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  IconButton(
-                    iconSize: 55.0,
-                    disabledColor: Colors.grey[400],
-                    icon: Icon(Icons.check_circle_outline),
-                    color: Colors.green[400],
-                    onPressed: text == ''
-                        ? null
-                        : () {
-                            Map<String, dynamic> deal = {
-                              'text': text,
-                              'date': _date,
-                              'priority': priority
-                            };
-                            if (state['selectedDeal'] == null) {
-                              deal.addAll({'done': 0});
-                              state['createDeal'](deal);
-                              state['getDealsPending']();
-                              return;
-                            }
-                            Map<String, dynamic> mappedDeal =
-                                Map<String, dynamic>.from(
-                                    state['selectedDeal']);
-                            (mappedDeal).addAll(deal);
+                          ],
+                        )),
+                    Container(
+                        padding: EdgeInsets.only(bottom: 15.0),
+                        child: Text(_date.toString().substring(0, 11),
+                            style: TextStyle(fontSize: 18.0))),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        ColoredPallete(priority, (num priority) {
+                          this.priority = priority;
+                        }),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    IconButton(
+                      iconSize: 55.0,
+                      disabledColor: Colors.grey[400],
+                      icon: Icon(Icons.check_circle_outline),
+                      color: Colors.green[400],
+                      onPressed: text == ''
+                          ? null
+                          : () {
+                              Map<String, dynamic> deal = {
+                                'text': text,
+                                'date': _date,
+                                'priority': priority
+                              };
+                              if (state['selectedDeal'] == null) {
+                                deal.addAll({'done': 0});
+                                state['createDeal'](deal);
+                                state['getDealsPending']();
+                                return;
+                              }
+                              Map<String, dynamic> mappedDeal =
+                                  Map<String, dynamic>.from(
+                                      state['selectedDeal']);
+                              (mappedDeal).addAll(deal);
 
-                            state['updateDeal'](mappedDeal);
-                            state['getDealsPending']();
-                          },
-                    padding: const EdgeInsets.all(8.0),
-                  ),
-                  IconButton(
-                    iconSize: 55.0,
-                    icon: Icon(Icons.cancel),
-                    color: Colors.red[400],
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  )
-                ],
-              )
-            ],
+                              state['updateDeal'](mappedDeal);
+                              state['getDealsPending']();
+                            },
+                      padding: const EdgeInsets.all(8.0),
+                    ),
+                    IconButton(
+                      iconSize: 55.0,
+                      icon: Icon(Icons.cancel),
+                      color: Colors.red[400],
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       );

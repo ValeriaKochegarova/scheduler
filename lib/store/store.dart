@@ -12,5 +12,5 @@ var deleteDeal = EpicMiddleware(deleteDealEpic);
 var updateDeal = EpicMiddleware(updateDealEpic);
 
 final store = Store<AppState>(appStateReducer,
-    initialState: AppState([], DateTime.now(), null),
+    initialState: AppState([], DateTime.now(), null, null),
     middleware: [creationMiddleware, filterByDateMiddleware, deleteDeal, updateDeal]);

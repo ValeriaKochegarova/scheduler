@@ -74,3 +74,11 @@ class DeleteDealError {
   final error;
   DeleteDealError(this.error);
 }
+
+// filter by priority
+class SetPriorityFilter {
+  final priority;
+  SetPriorityFilter(this.priority);
+}
+
+class UnsetPriorityDeal {}

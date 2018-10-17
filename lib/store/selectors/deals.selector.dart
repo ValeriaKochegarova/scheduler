@@ -1,5 +1,6 @@
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:reselect/reselect.dart';
+import 'package:scheduler_app/store/store.dart';
 
 var getSortedDeals = createSelector1(getDeals, (allDeals) {
   List notDoneDeals = allDeals.where((deal) => deal['done'] == 0).toList();
@@ -39,4 +40,8 @@ var getDealsByPriority = createSelector1(getDeals, (allDeals) {
       'doneCount': doneDeals.length,
     };
   }).toList();
+});
+
+var getDealsByPrioritySelector = createSelector2(getDeals,getPriorityFilter, (allDeals, priority) {
+  return allDeals.where((deal) => deal['priority'] == priority).toList();
 });
