@@ -1,6 +1,5 @@
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:reselect/reselect.dart';
-import 'package:scheduler_app/store/store.dart';
 
 var getSortedDeals = createSelector1(getDeals, (allDeals) {
   List notDoneDeals = allDeals.where((deal) => deal['done'] == 0).toList();
@@ -14,20 +13,17 @@ var getSortedDeals = createSelector1(getDeals, (allDeals) {
   return notDoneDeals;
 });
 
-var getChartDealsData = createSelector1(getDeals, (allDeals) {
-  List doneDeals = allDeals.where((deal) => deal['done'] == 1).toList();
-  Map pipeData = {
-    'allCount': allDeals.length,
-    'dealsCount': doneDeals.length,
-  };
-  return pipeData;
-});
-
 var getDealsByPriority = createSelector1(getDeals, (allDeals) {
   List priority0 = allDeals.where((deal) => deal['priority'] == 0).toList();
   List priority1 = allDeals.where((deal) => deal['priority'] == 1).toList();
   List priority2 = allDeals.where((deal) => deal['priority'] == 2).toList();
-  return [
+  List doneDeals = allDeals.where((deal) => deal['done'] == 1).toList();
+  Map<String, Object> all = {
+    'allCount': allDeals.length,
+    'doneCount': doneDeals.length,
+  };
+
+  List dealsBypriority = [
     {"priority": 0, "deals": priority0},
     {"priority": 1, "deals": priority1},
     {"priority": 2, "deals": priority2}
@@ -40,6 +36,10 @@ var getDealsByPriority = createSelector1(getDeals, (allDeals) {
       'doneCount': doneDeals.length,
     };
   }).toList();
+
+ dealsBypriority.insert(0, all);
+ return dealsBypriority;
+
 });
 
 var getDealsByPrioritySelector = createSelector2(getDeals,getPriorityFilter, (allDeals, priority) {

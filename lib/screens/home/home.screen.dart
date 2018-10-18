@@ -8,7 +8,6 @@ import 'package:scheduler_app/store/store.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
         child: Scaffold(
             body: GestureDetector(
@@ -20,9 +19,8 @@ class HomeScreen extends StatelessWidget {
                   children: <Widget>[
                     MenuWidget(),
                     Expanded(
-                      child: ListView(
-                      children: <Widget>[DealsWidget()],
-                    )),
+                      child: DealsWidget(),
+                    )  
                   ],
                 ),
               ),

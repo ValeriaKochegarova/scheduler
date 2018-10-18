@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:scheduler_app/common/widgets/wrapper.widget.dart';
 import 'package:scheduler_app/screens/home/date_picker/date_picker.widger.dart';
-import 'package:scheduler_app/screens/home/progress/progress.widget.dart';
+import 'package:scheduler_app/screens/home/deals_filter_with_statistic/deals_filter_with_statistic.widget.dart';
+
 
 class MenuWidget extends StatefulWidget {
   @override
@@ -16,7 +17,7 @@ class _MenuWidgetState extends State<MenuWidget> {
       children: <Widget>[
         DatePickerWidget(),
         WrapperWidget(
-          DonutPieChart(),
+          DealsFilterWithStatistic(),
           height: 80.0,
         )
       ],

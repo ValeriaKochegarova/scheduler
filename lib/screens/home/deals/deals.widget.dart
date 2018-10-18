@@ -15,23 +15,39 @@ class DealsWidget extends StatelessWidget {
       return {
         'date': store.state.date,
         'dealsByPriority': getDealsByPrioritySelector(store.state),
-        'choosenPriority' : store.state.priority,
+        'choosenPriority': store.state.priority,
         'deals': getDeals(store.state),
+        'selectedDate': store.state.date,
         'doneCb': (deal) {
           store.dispatch(UpdateMarkPending(deal));
         }
       };
     }, builder: (context, state) {
-      return Column(
-        children: (state['choosenPriority'] == null ? state['deals'] : state['dealsByPriority'])
-        .map<Widget>((deal) {
-          return GestureDetector(
-              onTap: () => store.dispatch(SelectDeal(deal)),
-              child: Container(
-                  child:
-                      Deal(deal, state['doneCb'], isYesterday(state['date']))));
-        }).toList(),
-      );
+      return getDealsByPrioritySelector(store.state).length == 0 &&
+                  state['choosenPriority'] != null ||
+              getDeals(store.state).length == 0
+          ? Center(
+              child: isYesterday(state['selectedDate'])
+                  ? Text(
+                      'У вас не было дел',
+                      style: TextStyle(fontSize: 18.0),
+                    )
+                  : Text(
+                      'У вас еще нет дел',
+                      style: TextStyle(fontSize: 18.0),
+                    ))
+          : ListView(
+              children: (state['choosenPriority'] == null
+                      ? state['deals']
+                      : state['dealsByPriority'])
+                  .map<Widget>((deal) {
+                return GestureDetector(
+                    onTap: () => store.dispatch(SelectDeal(deal)),
+                    child: Container(
+                        child: Deal(deal, state['doneCb'],
+                            isYesterday(state['date']))));
+              }).toList(),
+            );
     });
   }
 }
