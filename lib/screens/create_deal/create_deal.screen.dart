@@ -24,7 +24,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
   );
 
   num priority = 0;
-  String text = '';
+  String text =  store.state.selectedDeal == null ? '' : store.state.selectedDeal['text'];
 
   @override
   void dispose() {
@@ -34,11 +34,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
 
   DateTime _date = store.state.date;
 
-  void onChange() {
-    String text = dealDateController.text;
-    setState(() {
-      this.text = text;
-    });
+  void hideKeyboard() {
     FocusScope.of(context).requestFocus(FocusNode());
   }
 
@@ -76,7 +72,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
           padding: const EdgeInsets.only(top: 50.0),
           child: InkWell(
             onTap: () {
-              onChange();
+              hideKeyboard();
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,9 +84,9 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                         child: Row(
                           children: <Widget>[
                             Flexible(
-                              child: TextFormField(
+                              child: TextField(
                                 controller: dealDateController,
-                                onFieldSubmitted: (String text) {
+                                onChanged: (String text) {
                                   setState(() {
                                     this.text = text;
                                   });
@@ -155,6 +151,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                                 deal.addAll({'done': 0});
                                 state['createDeal'](deal);
                                 state['getDealsPending']();
+                                store.dispatch(UnselectDeal());
                                 return;
                               }
                               Map<String, dynamic> mappedDeal =
@@ -164,6 +161,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
 
                               state['updateDeal'](mappedDeal);
                               state['getDealsPending']();
+                              store.dispatch(UnselectDeal());
                             },
                       padding: const EdgeInsets.all(8.0),
                     ),
@@ -173,8 +171,9 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                       color: Colors.red[400],
                       onPressed: () {
                         Navigator.pop(context);
+                        store.dispatch(UnselectDeal());
                       },
-                    )
+                    ),
                   ],
                 )
               ],

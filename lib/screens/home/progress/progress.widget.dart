@@ -65,7 +65,8 @@ class DonutPieChart extends StatelessWidget {
                             state['UnsetPriorityDeal']();
                           },
                           child: Container(
-                            height: viewView / 7.5,
+                            height: viewView / 5.0,
+                            width: viewView / 5.0,
                             child: CustomPaint(
                               foregroundPainter: RoundChartPainter(
                                   completePercent: percentage,
