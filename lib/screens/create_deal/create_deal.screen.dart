@@ -23,8 +23,10 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
         : store.state.selectedDeal['text'],
   );
 
-  num priority = 0;
-  String text =  store.state.selectedDeal == null ? '' : store.state.selectedDeal['text'];
+  num priority = getPriorityFilter(store.state) == null ? 0 : getPriorityFilter(store.state);
+
+  String text =
+      store.state.selectedDeal == null ? '' : store.state.selectedDeal['text'];
 
   @override
   void dispose() {

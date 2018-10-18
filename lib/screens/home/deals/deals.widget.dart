@@ -23,9 +23,9 @@ class DealsWidget extends StatelessWidget {
         }
       };
     }, builder: (context, state) {
-      return getDealsByPrioritySelector(store.state).length == 0 &&
+      return List.from(state['dealsByPriority']).length == 0 &&
                   state['choosenPriority'] != null ||
-              getDeals(store.state).length == 0
+              List.from(state['deals']).length == 0
           ? Center(
               child: isYesterday(state['selectedDate'])
                   ? Text(
@@ -45,7 +45,7 @@ class DealsWidget extends StatelessWidget {
                     onTap: () => store.dispatch(SelectDeal(deal)),
                     child: Container(
                         child: Deal(deal, state['doneCb'],
-                            isYesterday(state['date']))));
+                            isYesterday(state['date']) || isTomorrow(state['date']))));
               }).toList(),
             );
     });

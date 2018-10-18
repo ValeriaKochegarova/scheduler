@@ -5,6 +5,7 @@ import 'package:scheduler_app/common/database/database.helper.dart';
 import 'package:scheduler_app/config/keys.dart';
 import 'package:scheduler_app/screens/create_deal/create_deal.screen.dart';
 import 'package:scheduler_app/screens/home/home.screen.dart';
+import 'package:scheduler_app/screens/settings/settings.screen.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:redux/redux.dart';
@@ -44,6 +45,7 @@ class SchedulerApp extends StatelessWidget {
             home: HomeScreen(),
             routes: <String, WidgetBuilder>{
               '/create': (BuildContext context) => CreateDealScreen(),
+              '/settings': (BuildContext context) => SettingsScreen(),
             }));
   }
 }

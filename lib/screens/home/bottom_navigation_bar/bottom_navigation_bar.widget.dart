@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:scheduler_app/common/utils/date.pipe.dart';
+import 'package:scheduler_app/screens/home/bottom_navigation_bar/bottom_icon.widget/bottom_icon.widget.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 
@@ -53,16 +54,15 @@ class BottomNavigationWidget extends StatelessWidget {
                   decoration:
                       BoxDecoration(border: Border.all(color: Colors.grey)),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      IconButton(
-                        iconSize: 40.0,
-                        color: Colors.grey[800],
-                        icon: Icon(Icons.add_circle_outline),
-                        onPressed: () {
+                      BottomIcon(400, Icons.show_chart, () {}),
+                      BottomIcon(800, Icons.add_circle_outline, () {
                           Navigator.pushNamed(context, '/create');
-                        },
-                      )
+                        }),
+                      BottomIcon(800, Icons.settings, () {
+                          Navigator.pushNamed(context, '/settings');
+                        }),
                     ],
                   ));
     });
