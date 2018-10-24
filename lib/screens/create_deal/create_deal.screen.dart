@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:intl/intl.dart';
+import 'package:scheduler_app/common/widgets/wrapper.widget.dart';
 import 'package:scheduler_app/screens/create_deal/colored_button/colored_pallet.dart';
+import 'package:scheduler_app/screens/home/bottom_navigation_bar/bottom_icon.widget/bottom_icon.widget.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/store.dart';
@@ -23,7 +25,9 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
         : store.state.selectedDeal['text'],
   );
 
-  num priority = getPriorityFilter(store.state) == null ? 0 : getPriorityFilter(store.state);
+  num priority = getPriorityFilter(store.state) == null
+      ? 0
+      : getPriorityFilter(store.state);
 
   String text =
       store.state.selectedDeal == null ? '' : store.state.selectedDeal['text'];
@@ -56,29 +60,25 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: StoreConnector<AppState, Map>(converter: (store) {
-      return {
-        'selectedDeal': store.state.selectedDeal,
-        'createDeal': (deal) => store.dispatch(CreateDealPending(deal)),
-        'unselectDeal': (deal) => store.dispatch(UnselectDeal()),
-        'updateDeal': (deal) => store.dispatch(UpdateEditPending(deal)),
-        'getDealsPending': () => store.dispatch(GetDealsByDatePending()),
-      };
-    }, builder: (context, state) {
-      if (state['selectedDeal'] != null) {
-        priority = state['selectedDeal']['priority'];
-      }
-      return Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.only(top: 50.0),
-          child: InkWell(
-            onTap: () {
-              hideKeyboard();
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
+    return SafeArea(
+        child: Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Color(0xFFf9fcfc),
+        iconTheme: IconThemeData(color: Colors.grey),
+        title: Text(
+          'Дело',
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
+      body: InkWell(
+        onTap: () {
+          hideKeyboard();
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            WrapperWidget(
                 Column(
                   children: <Widget>[
                     Container(
@@ -86,22 +86,32 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                         child: Row(
                           children: <Widget>[
                             Flexible(
-                              child: TextField(
-                                controller: dealDateController,
-                                onChanged: (String text) {
-                                  setState(() {
-                                    this.text = text;
-                                  });
-                                },
-                                decoration: InputDecoration(
-                                    labelText: 'Что нужно сделать ?',
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    labelStyle: TextStyle(
-                                        fontStyle: FontStyle.italic,
-                                        fontSize: 20.0),
-                                    border: InputBorder.none),
-                              ),
+                              child: Container(
+                                  margin:
+                                      EdgeInsets.symmetric(horizontal: 10.0),
+                                  padding: EdgeInsets.all(10.0),
+                                  decoration: BoxDecoration(
+                                      border:
+                                          new Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(30.0))),
+                                  child: TextField(
+                                    controller: dealDateController,
+                                    maxLines: 1,
+                                    onChanged: (String text) {
+                                      setState(() {
+                                        this.text = text;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                        // labelText: 'Что нужно сделать ?',
+                                        fillColor: Colors.transparent,
+                                        filled: true,
+                                        labelStyle: TextStyle(
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 20.0),
+                                        border: InputBorder.none),
+                                  )),
                             ),
                             Container(
                               width: 60.0,
@@ -119,70 +129,88 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                             ),
                           ],
                         )),
-                    Container(
-                        padding: EdgeInsets.only(bottom: 15.0),
-                        child: Text(_date.toString().substring(0, 11),
-                            style: TextStyle(fontSize: 18.0))),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         ColoredPallete(priority, (num priority) {
                           this.priority = priority;
                         }),
+                        Text(_date.toString().substring(0, 11),
+                            style: TextStyle(fontSize: 18.0))
                       ],
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    IconButton(
-                      iconSize: 55.0,
-                      disabledColor: Colors.grey[400],
-                      icon: Icon(Icons.check_circle_outline),
-                      color: Colors.green[400],
-                      onPressed: text == ''
-                          ? null
-                          : () {
-                              Map<String, dynamic> deal = {
-                                'text': text,
-                                'date': _date,
-                                'priority': priority
-                              };
-                              if (state['selectedDeal'] == null) {
-                                deal.addAll({'done': 0});
-                                state['createDeal'](deal);
-                                state['getDealsPending']();
-                                store.dispatch(UnselectDeal());
-                                return;
-                              }
-                              Map<String, dynamic> mappedDeal =
-                                  Map<String, dynamic>.from(
-                                      state['selectedDeal']);
-                              (mappedDeal).addAll(deal);
-
-                              state['updateDeal'](mappedDeal);
-                              state['getDealsPending']();
-                              store.dispatch(UnselectDeal());
-                            },
-                      padding: const EdgeInsets.all(8.0),
-                    ),
-                    IconButton(
-                      iconSize: 55.0,
-                      icon: Icon(Icons.cancel),
-                      color: Colors.red[400],
-                      onPressed: () {
-                        Navigator.pop(context);
-                        store.dispatch(UnselectDeal());
-                      },
-                    ),
-                  ],
+                height: 200.0),
+            Expanded(
+              child: ListView(children: [
+                WrapperWidget(
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Повтор дела '),
+                        Switch(
+                          value: false,
+                          onChanged: null,
+                        )
+                      ]),
                 )
-              ],
-            ),
-          ),
+              ]),
+            )
+          ],
         ),
-      );
-    }));
+      ),
+      bottomNavigationBar: StoreConnector<AppState, Map>(converter: (store) {
+        return {
+          'selectedDeal': store.state.selectedDeal,
+          'createDeal': (deal) => store.dispatch(CreateDealPending(deal)),
+          'unselectDeal': (deal) => store.dispatch(UnselectDeal()),
+          'updateDeal': (deal) => store.dispatch(UpdateEditPending(deal)),
+          'getDealsPending': () => store.dispatch(GetDealsByDatePending()),
+        };
+      }, builder: (context, state) {
+        if (state['selectedDeal'] != null) {
+          priority = state['selectedDeal']['priority'];
+        }
+        return Container(
+            decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                BottomIcon(
+                  800,
+                  Icons.check_circle_outline,
+                  text == ''
+                      ? null
+                      : () {
+                          Map<String, dynamic> deal = {
+                            'text': text,
+                            'date': _date,
+                            'priority': priority
+                          };
+                          if (state['selectedDeal'] == null) {
+                            deal.addAll({'done': 0});
+                            state['createDeal'](deal);
+                            state['getDealsPending']();
+                            store.dispatch(UnselectDeal());
+                            return;
+                          }
+                          Map<String, dynamic> mappedDeal =
+                              Map<String, dynamic>.from(state['selectedDeal']);
+                          (mappedDeal).addAll(deal);
+
+                          state['updateDeal'](mappedDeal);
+                          state['getDealsPending']();
+                          store.dispatch(UnselectDeal());
+                        },
+                ),
+                BottomIcon(800, Icons.cancel, () {
+                  Navigator.pop(context);
+                  store.dispatch(UnselectDeal());
+                }),
+              ],
+            ));
+      }),
+    ));
   }
 }

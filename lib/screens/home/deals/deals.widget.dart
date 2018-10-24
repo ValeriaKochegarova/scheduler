@@ -5,7 +5,6 @@ import 'package:scheduler_app/common/utils/date.pipe.dart';
 import 'package:scheduler_app/screens/home/deals/deal/deal.widget.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
-import 'package:scheduler_app/store/store.dart';
 import 'package:scheduler_app/store/selectors/deals.selector.dart';
 
 class DealsWidget extends StatelessWidget {
@@ -20,6 +19,13 @@ class DealsWidget extends StatelessWidget {
         'selectedDate': store.state.date,
         'doneCb': (deal) {
           store.dispatch(UpdateMarkPending(deal));
+        },
+        'editCb': (deal) {
+          store.dispatch(SelectDeal(deal));
+          Navigator.pushNamed(context, '/create');
+        },
+        'removeCb': (deal) {
+          store.dispatch(DeleteDealPending(deal));
         }
       };
     }, builder: (context, state) {
@@ -41,11 +47,14 @@ class DealsWidget extends StatelessWidget {
                       ? state['deals']
                       : state['dealsByPriority'])
                   .map<Widget>((deal) {
-                return GestureDetector(
-                    onTap: () => store.dispatch(SelectDeal(deal)),
-                    child: Container(
-                        child: Deal(deal, state['doneCb'],
-                            isYesterday(state['date']) || isTomorrow(state['date']))));
+                return Container(
+                    child: Deal(
+                        deal,
+                        isYesterday(state['date']),
+                        isTomorrow(state['date']),
+                        state['doneCb'],
+                        state['editCb'],
+                        state['removeCb']));
               }).toList(),
             );
     });

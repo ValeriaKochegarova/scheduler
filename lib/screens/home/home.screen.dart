@@ -10,6 +10,15 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              backgroundColor: Color(0xFFf9fcfc),
+              iconTheme: IconThemeData(color: Colors.grey),
+              title: Text(
+                'Ежедневник',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
             body: GestureDetector(
               onTap: () {
                 store.dispatch(UnselectDeal());
@@ -20,7 +29,7 @@ class HomeScreen extends StatelessWidget {
                     MenuWidget(),
                     Expanded(
                       child: DealsWidget(),
-                    )  
+                    )
                   ],
                 ),
               ),

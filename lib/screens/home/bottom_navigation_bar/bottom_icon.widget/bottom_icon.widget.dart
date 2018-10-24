@@ -13,9 +13,7 @@ class BottomIcon extends StatelessWidget {
       iconSize: 40.0,
       color: Colors.grey[intense],
       icon: Icon(icon),
-      onPressed: () {
-        onPressedCb();
-      },
+      onPressed: onPressedCb,
     );
   }
 }
