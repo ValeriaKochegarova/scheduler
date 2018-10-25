@@ -52,6 +52,12 @@ class DatabaseHelper {
     return result;
   }
 
+  Future getFirstDeal() async {
+    var dbClient = await db;
+    var firstDeal = await dbClient.query('DealsTable', columns: ['date'], limit: 1);
+    return firstDeal;
+  }
+
   Future<int> createDeal(deal) async {
     var dbClient = await db;
     Map<String, dynamic> clonedDeal = Map<String, dynamic>.from(deal);

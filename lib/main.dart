@@ -8,6 +8,7 @@ import 'package:scheduler_app/screens/create_deal/create_deal.screen.dart';
 import 'package:scheduler_app/screens/home/home.screen.dart';
 import 'package:scheduler_app/screens/statistic/statistic.screen.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
+import 'package:scheduler_app/store/actions/statistic_period.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:redux/redux.dart';
 import 'package:scheduler_app/store/store.dart';
@@ -26,6 +27,7 @@ class SchedulerApp extends StatelessWidget {
   final Store<AppState> store;
   SchedulerApp({Key key, this.store}) : super(key: key) {
     store.dispatch(GetDealsByDatePending());
+    store.dispatch(GetStartOfStatisticPeriodPending());
   }
   @override
   Widget build(BuildContext context) {

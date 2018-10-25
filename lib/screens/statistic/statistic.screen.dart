@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:scheduler_app/screens/home/bottom_navigation_bar/bottom_icon.widget/bottom_icon.widget.dart';
 import 'package:scheduler_app/screens/statistic/chart/chart.widget.dart';
+import 'package:scheduler_app/screens/statistic/period_checkbox/period_checkbox.dart';
+import 'package:scheduler_app/screens/statistic/period_dropdown/period_dropdown.dart';
 
 class StatisticScreen extends StatelessWidget {
   @override
@@ -19,21 +21,8 @@ class StatisticScreen extends StatelessWidget {
             ),
             body: Column(
               children: <Widget>[
-                Container(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        RaisedButton(
-                          onPressed: () {},
-                          child: Text('Месяц'),
-                        ),
-                        RaisedButton(
-                          onPressed: () {},
-                          child: Text('Год'),
-                        ),
-                      ],
-                    )),
+                PeriodCheckboxWidget(),
+                PeriodDropdownWidget(),
                 Expanded(child: GroupedFillColorBarChart.withSampleData())
               ],
             ),
