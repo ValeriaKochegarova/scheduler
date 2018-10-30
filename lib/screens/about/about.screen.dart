@@ -7,8 +7,6 @@ class AboutScreen extends StatelessWidget {
         child: Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Color(0xFFf9fcfc),
-        iconTheme: IconThemeData(color: Colors.grey),
         title: Text(
           'О приложении',
           style: TextStyle(color: Colors.black),

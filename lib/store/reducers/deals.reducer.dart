@@ -1,8 +1,5 @@
-import 'package:scheduler_app/common/utils/date.pipe.dart';
+import 'package:scheduler_app/common/helpers/date.helper.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
-
-List initialState = [];
-var selectedDeal = {};
 
 dynamic dealsReducer(List state, action) {
   if (action is UpdateDealSuccess) {

@@ -52,9 +52,16 @@ class DatabaseHelper {
     return result;
   }
 
+    Future getDealsByPeriod(period) async {
+    var dbClient = await db;
+    var result = await dbClient.rawQuery(
+        "SELECT * FROM DealsTable WHERE date BETWEEN '${period['from'].toString()}' AND '${period['to'].toString()}'");
+    return result;
+  }
+
   Future getFirstDeal() async {
     var dbClient = await db;
-    var firstDeal = await dbClient.query('DealsTable', columns: ['date'], limit: 1);
+    var firstDeal = await dbClient.query('DealsTable', columns: ['date'], orderBy: 'date ASC', limit: 1);
     return firstDeal;
   }
 

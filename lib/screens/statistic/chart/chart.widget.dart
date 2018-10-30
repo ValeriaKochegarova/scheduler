@@ -1,95 +1,114 @@
 /// Bar chart example
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:scheduler_app/screens/statistic/chart/period_dropdown/period_dropdown.dart';
+import 'package:scheduler_app/screens/statistic/chart/round_chart.widget.dart';
+import 'package:scheduler_app/store/reducers/reducer.dart';
+import 'package:scheduler_app/store/selectors/statistic_period.selector.dart';
 
 /// Example of a grouped bar chart with three series, each rendered with
 /// different fill colors.
 class GroupedFillColorBarChart extends StatelessWidget {
-  final List<charts.Series> seriesList;
-  final bool animate;
-
-  GroupedFillColorBarChart(this.seriesList, {this.animate});
-
-  factory GroupedFillColorBarChart.withSampleData() {
-    return new GroupedFillColorBarChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-
   @override
   Widget build(BuildContext context) {
-    return new charts.BarChart(
-      seriesList,
-      animate: animate,
-      // Configure a stroke width to enable borders on the bars.
-      defaultRenderer: new charts.BarRendererConfig(
-          groupingType: charts.BarGroupingType.grouped, strokeWidthPx: 2.0),
-    );
-  }
-
-  /// Create series list with multiple series
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
-    final desktopSalesData = [
-      new OrdinalSales('2014', 5),
-      new OrdinalSales('2015', 25),
-      new OrdinalSales('2016', 100),
-      new OrdinalSales('2017', 75),
-    ];
-
-    final tableSalesData = [
-      new OrdinalSales('2014', 25),
-      new OrdinalSales('2015', 50),
-      new OrdinalSales('2016', 10),
-      new OrdinalSales('2017', 20),
-    ];
-
-    final mobileSalesData = [
-      new OrdinalSales('2014', 10),
-      new OrdinalSales('2015', 50),
-      new OrdinalSales('2016', 50),
-      new OrdinalSales('2017', 45),
-    ];
-
-    return [
-      // Blue bars with a lighter center color.
-      new charts.Series<OrdinalSales, String>(
-        id: 'Desktop',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: desktopSalesData,
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        fillColorFn: (_, __) =>
-            charts.MaterialPalette.blue.shadeDefault.lighter,
-      ),
-      // Solid red bars. Fill color will default to the series color if no
-      // fillColorFn is configured.
-      new charts.Series<OrdinalSales, String>(
-        id: 'Tablet',
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: tableSalesData,
-        colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
-        domainFn: (OrdinalSales sales, _) => sales.year,
-      ),
-      // Hollow green bars.
-      new charts.Series<OrdinalSales, String>(
-        id: 'Mobile',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: mobileSalesData,
-        colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-        fillColorFn: (_, __) => charts.MaterialPalette.transparent,
-      ),
-    ];
+    var localization = MaterialLocalizations.of(context);
+    double viewView = MediaQuery.of(context).size.width;
+    return StoreConnector<AppState, Map>(converter: (store) {
+      return {
+        'data': getStisitcPeriodData(store.state),
+      };
+    }, builder: (context, state) {
+      print(' state =>>> $state');
+      return Container(
+        height: viewView / 5.0,
+        width: viewView / 5.0,
+        child: CustomPaint(
+          foregroundPainter: RoundChartPainter(
+              completePercent: state['data'], radius: viewView / 2.5),
+          child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(child: PeriodDropdownWidget())),
+        ),
+      );
+    });
   }
 }
 
-/// Sample ordinal data type.
-class OrdinalSales {
-  final String year;
+//  final List<charts.Series> seriesList;
+//   final bool animate;
+
+//   StackedAreaLineChart(this.seriesList, {this.animate});
+
+//   /// Creates a [LineChart] with sample data and no transition.
+//   factory StackedAreaLineChart.withSampleData() {
+//     return new StackedAreaLineChart(
+//       _createSampleData(),
+//       // Disable animations for image tests.
+//       animate: false,
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return new charts.LineChart(seriesList,
+//         defaultRenderer:
+//             new charts.LineRendererConfig(includeArea: true, stacked: true),
+//         animate: animate);
+//   }
+
+//   /// Create one series with sample hard coded data.
+//   static List<charts.Series<LinearSales, int>> _createSampleData() {
+//     final myFakeDesktopData = [
+//       new LinearSales(0, 5),
+//       new LinearSales(1, 25),
+//       new LinearSales(2, 100),
+//       new LinearSales(3, 75),
+//     ];
+
+//     var myFakeTabletData = [
+//       new LinearSales(0, 10),
+//       new LinearSales(1, 50),
+//       new LinearSales(2, 200),
+//       new LinearSales(3, 150),
+//     ];
+
+//     var myFakeMobileData = [
+//       new LinearSales(0, 15),
+//       new LinearSales(1, 75),
+//       new LinearSales(2, 300),
+//       new LinearSales(3, 225),
+//     ];
+
+//     return [
+//       new charts.Series<LinearSales, int>(
+//         id: 'Desktop',
+//         colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+//         domainFn: (LinearSales sales, _) => sales.year,
+//         measureFn: (LinearSales sales, _) => sales.sales,
+//         data: myFakeDesktopData,
+//       ),
+//       new charts.Series<LinearSales, int>(
+//         id: 'Tablet',
+//         colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
+//         domainFn: (LinearSales sales, _) => sales.year,
+//         measureFn: (LinearSales sales, _) => sales.sales,
+//         data: myFakeTabletData,
+//       ),
+//       new charts.Series<LinearSales, int>(
+//         id: 'Mobile',
+//         colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
+//         domainFn: (LinearSales sales, _) => sales.year,
+//         measureFn: (LinearSales sales, _) => sales.sales,
+//         data: myFakeMobileData,
+//       ),
+//     ];
+//   }
+// }
+
+/// Sample linear data type.
+class LinearSales {
+  final int year;
   final int sales;
 
-  OrdinalSales(this.year, this.sales);
+  LinearSales(this.year, this.sales);
 }

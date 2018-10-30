@@ -1,15 +1,14 @@
-class SetMonthPeriod {}
-
-class SetYearPeriod {}
-
-class GetStartOfStatisticPeriodPending {}
-
-class GetStartOfStatisticPeriodSuccess {
-  final DateTime date;
-  GetStartOfStatisticPeriodSuccess(this.date);
+class SetPeriodPending {
+  final period;
+  SetPeriodPending(this.period);
 }
 
-class GetStartOfStatisticPeriodError {
+class SetPeriodSuccess {
+  final period;
+  SetPeriodSuccess(this.period);
+}
+
+class SetPeriodError {
   final dynamic error;
-  GetStartOfStatisticPeriodError(this.error);
+  SetPeriodError(this.error);
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:scheduler_app/store/actions/statistic_period.action.dart';
+import 'package:scheduler_app/store/actions/statistic_control.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 
 class PeriodCheckboxWidget extends StatelessWidget {
@@ -8,7 +8,7 @@ class PeriodCheckboxWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, Map>(converter: (store) {
       return {
-        'period': store.state.statisticPeriod,
+        'period': store.state.statisticControl,
         'setPeriod': (int period) => period == 0
             ? store.dispatch(SetMonthPeriod())
             : store.dispatch(SetYearPeriod())

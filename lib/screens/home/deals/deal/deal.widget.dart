@@ -50,6 +50,7 @@ class Deal extends StatelessWidget {
                 ),
         ],
       ),
+      height: 60.0,
       color: PriorityColor[deal['priority']],
     );
   }

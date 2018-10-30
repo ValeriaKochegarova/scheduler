@@ -8,8 +8,10 @@ class WrapperWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double viewView = MediaQuery.of(context).size.width;
     return Container(
         height: height,
+        width: viewView,
         decoration: BoxDecoration(
           border: Border(left: BorderSide(color: color, width: 4.0)),
           color: Colors.white,

@@ -6,6 +6,7 @@ import 'package:scheduler_app/store/actions/calendar.action.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/store.dart';
+import 'package:scheduler_app/common/helpers/date.helper.dart';
 
 class DatePickerWidget extends StatefulWidget {
   @override
@@ -26,7 +27,6 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
       setState(() {
         _date = picked;
       });
-      print('Date selected: ${_date.toString()}');
       store.dispatch(UnselectDeal());
       updateDate(_date);
     }
@@ -43,29 +43,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
     return result;
   }
 
-  List<int> _daysInMonth = <int>[
-    31,
-    -1,
-    31,
-    30,
-    31,
-    30,
-    31,
-    31,
-    30,
-    31,
-    30,
-    31
-  ];
-  int getDaysInMonth(int year, int month) {
-    if (month == DateTime.february) {
-      final bool isLeapYear =
-          (year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0);
-      if (isLeapYear) return 29;
-      return 28;
-    }
-    return _daysInMonth[month - 1];
-  }
+
 
   int _computeFirstDayOffset(
       int year, int month, MaterialLocalizations localizations) {
@@ -98,7 +76,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
     if (newMonthOffset < 0) {
       lastDay = daysAfterCurrentDate + currentDate.day;
     } else {
-      lastDay = currentDate.day;
+      lastDay = daysInMonth;
     }
     List baseWeek = [];
     for (int i = firstDay < 1 ? 1 : firstDay; i <= lastDay; i++) {

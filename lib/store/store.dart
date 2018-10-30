@@ -9,16 +9,19 @@ String formatedDate = DateFormat('EEE, dd').format(DateTime.now());
 
 var creationMiddleware = EpicMiddleware(createDealEpic);
 var filterByDateMiddleware = EpicMiddleware(getDealsByDateEpic);
-var statisticMiddleware = EpicMiddleware(statisticDateEpic);
+var statisticDateMiddleware = EpicMiddleware(statisticDateEpic);
+var statisticPeriodMiddleware = EpicMiddleware(statisticPeriodEpic);
 var deleteDeal = EpicMiddleware(deleteDealEpic);
 var updateDeal = EpicMiddleware(updateDealEpic);
 
 final store = Store<AppState>(appStateReducer,
-    initialState: AppState([], DateTime.now(), null, null, {'type': 0, 'date': DateTime.now()}),
+    initialState: AppState([], DateTime.now(), null, null,
+        {'type': 0, 'date': DateTime.now()}, {}),
     middleware: [
       creationMiddleware,
       filterByDateMiddleware,
       deleteDeal,
       updateDeal,
-      statisticMiddleware
+      statisticDateMiddleware,
+      statisticPeriodMiddleware
     ]);
