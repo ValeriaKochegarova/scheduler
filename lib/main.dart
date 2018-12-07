@@ -17,9 +17,8 @@ import 'package:scheduler_app/store/store.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
-  var db = DatabaseHelper();
-  await db.initDb();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await DatabaseHelper().initDb();
   runApp(SchedulerApp(
     store: store,
   ));
@@ -33,12 +32,7 @@ class SchedulerApp extends StatelessWidget {
     //                         'date': DateTime(2017,11,29),
     //                         'priority': 1
     //                       })));
-    store.dispatch(SetPeriodPending({
-      'lable': DateTime.now(),
-      'from': DateTime(DateTime.now().year, DateTime.now().month, 1),
-      'to': DateTime(DateTime.now().year, DateTime.now().month,
-          getDaysInMonth(DateTime.now().year, DateTime.now().month))
-    }));
+
     store.dispatch(GetDealsByDatePending());
     store.dispatch(GetStartOfStatisticPeriodPending());
   }
@@ -54,12 +48,13 @@ class SchedulerApp extends StatelessWidget {
             ],
             supportedLocales: [
               const Locale('ru', 'RU'),
-              const Locale('en', 'EN'),
+              //const Locale('en', 'EN'),
             ],
             title: 'Дела Ok',
             navigatorKey: NavKeys.navKey,
             theme: ThemeData(
               primaryColor: Color(0xFFf9fcfc),
+              accentColor: Colors.grey,
               fontFamily: 'Avenir',
               iconTheme: IconThemeData(color: Colors.grey[800]),
             ),

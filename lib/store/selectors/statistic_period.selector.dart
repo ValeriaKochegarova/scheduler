@@ -41,16 +41,14 @@ var getStisitcControl = createSelector1(getStatisticControl, (period) {
       });
     }
   }
-  print(period);
   if (period['type'] == 1) {
     return years;
   }
   return monthes;
 });
 
-var getStisitcPeriodData =
-    createSelector2(getStatisticPeriod, getStatisticControl, (period, control) {
-  print('getStatisticPeriod  =>>>> ${period['deals']}');
+var getStisitcPeriodData = createSelector2(
+    getStatisticPeriod, getStatisticControl, (period, control) {
   List priority0 =
       period['deals'].where((deal) => deal['priority'] == 0).toList();
   List donePriority0 = priority0.where((deal) => deal['done'] == 1).toList();
@@ -61,14 +59,14 @@ var getStisitcPeriodData =
       period['deals'].where((deal) => deal['priority'] == 2).toList()..length;
   List donePriority2 = priority2.where((deal) => deal['done'] == 1).toList();
 
-  double priority0Percentage = donePriority0.length/priority0.length ;
-  double priority1Percentage = donePriority1.length/ priority1.length ;
-  double priority2Percentage = donePriority2.length / priority2.length  ;
-
-  return List<double>.from([
+  double priority0Percentage = donePriority0.length / priority0.length;
+  double priority1Percentage = donePriority1.length / priority1.length;
+  double priority2Percentage = donePriority2.length / priority2.length;
+  List<double> result = [
     priority0Percentage,
     priority1Percentage,
     priority2Percentage,
-  ]);
+  ];
+  return result;
 });
 // && DateTime(deal['date']).day == i

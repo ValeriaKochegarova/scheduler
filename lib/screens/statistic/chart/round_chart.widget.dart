@@ -20,7 +20,6 @@ class RoundChartPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = stroke;
     Offset center = Offset(size.width / 2, size.height / 2);
-    print(completePercent);
     for (int i = 0, j = 0; i < completePercent.length; i++) {
       if (completePercent[i].isNaN) {
         continue;

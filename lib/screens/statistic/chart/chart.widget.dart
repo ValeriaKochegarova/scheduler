@@ -11,14 +11,12 @@ import 'package:scheduler_app/store/selectors/statistic_period.selector.dart';
 class GroupedFillColorBarChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var localization = MaterialLocalizations.of(context);
     double viewView = MediaQuery.of(context).size.width;
-    return StoreConnector<AppState, Map>(converter: (store) {
+    return StoreConnector<AppState, Map<String, dynamic>>(converter: (store) {
       return {
         'data': getStisitcPeriodData(store.state),
       };
     }, builder: (context, state) {
-      print(' state =>>> $state');
       return Container(
         height: viewView / 5.0,
         width: viewView / 5.0,

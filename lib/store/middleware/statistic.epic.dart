@@ -10,7 +10,10 @@ Stream<dynamic> statisticDateEpic(
   return actions
       .where((action) => action is GetStartOfStatisticPeriodPending)
       .asyncMap((action) => db.getFirstDeal().then((deal) {
-            DateTime date = DateTime.parse(deal[0]['date']);
+            DateTime date = DateTime.now();
+            if (!deal.isEmpty) {
+              date = DateTime.parse(deal[0]['date']);
+            }
             return GetStartOfStatisticPeriodSuccess(date);
           }).catchError((error) {
             return GetStartOfStatisticPeriodError(error);

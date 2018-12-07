@@ -12,5 +12,5 @@ dynamic statisticControlReducer(Map<String, dynamic> state, action) {
     state['date'] = action.date;
   }
 
-  return Map<String, dynamic>.from(state);
+  return state;// Map<String, dynamic>.from(state);
 }

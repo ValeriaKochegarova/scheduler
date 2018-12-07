@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:scheduler_app/common/helpers/date.helper.dart';
 import 'package:scheduler_app/common/widgets/bottom_navigation_bar/bottom_navigation_bar.widget.dart';
 import 'package:scheduler_app/screens/home/deals/deals.widget.dart';
 import 'package:scheduler_app/screens/home/menu/menu.widget.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
+import 'package:scheduler_app/store/actions/statistic_period.action.dart';
+import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/store.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -34,7 +38,16 @@ class HomeScreen extends StatelessWidget {
             ),
             bottomNavigationBar: BottomNavigationWidget({
               'icon': Icons.show_chart,
-              'cb': () => Navigator.pushNamed(context, '/statistic')
+              'cb': () {
+                StoreProvider.of<AppState>(context).dispatch(SetPeriodPending({
+                  'lable': DateTime.now(),
+                  'from':
+                      DateTime(DateTime.now().year, DateTime.now().month, 1),
+                  'to': DateTime(DateTime.now().year, DateTime.now().month,
+                      getDaysInMonth(DateTime.now().year, DateTime.now().month))
+                }));
+                Navigator.pushNamed(context, '/statistic');
+              }
             }, {
               'icon': Icons.add_circle_outline,
               'cb': () => Navigator.pushNamed(context, '/create')

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:scheduler_app/screens/statistic/chart/period_dropdown/period_label.widget.dart';
-import 'package:scheduler_app/screens/statistic/chart/period_dropdown/period_select.dart';
+import 'package:scheduler_app/screens/statistic/chart/period_dropdown/period_lable/period_label.widget.dart';
+import 'package:scheduler_app/screens/statistic/chart/period_dropdown/period_select/period_select.dart';
 
 class PeriodDropdownWidget extends StatelessWidget {
   @override

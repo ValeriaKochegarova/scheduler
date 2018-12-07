@@ -7,7 +7,7 @@ int getDaysInMonth(int year, int month) {
     if (isLeapYear) return 29;
     return 28;
   }
-  return _daysInMonth[month - 1];
+  return _daysInMonth[month-1];
 }
 
 String formatDate(DateTime date) {

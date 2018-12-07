@@ -94,7 +94,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
     }
     if (firstDay < 1) {
       var prevMonthLength =
-          getDaysInMonth(currentDate.year, currentDate.month - 1);
+          getDaysInMonth(currentDate.year, currentDate.month);
       for (int i = prevMonthLength + firstDay, j = 0;
           i <= prevMonthLength;
           i++, j++) {

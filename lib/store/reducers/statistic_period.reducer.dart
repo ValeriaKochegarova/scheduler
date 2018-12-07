@@ -5,5 +5,5 @@ dynamic statisticPeriodReducer(Map<String, dynamic> state, action) {
     state = action.period;
   }
 
-  return Map<String, dynamic>.from(state);
+  return state;//Map<String, dynamic>.from(state);
 }
