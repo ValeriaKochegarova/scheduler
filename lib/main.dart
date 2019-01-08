@@ -52,9 +52,9 @@ class SchedulerApp extends StatelessWidget {
             navigatorKey: NavKeys.navKey,
             theme: ThemeData(
               primaryColor: Color(0xFFf9fcfc),
-              accentColor: Colors.grey,
+              accentColor: Colors.indigoAccent,
               fontFamily: 'Avenir',
-              iconTheme: IconThemeData(color: Colors.grey[800]),
+              iconTheme: IconThemeData(color: Colors.indigoAccent),
             ),
             home: HomeScreen(),
             routes: <String, WidgetBuilder>{

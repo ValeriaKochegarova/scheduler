@@ -15,10 +15,11 @@ class HomeScreen extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
+              backgroundColor: Colors.indigo,
               centerTitle: true,
               title: Text(
                 'Ежедневник',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.white),
               ),
             ),
             body: GestureDetector(
@@ -26,6 +27,12 @@ class HomeScreen extends StatelessWidget {
                 store.dispatch(UnselectDeal());
               },
               child: Container(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                  begin: Alignment.bottomLeft,
+                  end: Alignment(1.0, 0.0),
+                  colors: [const Color(0xFF01579B), const Color(0xFF00B8D4)],
+                )),
                 child: Column(
                   children: <Widget>[
                     MenuWidget(),

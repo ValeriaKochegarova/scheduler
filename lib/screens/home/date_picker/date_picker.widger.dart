@@ -43,8 +43,6 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
     return result;
   }
 
-
-
   int _computeFirstDayOffset(
       int year, int month, MaterialLocalizations localizations) {
     // 0-based day of week, with 0 representing Monday.
@@ -93,8 +91,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
       }
     }
     if (firstDay < 1) {
-      var prevMonthLength =
-          getDaysInMonth(currentDate.year, currentDate.month);
+      var prevMonthLength = getDaysInMonth(currentDate.year, currentDate.month);
       for (int i = prevMonthLength + firstDay, j = 0;
           i <= prevMonthLength;
           i++, j++) {
@@ -110,21 +107,25 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                 child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
-                      border:  Border.all(
+                      border: Border.all(
                         width: 5.0,
-                        color: Colors.grey,
+                        color: Colors.indigoAccent,
                       ),
-                      color: Colors.grey,
+                      color: Colors.indigoAccent,
                     ),
                     height: 40.0,
                     width: 40.0,
-                    child: Center(child: Text(date['day'].toString()))));
+                    child: Center(
+                        child: Text(
+                      date['day'].toString(),
+                      style: TextStyle(color: Colors.white),
+                    ))));
           }
           return Center(
               child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
-                    border:  Border.all(
+                    border: Border.all(
                       width: 5.0,
                       color: Colors.transparent,
                     ),
