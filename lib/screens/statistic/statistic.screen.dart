@@ -12,16 +12,25 @@ class StatisticScreen extends StatelessWidget {
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
+              backgroundColor: Colors.indigo,
               title: Text(
                 'Статистика',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.white),
               ),
             ),
-            body: Column(
-              children: <Widget>[
-                WrapperWidget(PeriodCheckboxWidget()),
-                Expanded(child: WrapperWidget(GroupedFillColorBarChart()))
-              ],
+            body: Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                begin: Alignment.bottomLeft,
+                end: Alignment(1.0, 0.0),
+                colors: [const Color(0xFF01579B), const Color(0xFF00B8D4)],
+              )),
+              child: Column(
+                children: <Widget>[
+                  WrapperWidget(PeriodCheckboxWidget()),
+                  Expanded(child: WrapperWidget(GroupedFillColorBarChart()))
+                ],
+              ),
             ),
             bottomNavigationBar: BottomNavigationWidget({}, {}, {
               'icon': Icons.info_outline,

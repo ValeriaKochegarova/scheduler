@@ -26,13 +26,15 @@ class PeriodCheckboxWidget extends StatelessWidget {
                     padding: EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
                         color: state['period']['type'] == 0
-                            ? Colors.grey
-                            : Colors.transparent,
+                            ? Colors.indigoAccent
+                            : Colors.grey,
                         border: Border.all(color: Colors.grey),
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10.0),
                             bottomLeft: Radius.circular(10.0))),
-                    child: Center(child: Text('Mecяц')),
+                    child: Center(
+                        child: Text('Mecяц',
+                            style: TextStyle(color: Colors.white))),
                   )),
               InkWell(
                   onTap: () => state['setPeriod'](1),
@@ -41,13 +43,15 @@ class PeriodCheckboxWidget extends StatelessWidget {
                     padding: EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
                         color: state['period']['type'] == 1
-                            ? Colors.grey
-                            : Colors.transparent,
+                            ? Colors.indigoAccent
+                            : Colors.grey,
                         border: Border.all(color: Colors.grey),
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(10.0),
                             bottomRight: Radius.circular(10.0))),
-                    child: Center(child: Text('Год')),
+                    child: Center(
+                        child:
+                            Text('Год', style: TextStyle(color: Colors.white))),
                   )),
             ],
           ));

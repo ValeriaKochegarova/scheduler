@@ -11,7 +11,7 @@ class BottomIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       iconSize: 40.0,
-      color: Colors.grey[intense],
+      color: Colors.indigo,
       icon: Icon(icon),
       onPressed: onPressedCb,
     );

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:scheduler_app/common/helpers/database.helper.dart';
-import 'package:scheduler_app/common/helpers/date.helper.dart';
 import 'package:scheduler_app/config/keys.dart';
 import 'package:scheduler_app/screens/about/about.screen.dart';
 import 'package:scheduler_app/screens/create_deal/create_deal.screen.dart';
@@ -10,7 +9,6 @@ import 'package:scheduler_app/screens/home/home.screen.dart';
 import 'package:scheduler_app/screens/statistic/statistic.screen.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/actions/statistic_control.action.dart';
-import 'package:scheduler_app/store/actions/statistic_period.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:redux/redux.dart';
 import 'package:scheduler_app/store/store.dart';
@@ -54,9 +52,9 @@ class SchedulerApp extends StatelessWidget {
             navigatorKey: NavKeys.navKey,
             theme: ThemeData(
               primaryColor: Color(0xFFf9fcfc),
-              accentColor: Colors.grey,
+              accentColor: Colors.indigoAccent,
               fontFamily: 'Avenir',
-              iconTheme: IconThemeData(color: Colors.grey[800]),
+              iconTheme: IconThemeData(color: Colors.indigoAccent),
             ),
             home: HomeScreen(),
             routes: <String, WidgetBuilder>{

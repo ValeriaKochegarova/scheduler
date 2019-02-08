@@ -36,11 +36,11 @@ class DealsWidget extends StatelessWidget {
               child: isYesterday(state['selectedDate'])
                   ? Text(
                       'У вас не было дел',
-                      style: TextStyle(fontSize: 18.0),
+                      style: TextStyle(color: Colors.white, fontSize: 18.00),
                     )
                   : Text(
                       'У вас еще нет дел',
-                      style: TextStyle(fontSize: 18.0),
+                      style: TextStyle(color: Colors.white, fontSize: 18.00),
                     ))
           : ListView(
               children: (state['choosenPriority'] == null

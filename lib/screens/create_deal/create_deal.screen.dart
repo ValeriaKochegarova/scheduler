@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:scheduler_app/common/widgets/bottom_navigation_bar/bottom_navigation_bar.widget.dart';
 import 'package:scheduler_app/common/widgets/wrapper.widget.dart';
 import 'package:scheduler_app/screens/create_deal/colored_button/colored_pallet.dart';
+import 'package:scheduler_app/screens/home/deals/deals.widget.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/store.dart';
@@ -28,6 +29,12 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
   num priority = getPriorityFilter(store.state) == null
       ? 0
       : getPriorityFilter(store.state);
+
+  _getPriority() {
+    this.setState(() {
+      store.dispatch(SetPriorityFilter(this.priority));
+    });
+  }
 
   String text =
       store.state.selectedDeal == null ? '' : store.state.selectedDeal['text'];
@@ -64,96 +71,92 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
         child: Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        backgroundColor: Colors.indigo,
         title: Text(
           'Дело',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
       ),
       body: InkWell(
         onTap: () {
           hideKeyboard();
         },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            WrapperWidget(
-                Column(
-                  children: <Widget>[
-                    Container(
-                        //padding: EdgeInsets.only(bottom: 25.0),
-                        child: Row(
-                          children: <Widget>[
-                            Flexible(
-                              child: Container(
-                                  margin:
-                                      EdgeInsets.symmetric(horizontal: 10.0),
-                                  decoration: BoxDecoration(
-                                      border:
-                                          new Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(30.0))),
-                                  child: TextField(
-                                    controller: dealDateController,
-                                    onChanged: (String text) {
-                                      setState(() {
-                                        this.text = text;
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                        // labelText: 'Что нужно сделать ?',
-                                        fillColor: Colors.transparent,
-                                        filled: true,
-                                        labelStyle: TextStyle(
-                                            fontStyle: FontStyle.italic,
-                                            fontSize: 20.0),
-                                        border: InputBorder.none),
-                                  )),
+        child: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment(1.0, 0.0),
+            colors: [const Color(0xFF01579B), const Color(0xFF00B8D4)],
+          )),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              WrapperWidget(
+                  Column(
+                    children: <Widget>[
+                      Container(
+                          //padding: EdgeInsets.only(bottom: 25.0),
+                          child: Row(
+                        children: <Widget>[
+                          Flexible(
+                            child: Container(
+                                margin: EdgeInsets.symmetric(horizontal: 10.0),
+                                decoration: BoxDecoration(
+                                    border: new Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(30.0))),
+                                child: TextField(
+                                  controller: dealDateController,
+                                  onChanged: (String text) {
+                                    setState(() {
+                                      this.text = text;
+                                    });
+                                  },
+                                  decoration: InputDecoration(
+                                      // labelText: 'Что нужно сделать ?',
+                                      fillColor: Colors.transparent,
+                                      filled: true,
+                                      labelStyle: TextStyle(
+                                          fontStyle: FontStyle.italic,
+                                          fontSize: 20.0),
+                                      border: InputBorder.none),
+                                )),
+                          ),
+                          Container(
+                            width: 60.0,
+                            height: 60.0,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
                             ),
-                            Container(
-                              width: 60.0,
-                              height: 60.0,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                              ),
-                              child: IconButton(
-                                  iconSize: 35.0,
-                                  icon: Icon(Icons.calendar_today),
-                                  color: Colors.grey[800],
-                                  onPressed: () {
-                                    _selectDate(context);
-                                  }),
-                            ),
-                          ],
-                        )),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        ColoredPallete(priority, (num priority) {
-                          this.priority = priority;
-                        }),
-                        Text(_date.toString().substring(0, 11),
-                            style: TextStyle(fontSize: 18.0))
-                      ],
-                    ),
-                  ],
-                ),
-                height: 150.0),
-            Expanded(
-              child: ListView(children: [
-                WrapperWidget(
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Повтор дела '),
-                        Switch(
-                          value: false,
-                          onChanged: null,
-                        )
-                      ]),
-                )
-              ]),
-            )
-          ],
+                            child: IconButton(
+                                iconSize: 35.0,
+                                icon: Icon(Icons.calendar_today),
+                                color: Colors.grey[800],
+                                onPressed: () {
+                                  _selectDate(context);
+                                }),
+                          ),
+                        ],
+                      )),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          ColoredPallete(priority, (num priority) {
+                            this.priority = priority;
+                            this._getPriority();
+                          }),
+                          Text(_date.toString().substring(0, 11),
+                              style: TextStyle(fontSize: 18.0))
+                        ],
+                      ),
+                    ],
+                  ),
+                  height: 150.0),
+              Expanded(
+                child: DealsWidget(),
+              )
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: StoreConnector<AppState, Map>(converter: (store) {
