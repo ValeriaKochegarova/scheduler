@@ -26,7 +26,8 @@ class DealsWidget extends StatelessWidget {
         },
         'removeCb': (deal) {
           store.dispatch(DeleteDealPending(deal));
-        }
+        },
+        'isEdit': store.state.isEdit
       };
     }, builder: (context, state) {
       return List.from(state['dealsByPriority']).length == 0 &&
@@ -54,7 +55,9 @@ class DealsWidget extends StatelessWidget {
                         isTomorrow(state['date']),
                         state['doneCb'],
                         state['editCb'],
-                        state['removeCb']));
+                        state['removeCb'],
+                        state['isEdit']
+                        ));
               }).toList(),
             );
     });

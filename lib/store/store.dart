@@ -16,7 +16,7 @@ var updateDeal = EpicMiddleware(updateDealEpic);
 
 final store = Store<AppState>(appStateReducer,
     initialState: AppState([], DateTime.now(), null, null,
-        {'type': 0, 'date': DateTime.now()}, {}),
+        {'type': 0, 'date': DateTime.now()}, {}, false),
     middleware: [
       creationMiddleware,
       filterByDateMiddleware,

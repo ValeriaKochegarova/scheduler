@@ -8,11 +8,10 @@ class StatisticScreen extends StatelessWidget {
   @override
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              backgroundColor: Colors.indigo,
+              backgroundColor: Color(0xFF01579B),
               title: Text(
                 'Статистика',
                 style: TextStyle(color: Colors.white),
@@ -35,6 +34,6 @@ class StatisticScreen extends StatelessWidget {
             bottomNavigationBar: BottomNavigationWidget({}, {}, {
               'icon': Icons.info_outline,
               'cb': () => Navigator.pushNamed(context, '/about')
-            })));
+            }));
   }
 }

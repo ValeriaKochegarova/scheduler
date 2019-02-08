@@ -40,8 +40,15 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
       store.state.selectedDeal == null ? '' : store.state.selectedDeal['text'];
 
   @override
+  void initState() {
+    store.dispatch(IsEditOn());
+    super.initState();
+  }
+
+  @override
   void dispose() {
     dealDateController.dispose();
+    store.dispatch(IsEditOff());
     super.dispose();
   }
 
@@ -67,11 +74,10 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.indigo,
+        backgroundColor: Color(0xFF01579B),
         title: Text(
           'Дело',
           style: TextStyle(color: Colors.white),
@@ -169,9 +175,15 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
         };
       }, builder: (context, state) {
         if (state['selectedDeal'] != null) {
-          priority = state['selectedDeal']['priority'];
+          _getPriority;
         }
         return BottomNavigationWidget({
+          'icon': Icons.cancel,
+          'cb': () {
+            Navigator.pop(context);
+            store.dispatch(UnselectDeal());
+          }
+        }, {}, {
           'icon': Icons.check_circle_outline,
           'cb': text == ''
               ? null
@@ -191,19 +203,13 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                   Map<String, dynamic> mappedDeal =
                       Map<String, dynamic>.from(state['selectedDeal']);
                   (mappedDeal).addAll(deal);
-
+                  print(priority);
                   state['updateDeal'](mappedDeal);
                   state['getDealsPending']();
                   store.dispatch(UnselectDeal());
                 },
-        }, {}, {
-          'icon': Icons.cancel,
-          'cb': () {
-            Navigator.pop(context);
-            store.dispatch(UnselectDeal());
-          }
         });
       }),
-    ));
+    );
   }
 }

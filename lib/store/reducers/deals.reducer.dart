@@ -26,3 +26,14 @@ dynamic dealsReducer(List state, action) {
   }
   return List.from(state);
 }
+
+
+dynamic isEditReducer(state, action) {
+  if (action is IsEditOn) {
+    return true;
+  }
+    if (action is IsEditOff) {
+    return false;
+  }
+  return state;
+}

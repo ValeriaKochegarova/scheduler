@@ -10,9 +10,10 @@ class Deal extends StatelessWidget {
   final Function removeCb;
   final bool isYesterday;
   final bool isTomorrow;
+  final bool isEdit;
 
   Deal(this.deal, this.isYesterday, this.isTomorrow, this.doneCb, this.editCb,
-      this.removeCb);
+      this.removeCb, this.isEdit);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class Deal extends StatelessWidget {
           Expanded(child: Text(deal['text'])),
           isYesterday
               ? Container()
-              : PopupMenuButton(
+              : !isEdit ? PopupMenuButton(
                   onSelected: (action) {
                     action == 'Редактировать'
                         ? this.editCb(this.deal)
@@ -47,7 +48,7 @@ class Deal extends StatelessWidget {
                       );
                     }).toList();
                   },
-                ),
+                ) : Container(),
         ],
       ),
       height: 60.0,

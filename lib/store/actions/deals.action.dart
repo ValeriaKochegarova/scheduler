@@ -1,4 +1,3 @@
-// update deal
 class UpdateMarkPending {
   final Map<String, dynamic> payload;
   UpdateMarkPending(this.payload);
@@ -82,3 +81,6 @@ class SetPriorityFilter {
 }
 
 class UnsetPriorityDeal {}
+
+class IsEditOn {}
+class IsEditOff {}

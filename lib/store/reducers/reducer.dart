@@ -12,8 +12,9 @@ class AppState {
   final dynamic priority;
   final Map<String, dynamic> statisticControl;
   final Map<String, dynamic> statisticPeriod;
+  final bool isEdit;
   AppState(this.deals, this.date, this.selectedDeal, this.priority,
-      this.statisticControl, this.statisticPeriod);
+      this.statisticControl, this.statisticPeriod, this.isEdit);
 }
 
 AppState appStateReducer(AppState state, action) => AppState(
@@ -23,6 +24,7 @@ AppState appStateReducer(AppState state, action) => AppState(
       dealsByPriorityReducer(state.priority, action),
       statisticControlReducer(state.statisticControl, action),
       statisticPeriodReducer(state.statisticPeriod, action),
+      isEditReducer(state.isEdit, action)
     );
 
 getDeals(AppState state) => state.deals;
