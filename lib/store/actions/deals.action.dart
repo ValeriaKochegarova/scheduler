@@ -13,13 +13,11 @@ class UpdateDealError {
   UpdateDealError(this.payload);
 }
 
-// update text deal
 class UpdateEditPending {
   final Map<String, dynamic> payload;
   UpdateEditPending(this.payload);
 }
 
-// create deal
 class CreateDealPending {
   final deal;
   CreateDealPending(this.deal);

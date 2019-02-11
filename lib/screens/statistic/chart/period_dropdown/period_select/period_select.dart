@@ -41,19 +41,6 @@ class PeriodSelectWidget extends StatelessWidget {
         },
       );
 
-      // return DropdownButton<String>(
-      //   hint: Text('A'),
-      //   items: List<Map<String, dynamic>>.from(state['dropdownList'])
-      //       .map((Map<String, dynamic> date) {
-      //     String valueForRender =
-      //         _convertLable(state['period'], date, localization);
-      //     return DropdownMenuItem<String>(
-      //       value: valueForRender,
-      //       child: Text(valueForRender),
-      //     );
-      //   }).toList(),
-      //   onChanged: (_) {},
-      // );
     });
   }
 }

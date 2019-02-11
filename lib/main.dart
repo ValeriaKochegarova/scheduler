@@ -25,11 +25,6 @@ void main() async {
 class SchedulerApp extends StatelessWidget {
   final Store<AppState> store;
   SchedulerApp({Key key, this.store}) : super(key: key) {
-    // store.dispatch(CreateDealPending( Map<String, dynamic>.from({
-    //                         'text': 'Прошлое дело ',
-    //                         'date': DateTime(2017,11,29),
-    //                         'priority': 1
-    //                       })));
 
     store.dispatch(GetDealsByDatePending());
     store.dispatch(GetStartOfStatisticPeriodPending());
@@ -46,7 +41,6 @@ class SchedulerApp extends StatelessWidget {
             ],
             supportedLocales: [
               const Locale('ru', 'RU'),
-              //const Locale('en', 'EN'),
             ],
             title: 'Дела Ok',
             navigatorKey: NavKeys.navKey,

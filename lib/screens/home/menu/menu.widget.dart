@@ -3,7 +3,6 @@ import 'package:scheduler_app/common/widgets/wrapper.widget.dart';
 import 'package:scheduler_app/screens/home/date_picker/date_picker.widger.dart';
 import 'package:scheduler_app/screens/home/deals_filter_with_statistic/deals_filter_with_statistic.widget.dart';
 
-
 class MenuWidget extends StatefulWidget {
   @override
   _MenuWidgetState createState() => _MenuWidgetState();

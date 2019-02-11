@@ -55,11 +55,8 @@ class DealsFilterWithStatistic extends StatelessWidget {
       );
     });
   }
-
-  /// Create one series with sample hard coded data.
 }
 
-/// Sample linear data type.
 class DealsPipeData {
   final int allCount;
   final int dealsCount;
