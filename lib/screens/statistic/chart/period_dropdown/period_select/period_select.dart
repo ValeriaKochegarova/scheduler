@@ -24,7 +24,7 @@ class PeriodSelectWidget extends StatelessWidget {
       };
     }, builder: (context, state) {
       return PopupMenuButton(
-        icon: Icon(Icons.date_range),
+        icon: Icon(Icons.date_range, color: Colors.black,),
         onSelected: (period) {
           state['setStatisticPeriod'](period);
         },
@@ -35,7 +35,7 @@ class PeriodSelectWidget extends StatelessWidget {
                 _convertLable(state['period'], date, localization);
             return PopupMenuItem(
               value: date,
-              child: Text(valueForRender),
+              child: Text(valueForRender, style: TextStyle(color: Colors.black),),
             );
           }).toList();
         },

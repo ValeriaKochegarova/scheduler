@@ -21,7 +21,7 @@ class PeriodLabelWidget extends StatelessWidget {
     }, builder: (context, state) {
       String valueForRender =
           _convertLable(state['periodType'], state['period'], localization);
-      return Text(valueForRender);
+      return Text(valueForRender, style: TextStyle(color: Colors.black));
     });
   }
 }

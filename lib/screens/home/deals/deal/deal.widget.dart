@@ -22,33 +22,41 @@ class Deal extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           isYesterday || isTomorrow
-              ? Container(width: 20.0,)
-              : !isEdit ? Checkbox(
-                  value: deal['done'] == 0 ? false : true,
-                  onChanged: (bool value) {
-                    Map<String, dynamic> mappedDeal =
-                        Map<String, dynamic>.from(deal);
-                    mappedDeal..addAll({'done': value ? 1 : 0});
-                    doneCb(mappedDeal);
-                  }) : Container(),
-          Expanded(child: Text(deal['text'])),
+              ? Container(
+                  width: 20.0,
+                )
+              : !isEdit
+                  ? Checkbox(
+                      value: deal['done'] == 0 ? false : true,
+                      onChanged: (bool value) {
+                        Map<String, dynamic> mappedDeal =
+                            Map<String, dynamic>.from(deal);
+                        mappedDeal..addAll({'done': value ? 1 : 0});
+                        doneCb(mappedDeal);
+                      })
+                  : Container(),
+          Expanded(
+              child: Text(deal['text'], style: TextStyle(color: Colors.black))),
           isYesterday
               ? Container()
-              : !isEdit ? PopupMenuButton(
-                  onSelected: (action) {
-                    action == 'Редактировать'
-                        ? this.editCb(this.deal)
-                        : this.removeCb(this.deal);
-                  },
-                  itemBuilder: (BuildContext context) {
-                    return ['Удалить', 'Редактировать'].map((choice) {
-                      return PopupMenuItem(
-                        value: choice,
-                        child: Text(choice),
-                      );
-                    }).toList();
-                  },
-                ) : Container(),
+              : !isEdit
+                  ? PopupMenuButton(
+                      icon: Icon(Icons.more_horiz, color: Colors.black),
+                      onSelected: (action) {
+                        action == 'Редактировать'
+                            ? this.editCb(this.deal)
+                            : this.removeCb(this.deal);
+                      },
+                      itemBuilder: (BuildContext context) {
+                        return ['Удалить', 'Редактировать'].map((choice) {
+                          return PopupMenuItem(
+                            value: choice,
+                            child: Text(choice),
+                          );
+                        }).toList();
+                      },
+                    )
+                  : Container(),
         ],
       ),
       height: 60.0,

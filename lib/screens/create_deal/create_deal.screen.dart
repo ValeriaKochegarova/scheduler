@@ -77,7 +77,6 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Color(0xFF01579B),
         title: Text(
           'Дело',
           style: TextStyle(color: Colors.white),
@@ -92,7 +91,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
               gradient: LinearGradient(
             begin: Alignment.bottomLeft,
             end: Alignment(1.0, 0.0),
-            colors: [const Color(0xFF01579B), const Color(0xFF00B8D4)],
+            colors: [const Color(0xFF1A237E), const Color(0xFF7C4DFF)],
           )),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -101,7 +100,6 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                   Column(
                     children: <Widget>[
                       Container(
-                          //padding: EdgeInsets.only(bottom: 25.0),
                           child: Row(
                         children: <Widget>[
                           Flexible(
@@ -112,6 +110,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(30.0))),
                                 child: TextField(
+                                  style: TextStyle(color: Colors.black),
                                   controller: dealDateController,
                                   onChanged: (String text) {
                                     setState(() {
@@ -152,7 +151,8 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                             this._getPriority();
                           }),
                           Text(_date.toString().substring(0, 11),
-                              style: TextStyle(fontSize: 18.0))
+                              style: TextStyle(
+                                  fontSize: 18.0, color: Colors.black))
                         ],
                       ),
                     ],

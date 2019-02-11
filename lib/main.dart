@@ -14,6 +14,8 @@ import 'package:redux/redux.dart';
 import 'package:scheduler_app/store/store.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'package:dynamic_theme/dynamic_theme.dart';
+
 void main() async {
   // await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await DatabaseHelper().initDb();
@@ -24,37 +26,84 @@ void main() async {
 
 class SchedulerApp extends StatelessWidget {
   final Store<AppState> store;
-  SchedulerApp({Key key, this.store}) : super(key: key) {
 
+  SchedulerApp({Key key, this.store}) : super(key: key) {
     store.dispatch(GetDealsByDatePending());
     store.dispatch(GetStartOfStatisticPeriodPending());
   }
   @override
   Widget build(BuildContext context) {
-    return StoreProvider<AppState>(
-        store: store,
-        child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: [
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            supportedLocales: [
-              const Locale('ru', 'RU'),
-            ],
-            title: 'Дела Ok',
-            navigatorKey: NavKeys.navKey,
-            theme: ThemeData(
-              primaryColor: Color(0xFFf9fcfc),
-              accentColor: Colors.indigoAccent,
-              fontFamily: 'Avenir',
-              iconTheme: IconThemeData(color: Colors.indigoAccent),
+    return new DynamicTheme(
+        defaultBrightness: Brightness.light,
+        data: (brightness) => new ThemeData(
+              primarySwatch: Colors.indigo,
+              brightness: brightness,
             ),
-            home: HomeScreen(),
-            routes: <String, WidgetBuilder>{
-              '/create': (BuildContext context) => CreateDealScreen(),
-              '/about': (BuildContext context) => AboutScreen(),
-              '/statistic': (BuildContext context) => StatisticScreen(),
-            }));
+        themedWidgetBuilder: (context, theme) {
+          return StoreProvider<AppState>(
+              store: store,
+              child: MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  localizationsDelegates: [
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                  ],
+                  supportedLocales: [
+                    const Locale('ru', 'RU'),
+                  ],
+                  title: 'Дела Ok',
+                  navigatorKey: NavKeys.navKey,
+                  theme: theme,
+                  // theme: ThemeData(
+                  //   primaryColor: Color(0xFFf9fcfc),
+                  //   accentColor: Colors.indigoAccent,
+                  //   fontFamily: 'Avenir',
+                  //   iconTheme: IconThemeData(color: Colors.indigoAccent),
+                  // ),
+                  home: HomeScreen(),
+                  routes: <String, WidgetBuilder>{
+                    '/create': (BuildContext context) => CreateDealScreen(),
+                    '/about': (BuildContext context) => AboutScreen(),
+                    '/statistic': (BuildContext context) => StatisticScreen(),
+                  }));
+        });
   }
 }
+
+// class SchedulerApp extends StatelessWidget {
+//   final Store<AppState> store;
+//   SchedulerApp({Key key, this.store}) : super(key: key) {
+
+//     store.dispatch(GetDealsByDatePending());
+//     store.dispatch(GetStartOfStatisticPeriodPending());
+//   }
+//   @override
+//   Widget build(BuildContext context) {
+//     return StoreProvider<AppState>(
+//         store: store,
+// child: MaterialApp(
+//     debugShowCheckedModeBanner: false,
+//     localizationsDelegates: [
+//       GlobalMaterialLocalizations.delegate,
+//       GlobalWidgetsLocalizations.delegate,
+//     ],
+//     supportedLocales: [
+//       const Locale('ru', 'RU'),
+//     ],
+//     title: 'Дела Ok',
+//     navigatorKey: NavKeys.navKey,
+//     theme: ThemeData(
+//       primaryColor: Color(0xFFf9fcfc),
+//       accentColor: Colors.indigoAccent,
+//       fontFamily: 'Avenir',
+//       iconTheme: IconThemeData(color: Colors.indigoAccent),
+//     ),
+//     home: HomeScreen(),
+//     routes: <String, WidgetBuilder>{
+//       '/create': (BuildContext context) => CreateDealScreen(),
+//       '/about': (BuildContext context) => AboutScreen(),
+//       '/statistic': (BuildContext context) => StatisticScreen(),
+//     })
+// );
+//   }
+// }

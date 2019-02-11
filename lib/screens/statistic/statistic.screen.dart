@@ -6,12 +6,10 @@ import 'package:scheduler_app/screens/statistic/period_checkbox/period_checkbox.
 
 class StatisticScreen extends StatelessWidget {
   @override
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              backgroundColor: Color(0xFF01579B),
               title: Text(
                 'Статистика',
                 style: TextStyle(color: Colors.white),
@@ -22,7 +20,7 @@ class StatisticScreen extends StatelessWidget {
                   gradient: LinearGradient(
                 begin: Alignment.bottomLeft,
                 end: Alignment(1.0, 0.0),
-                colors: [const Color(0xFF01579B), const Color(0xFF00B8D4)],
+                colors: [const Color(0xFF1A237E), const Color(0xFF7C4DFF)],
               )),
               child: Column(
                 children: <Widget>[

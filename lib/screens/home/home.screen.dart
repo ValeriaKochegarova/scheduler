@@ -9,24 +9,44 @@ import 'package:scheduler_app/store/actions/statistic_period.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/store.dart';
 
+import 'package:dynamic_theme/dynamic_theme.dart';
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   Widget build(BuildContext context) {
+    void changeBrightness() {
+      DynamicTheme.of(context).setBrightness(
+          Theme.of(context).brightness == Brightness.dark
+              ? Brightness.light
+              : Brightness.dark);
+    }
+
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFF01579B),
-          centerTitle: true,
-          title: Text(
-            'Ежедневник',
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
+            centerTitle: true,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Expanded(
+                    flex: 10,
+                    child: Text(
+                      'Ежедневник',
+                      style: TextStyle(color: Colors.white),
+                    )),
+                IconButton(
+                  icon: Icon(Icons.color_lens),
+                  onPressed: changeBrightness,
+                ),
+                Expanded(
+                    child: IconButton(
+                        icon: Icon(Icons.language), onPressed: () {}))
+              ],
+            )),
         body: GestureDetector(
           onTap: () {
             store.dispatch(UnselectDeal());
@@ -34,9 +54,9 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
-              begin: Alignment.bottomLeft,
+              begin: Alignment.topCenter,
               end: Alignment(1.0, 0.0),
-              colors: [const Color(0xFF01579B), const Color(0xFF00B8D4)],
+              colors: [const Color(0xFF1A237E), const Color(0xFF7C4DFF)],
             )),
             child: Column(
               children: <Widget>[

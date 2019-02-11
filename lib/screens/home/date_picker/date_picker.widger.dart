@@ -136,12 +136,15 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                       onTap: () {
                         updateDate(date['date']);
                       },
-                      child: Center(child: Text(date['day'].toString())))));
+                      child: Center(
+                          child: Text(date['day'].toString(),
+                              style: TextStyle(color: Colors.black))))));
         }).toList();
+
     List<Widget> headerDaysWidget(updateDate) {
       List<Widget> headerDays =
           _getDayHeaders(themeData.textTheme.caption, localization)
-              .map((x) => Center(child: Text(x)))
+              .map((x) => Center(child: Text(x, style: TextStyle(color: Colors.black),)))
               .toList();
       headerDays.addAll(baseWeekWidgets(updateDate));
       return headerDays;
@@ -159,6 +162,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
           children: <Widget>[
             IconButton(
                 icon: Icon(Icons.today),
+                color: Colors.black,
                 onPressed: () {
                   setState(() {
                     _date = DateTime.now();
@@ -166,8 +170,9 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                   store.dispatch(UnselectDeal());
                   updateDate(_date);
                 }),
-            Text(monthWithYear),
+            Text(monthWithYear, style: TextStyle(color: Colors.black),),
             IconButton(
+                color: Colors.black,
                 icon: Icon(Icons.calendar_today),
                 onPressed: () {
                   _selectDate(context, updateDate);
