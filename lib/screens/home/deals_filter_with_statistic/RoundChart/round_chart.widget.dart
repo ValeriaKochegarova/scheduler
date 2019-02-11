@@ -17,7 +17,7 @@ class RoundChartWidget extends StatelessWidget {
       width: viewView / 5.0,
       child: CustomPaint(
         foregroundPainter: RoundChartPainter(
-            completePercent: percentage, radius: viewView / 14),
+            completePercent: percentage, radius: 30),
         child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Center(
