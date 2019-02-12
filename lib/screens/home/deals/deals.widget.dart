@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:scheduler_app/common/helpers/date.helper.dart';
+import 'package:scheduler_app/constants/strings/string_keys.dart';
 import 'package:scheduler_app/screens/home/deals/deal/deal.widget.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/selectors/deals.selector.dart';
+import 'package:scheduler_app/utils/localization.dart';
 
 class DealsWidget extends StatelessWidget {
   @override
@@ -40,7 +42,7 @@ class DealsWidget extends StatelessWidget {
                       style: TextStyle(color: Colors.white, fontSize: 18.00),
                     )
                   : Text(
-                      'У вас еще нет дел',
+                       Localization.getString(Strings.noTodos),
                       style: TextStyle(color: Colors.white, fontSize: 18.00),
                     ))
           : ListView(

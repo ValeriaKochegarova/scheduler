@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:scheduler_app/common/helpers/date.helper.dart';
 import 'package:scheduler_app/common/widgets/bottom_navigation_bar/bottom_navigation_bar.widget.dart';
+import 'package:scheduler_app/constants/strings/string_keys.dart';
 import 'package:scheduler_app/screens/home/deals/deals.widget.dart';
+import 'package:scheduler_app/screens/home/locale_selector.dart';
 import 'package:scheduler_app/screens/home/menu/menu.widget.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/actions/statistic_period.action.dart';
@@ -10,6 +12,7 @@ import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/store.dart';
 
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:scheduler_app/utils/localization.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -17,6 +20,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Localization.onLocaleChanged = () {
+      if (!this.mounted) return;
+      setState(() {});
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     void changeBrightness() {
@@ -35,16 +47,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                     flex: 10,
                     child: Text(
-                      'Ежедневник',
+                      Localization.getString(Strings.diary),
                       style: TextStyle(color: Colors.white),
                     )),
                 IconButton(
                   icon: Icon(Icons.color_lens),
                   onPressed: changeBrightness,
                 ),
-                Expanded(
-                    child: IconButton(
-                        icon: Icon(Icons.language), onPressed: () {}))
+                LocaleSelector(),
               ],
             )),
         body: GestureDetector(

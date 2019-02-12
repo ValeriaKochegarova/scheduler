@@ -12,9 +12,9 @@ import 'package:scheduler_app/store/actions/statistic_control.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:redux/redux.dart';
 import 'package:scheduler_app/store/store.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:scheduler_app/utils/localization.dart';
 
 void main() async {
   // await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -33,6 +33,7 @@ class SchedulerApp extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
+    Localization.setLocale('ru');
     return new DynamicTheme(
         defaultBrightness: Brightness.light,
         data: (brightness) => new ThemeData(
@@ -43,14 +44,7 @@ class SchedulerApp extends StatelessWidget {
           return StoreProvider<AppState>(
               store: store,
               child: MaterialApp(
-                  debugShowCheckedModeBanner: false,
-                  localizationsDelegates: [
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                  ],
-                  supportedLocales: [
-                    const Locale('ru', 'RU'),
-                  ],
+                debugShowCheckedModeBanner: false,
                   title: 'Дела Ok',
                   navigatorKey: NavKeys.navKey,
                   theme: theme,
