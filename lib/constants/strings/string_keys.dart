@@ -5,4 +5,5 @@ class Strings{
   static final diary = 'diary';
   static final noTodos = 'noTodos';
   static final noTodosEarly = 'noTodosEarly';
+  static final deal = 'deal';
 }

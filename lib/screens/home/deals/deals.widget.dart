@@ -38,7 +38,7 @@ class DealsWidget extends StatelessWidget {
           ? Center(
               child: isYesterday(state['selectedDate'])
                   ? Text(
-                      'У вас не было дел',
+                      Localization.getString(Strings.noTodosEarly),
                       style: TextStyle(color: Colors.white, fontSize: 18.00),
                     )
                   : Text(

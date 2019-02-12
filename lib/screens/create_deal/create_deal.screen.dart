@@ -5,11 +5,13 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:intl/intl.dart';
 import 'package:scheduler_app/common/widgets/bottom_navigation_bar/bottom_navigation_bar.widget.dart';
 import 'package:scheduler_app/common/widgets/wrapper.widget.dart';
+import 'package:scheduler_app/constants/strings/string_keys.dart';
 import 'package:scheduler_app/screens/create_deal/colored_button/colored_pallet.dart';
 import 'package:scheduler_app/screens/home/deals/deals.widget.dart';
 import 'package:scheduler_app/store/actions/deals.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/store/store.dart';
+import 'package:scheduler_app/utils/localization.dart';
 
 class CreateDealScreen extends StatefulWidget {
   @override
@@ -78,7 +80,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Дело',
+          Localization.getString(Strings.deal),
           style: TextStyle(color: Colors.white),
         ),
       ),

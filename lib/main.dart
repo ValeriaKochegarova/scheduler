@@ -16,6 +16,8 @@ import 'package:scheduler_app/store/store.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:scheduler_app/utils/localization.dart';
 
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 void main() async {
   // await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await DatabaseHelper().initDb();
@@ -44,7 +46,15 @@ class SchedulerApp extends StatelessWidget {
           return StoreProvider<AppState>(
               store: store,
               child: MaterialApp(
-                debugShowCheckedModeBanner: false,
+                  debugShowCheckedModeBanner: false,
+                  localizationsDelegates: [
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                  ],
+                  supportedLocales: [
+                    const Locale('ru', 'RU'),
+                    // const Locale('en', 'EN'),
+                  ],
                   title: 'Дела Ok',
                   navigatorKey: NavKeys.navKey,
                   theme: theme,

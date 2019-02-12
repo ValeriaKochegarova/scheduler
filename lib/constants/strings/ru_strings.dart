@@ -4,5 +4,6 @@ final localizedStringsRu = {
   Strings.signIn: 'Sign in with login_FR',
   Strings.diary: 'Ежедневник',
   Strings.noTodos: 'У вас еще нет дел',
-  Strings.noTodosEarly: 'У вас еще не было дел'
+  Strings.noTodosEarly: 'У вас еще не было дел',
+  Strings.deal: 'Дело'
 };

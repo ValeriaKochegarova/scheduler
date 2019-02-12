@@ -121,6 +121,8 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                       style: TextStyle(color: Colors.white),
                     ))));
           }
+
+          print(localization);
           return Center(
               child: Container(
                   decoration: BoxDecoration(

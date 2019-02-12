@@ -19,7 +19,6 @@ class LocaleSelectorState extends State<LocaleSelector> {
 
 
   Widget _buildListCell(int index) {
-    //return Text('asdfasdf');
     return GestureDetector(
       onTap: () {
         _switchLocale(index);

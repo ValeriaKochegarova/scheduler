@@ -4,5 +4,6 @@ final localizedStringsEn = {
   Strings.signIn: 'Sign in with login',
   Strings.diary: 'Diary',
   Strings.noTodos: 'You have no deals yet',
-  Strings.noTodosEarly: 'You haven\'t had a case yet'
+  Strings.noTodosEarly: 'You haven\'t had a case yet',
+  Strings.deal: 'Deal'
 };
