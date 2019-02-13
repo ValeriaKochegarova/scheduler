@@ -52,18 +52,12 @@ class SchedulerApp extends StatelessWidget {
                     GlobalWidgetsLocalizations.delegate,
                   ],
                   supportedLocales: [
-                    const Locale('ru', 'RU'),
-                    // const Locale('en', 'EN'),
+                    Locale(store.state.lang.toLowerCase(), store.state.lang),
+                   //Locale('ru', 'RU'),
                   ],
                   title: 'Дела Ok',
                   navigatorKey: NavKeys.navKey,
                   theme: theme,
-                  // theme: ThemeData(
-                  //   primaryColor: Color(0xFFf9fcfc),
-                  //   accentColor: Colors.indigoAccent,
-                  //   fontFamily: 'Avenir',
-                  //   iconTheme: IconThemeData(color: Colors.indigoAccent),
-                  // ),
                   home: HomeScreen(),
                   routes: <String, WidgetBuilder>{
                     '/create': (BuildContext context) => CreateDealScreen(),
@@ -73,41 +67,3 @@ class SchedulerApp extends StatelessWidget {
         });
   }
 }
-
-// class SchedulerApp extends StatelessWidget {
-//   final Store<AppState> store;
-//   SchedulerApp({Key key, this.store}) : super(key: key) {
-
-//     store.dispatch(GetDealsByDatePending());
-//     store.dispatch(GetStartOfStatisticPeriodPending());
-//   }
-//   @override
-//   Widget build(BuildContext context) {
-//     return StoreProvider<AppState>(
-//         store: store,
-// child: MaterialApp(
-//     debugShowCheckedModeBanner: false,
-//     localizationsDelegates: [
-//       GlobalMaterialLocalizations.delegate,
-//       GlobalWidgetsLocalizations.delegate,
-//     ],
-//     supportedLocales: [
-//       const Locale('ru', 'RU'),
-//     ],
-//     title: 'Дела Ok',
-//     navigatorKey: NavKeys.navKey,
-//     theme: ThemeData(
-//       primaryColor: Color(0xFFf9fcfc),
-//       accentColor: Colors.indigoAccent,
-//       fontFamily: 'Avenir',
-//       iconTheme: IconThemeData(color: Colors.indigoAccent),
-//     ),
-//     home: HomeScreen(),
-//     routes: <String, WidgetBuilder>{
-//       '/create': (BuildContext context) => CreateDealScreen(),
-//       '/about': (BuildContext context) => AboutScreen(),
-//       '/statistic': (BuildContext context) => StatisticScreen(),
-//     })
-// );
-//   }
-// }

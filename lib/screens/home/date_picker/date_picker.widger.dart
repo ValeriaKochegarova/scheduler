@@ -122,7 +122,6 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                     ))));
           }
 
-          print(localization);
           return Center(
               child: Container(
                   decoration: BoxDecoration(
@@ -172,7 +171,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                   store.dispatch(UnselectDeal());
                   updateDate(_date);
                 }),
-            Text(monthWithYear, style: TextStyle(color: Colors.black),),
+            Text(monthWithYear, style: TextStyle(color: Colors.black)),
             IconButton(
                 color: Colors.black,
                 icon: Icon(Icons.calendar_today),

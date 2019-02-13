@@ -1,5 +1,7 @@
-import 'package:scheduler_app/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:scheduler_app/store/actions/locale.action.dart';
+import 'package:scheduler_app/store/reducers/reducer.dart';
 import 'package:scheduler_app/utils/localization.dart';
 
 class LocaleSelector extends StatefulWidget {
@@ -11,62 +13,40 @@ class LocaleSelector extends StatefulWidget {
 }
 
 class LocaleSelectorState extends State<LocaleSelector> {
-  List<String> _locales = Localization.supportedLocales;
   @override
   void initState() {
     super.initState();
   }
 
-
-  Widget _buildListCell(int index) {
-    return GestureDetector(
-      onTap: () {
-        _switchLocale(index);
-      },
-      child: Row(children: <Widget>[Text(_locales[index].toUpperCase(),
-      
-      style: TextStyle(decoration: TextDecoration.underline, fontSize: 18.0, color: getTextColor(index)),
-      ),
-      Container(width: 15.0,)
-      ],
-      )
-        
-    );
-  }
-
-  Color getTextColor(index) {
-    if(Localization.languageCode == _locales[index]) {
-      return AppColors.accentColor;
-    }
-    
-    return Colors.grey;
-  }
-
-  void _switchLocale(int index) {
-      final localeCode = _locales[index];
-      Localization.setLocale(localeCode); 
-  }
-
-  Widget _buildLocalesList() {
-    return Center(
-      child: ListView.builder(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.all(5.0),
-          itemBuilder: (context, index) {
-            if (index < _locales.length) {
-              return _buildListCell(index);
-            }
-          }),
-    );
+  void _switchLocale(String index) {
+    Localization.setLocale(index);
   }
 
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-          width: 100.0,
-          height: 30.0,
-          child: _buildLocalesList()),
-    );
+    return StoreConnector<AppState, Map>(converter: (store) {
+      return {
+        'setLang': (lang) {
+          store.dispatch(SetLocale(lang));
+        },
+      };
+    }, builder: (context, state) {
+      var setLoc = state['setLang'];
+      return Center(
+          child: PopupMenuButton(
+        icon: Icon(Icons.language, color: Colors.white),
+        onSelected: (action) {
+          action == 'RU' ? _switchLocale('ru') : _switchLocale('en');
+          setLoc(action);
+        },
+        itemBuilder: (BuildContext context) {
+          return ['RU', 'EN'].map((choice) {
+            return PopupMenuItem(
+              value: choice,
+              child: Text(choice),
+            );
+          }).toList();
+        },
+      ));
+    });
   }
 }

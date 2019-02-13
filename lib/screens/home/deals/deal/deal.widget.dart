@@ -26,14 +26,16 @@ class Deal extends StatelessWidget {
                   width: 20.0,
                 )
               : !isEdit
-                  ? Checkbox(
-                      value: deal['done'] == 0 ? false : true,
-                      onChanged: (bool value) {
-                        Map<String, dynamic> mappedDeal =
-                            Map<String, dynamic>.from(deal);
-                        mappedDeal..addAll({'done': value ? 1 : 0});
-                        doneCb(mappedDeal);
-                      })
+                  ? Theme(
+                      data: ThemeData(),
+                      child: Checkbox(
+                          value: deal['done'] == 0 ? false : true,
+                          onChanged: (bool value) {
+                            Map<String, dynamic> mappedDeal =
+                                Map<String, dynamic>.from(deal);
+                            mappedDeal..addAll({'done': value ? 1 : 0});
+                            doneCb(mappedDeal);
+                          }))
                   : Container(),
           Expanded(
               child: Text(deal['text'], style: TextStyle(color: Colors.black))),

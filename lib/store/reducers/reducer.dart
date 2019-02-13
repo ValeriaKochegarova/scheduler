@@ -1,6 +1,7 @@
 import 'package:scheduler_app/store/reducers/calendar.reducer.dart';
 import 'package:scheduler_app/store/reducers/deals.reducer.dart';
 import 'package:scheduler_app/store/reducers/dealsByPriority.reducer.dart';
+import 'package:scheduler_app/store/reducers/locale.reducer.dart';
 import 'package:scheduler_app/store/reducers/selectDeal.reducer.dart';
 import 'package:scheduler_app/store/reducers/statistic_control.reducer.dart';
 import 'package:scheduler_app/store/reducers/statistic_period.reducer.dart';
@@ -13,8 +14,9 @@ class AppState {
   final Map<String, dynamic> statisticControl;
   final Map<String, dynamic> statisticPeriod;
   final bool isEdit;
+  final dynamic lang;
   AppState(this.deals, this.date, this.selectedDeal, this.priority,
-      this.statisticControl, this.statisticPeriod, this.isEdit);
+      this.statisticControl, this.statisticPeriod, this.isEdit, this.lang);
 }
 
 AppState appStateReducer(AppState state, action) => AppState(
@@ -24,7 +26,8 @@ AppState appStateReducer(AppState state, action) => AppState(
       dealsByPriorityReducer(state.priority, action),
       statisticControlReducer(state.statisticControl, action),
       statisticPeriodReducer(state.statisticPeriod, action),
-      isEditReducer(state.isEdit, action)
+      isEditReducer(state.isEdit, action),
+      setLocaleReducer(state.lang, action)
     );
 
 getDeals(AppState state) => state.deals;

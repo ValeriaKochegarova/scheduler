@@ -205,7 +205,6 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                   Map<String, dynamic> mappedDeal =
                       Map<String, dynamic>.from(state['selectedDeal']);
                   (mappedDeal).addAll(deal);
-                  print(priority);
                   state['updateDeal'](mappedDeal);
                   state['getDealsPending']();
                   store.dispatch(UnselectDeal());

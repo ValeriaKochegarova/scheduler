@@ -24,9 +24,9 @@ class DealsFilterWithStatistic extends StatelessWidget {
           width: 50.0,
           height: 50.0,
           padding: EdgeInsets.only(top: 20.0, left: 20.0),
-          child: Text('${deal['doneCount']}/${deal['allCount']}',
+          child: Text(' ${deal['doneCount']}/${deal['allCount']}',
               style: TextStyle(
-                  fontSize: 16.0, color: PriorityColor[deal['priority']])),
+                  fontSize: 16.0, color: deal['priority'] == null ? Colors.black : PriorityColor[deal['priority']])),
         ),
       );
     }).toList());

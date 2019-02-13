@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:scheduler_app/constants/strings/string_keys.dart';
 import 'package:scheduler_app/store/actions/statistic_control.action.dart';
 import 'package:scheduler_app/store/reducers/reducer.dart';
+import 'package:scheduler_app/utils/localization.dart';
 
 class PeriodCheckboxWidget extends StatelessWidget {
   @override
@@ -33,7 +35,7 @@ class PeriodCheckboxWidget extends StatelessWidget {
                             topLeft: Radius.circular(10.0),
                             bottomLeft: Radius.circular(10.0))),
                     child: Center(
-                        child: Text('Mecяц',
+                        child: Text(Localization.getString(Strings.month),
                             style: TextStyle(color: Colors.white))),
                   )),
               InkWell(
@@ -51,7 +53,7 @@ class PeriodCheckboxWidget extends StatelessWidget {
                             bottomRight: Radius.circular(10.0))),
                     child: Center(
                         child:
-                            Text('Год', style: TextStyle(color: Colors.white))),
+                            Text(Localization.getString(Strings.year), style: TextStyle(color: Colors.white))),
                   )),
             ],
           ));

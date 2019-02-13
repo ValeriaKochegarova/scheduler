@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:scheduler_app/constants/strings/string_keys.dart';
+import 'package:scheduler_app/utils/localization.dart';
 
 class AboutScreen extends StatelessWidget {
   @override
@@ -7,7 +9,7 @@ class AboutScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'О приложении',
+          Localization.getString(Strings.aboutApp),
           style: TextStyle(color: Colors.black),
         ),
       ),

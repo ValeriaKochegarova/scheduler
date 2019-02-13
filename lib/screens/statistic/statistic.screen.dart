@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:scheduler_app/common/widgets/bottom_navigation_bar/bottom_navigation_bar.widget.dart';
 import 'package:scheduler_app/common/widgets/wrapper.widget.dart';
+import 'package:scheduler_app/constants/strings/string_keys.dart';
 import 'package:scheduler_app/screens/statistic/chart/chart.widget.dart';
 import 'package:scheduler_app/screens/statistic/period_checkbox/period_checkbox.dart';
+import 'package:scheduler_app/utils/localization.dart';
 
 class StatisticScreen extends StatelessWidget {
   @override
@@ -11,7 +13,7 @@ class StatisticScreen extends StatelessWidget {
             appBar: AppBar(
               centerTitle: true,
               title: Text(
-                'Статистика',
+                Localization.getString(Strings.statistic),
                 style: TextStyle(color: Colors.white),
               ),
             ),

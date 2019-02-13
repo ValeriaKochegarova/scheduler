@@ -14,7 +14,6 @@ int getDaysInMonth(int year, int month) {
 
 var getStisitcControl = createSelector1(getStatisticControl, (period) {
   DateTime startDate = period['date'];
-  print(period['date']);
   int startYear = startDate.year;
   int startMonth = startDate.month;
   DateTime endtDate = DateTime.now();
